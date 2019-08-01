@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.njx.mvvmhabit.ui.depot.viewmodel.ReturnDetailViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ReturnDetailViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/hori_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/hori_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:text="单号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/txt_content_two"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@{viewModel.entity.orderID}" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/hori_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/hori_margin"
+            android:background="@drawable/edit_bg"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="物料描述:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.materialsID}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vetical_space"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="物料号:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.materialsID}" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vetical_space"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="箱号:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.boxID}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vetical_space"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="退货需求量:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.returnNum}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vetical_space"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="已退货:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.alreadReturnNum}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vetical_space"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/detail_txt_label"
+                    android:text="未退货:" />
+
+                <TextView
+                    style="@style/detail_txt_content"
+                    android:text="@{viewModel.entity.notReturnNum}" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

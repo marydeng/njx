@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.njx.mvvmhabit.data.DemoRepository;
 import com.njx.mvvmhabit.ui.main.DemoActivity;
+import com.njx.mvvmhabit.ui.main.MainActivity;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -109,7 +110,7 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
                         model.saveUserName(userName.get());
                         model.savePassword(password.get());
                         //进入DemoActivity页面
-                        startActivity(DemoActivity.class);
+                        startActivity(MainActivity.class);
                         //关闭页面
                         finish();
                     }

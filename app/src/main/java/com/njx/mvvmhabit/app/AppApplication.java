@@ -14,9 +14,16 @@ import me.goldze.mvvmhabit.utils.KLog;
  */
 
 public class AppApplication extends BaseApplication {
+    private static AppApplication instance;
+
+    public static AppApplication getInstance(){
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance=this;
         //是否开启打印日志
         KLog.init(BuildConfig.DEBUG);
         //初始化全局异常崩溃

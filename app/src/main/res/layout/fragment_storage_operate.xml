@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.njx.mvvmhabit.ui.depot.viewmodel.StorageOperateViewModel" />
+
+        <variable
+            name="viewModel"
+            type="StorageOperateViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:text="发票号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/txt_content_two"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/content_padding_left"
+                android:text="@{viewModel.invoiceTxt}" />
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:text="仓库:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/txt_content_two"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/content_padding_left"
+                android:text="@{viewModel.deptTxt}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="库位:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/dept_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入库位"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="物料号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/invoice_auto"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入物料号"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_hori_padding"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/common_hori_padding"
+            android:background="@color/divider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_hori_padding"
+            android:paddingRight="@dimen/common_hori_padding">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="物料号"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="数量"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_hori_padding"
+            android:layout_marginRight="@dimen/common_hori_padding"
+            android:background="@color/divider" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/common_hori_padding"
+            android:paddingRight="@dimen/common_hori_padding" />
+    </LinearLayout>
+</layout>

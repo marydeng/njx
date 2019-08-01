@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.njx.mvvmhabit.ui.depot.viewmodel.ReturnSearchViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ReturnSearchViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:padding="16sp">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:text="退货单号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <com.njx.mvvmhabit.ui.widget.InstantAutoComplete
+                android:id="@+id/return_auto"
+                style="@style/search_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入退货单号"
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.orderTxt}" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/form_btn_bg"
+            android:text="搜索"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            binding:onClickCommand="@{viewModel.onSearchCommand}" />
+    </LinearLayout>
+</layout>

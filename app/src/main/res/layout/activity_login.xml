@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -32,15 +32,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/logo"
-                android:visibility="gone"/>
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textColor="@color/textColor"
-                android:text="欢迎使用南极星智慧工厂管理系统"
-                android:layout_marginTop="150dp"
-                android:layout_marginBottom="50dp"/>
+                android:text="南极星"
+                android:layout_marginTop="15dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/textColor"
+                android:text="智慧工厂管理系统"
+                android:layout_marginTop="15dp"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +81,8 @@
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorHint"
                     android:textSize="16sp"
-                    binding:onFocusChangeCommand="@{viewModel.onFocusChangeCommand}" />
+                    binding:onFocusChangeCommand="@{viewModel.onFocusChangeCommand}"
+                    android:singleLine="true"/>
 
                 <ImageView
                     android:layout_width="30dp"
@@ -116,7 +125,8 @@
                     android:text="@={viewModel.password}"
                     android:textColor="@color/textColor"
                     android:textColorHint="@color/textColorHint"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:singleLine="true"/>
 
                 <ImageView
                     android:id="@+id/iv_swich_passwrod"

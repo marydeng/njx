@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.njx.mvvmhabit.ui.main.viewmodel.MyViewModel" />
+
+        <variable
+            name="viewModel"
+            type="MyViewModel" />
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/layout"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/default_head"
+                        android:layout_marginLeft="45dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="60dp"
+                        android:text="张伟杰"
+                        android:textColor="@color/color_blue"
+                        android:textSize="32sp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="66dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/my_txt_label"
+                        android:text="账号" />
+
+                    <TextView
+                        style="@style/my_txt_content"
+                        android:text="05202301" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="66dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/my_txt_label"
+                        android:text="手机号" />
+
+                    <TextView
+                        style="@style/my_txt_content"
+                        android:text="18351963111" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="66dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/my_txt_label"
+                        android:text="部门" />
+
+                    <TextView
+                        style="@style/my_txt_content"
+                        android:text="第二食堂采购部" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="66dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        style="@style/my_txt_label"
+                        android:text="职务" />
+
+                    <TextView
+                        style="@style/my_txt_content"
+                        android:text="采购" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/divider" />
+
+                <Button
+                    android:id="@+id/quit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginRight="40dp"
+                    android:background="@drawable/form_btn_bg"
+                    android:onClick="onQuit"
+                    android:text="退出"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
