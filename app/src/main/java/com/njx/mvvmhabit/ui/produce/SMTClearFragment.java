@@ -7,20 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.njx.mvvmhabit.R;
-import com.njx.mvvmhabit.databinding.FragmentClearSearchBinding;
+import com.njx.mvvmhabit.databinding.FragmentSmtClearBinding;
 import com.njx.mvvmhabit.databinding.FragmentSmtSearchBinding;
-import com.njx.mvvmhabit.ui.produce.viewmodel.ClearSearchViewModel;
+import com.njx.mvvmhabit.ui.produce.viewmodel.SMTClearViewModel;
 import com.njx.mvvmhabit.ui.produce.viewmodel.SMTSearchViewModel;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
 
-public class ClearSearchFragment extends BaseFragment<FragmentClearSearchBinding, ClearSearchViewModel> {
-    private String[] invoiceList = {"上料","接料","换料","对料"};
+public class SMTClearFragment extends BaseFragment<FragmentSmtClearBinding, SMTClearViewModel> {
     private String[] deptList = {"ck1", "ck2", "ck3", "ck4", "ck5", "ck6", "ck7", "ck8"};
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return R.layout.fragment_clear_search;
+        return R.layout.fragment_smt_clear;
     }
 
     @Override
@@ -32,11 +31,11 @@ public class ClearSearchFragment extends BaseFragment<FragmentClearSearchBinding
     public void initData() {
         super.initData();
         viewModel.initToolBar();
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, invoiceList);
-        binding.destDepotAuto.setAdapter(arrayAdapter);
 
         ArrayAdapter deptAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, deptList);
         binding.deptClassAuto.setAdapter(deptAdapter);
+
+
     }
 
 }

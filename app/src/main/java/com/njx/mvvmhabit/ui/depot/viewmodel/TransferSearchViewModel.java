@@ -8,14 +8,15 @@ import android.text.TextUtils;
 
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.ui.depot.StorageOperateFragment;
+import com.njx.mvvmhabit.ui.depot.TransferOperateFragment;
 
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class TransferSearchViewModel extends ToolbarViewModel {
-    public ObservableField<String> destDepotTxt=new ObservableField<>("");
-    public ObservableField<String> depotClassTxt=new ObservableField<>("");
+    public ObservableField<String> destDepotTxt = new ObservableField<>("");
+    public ObservableField<String> depotClassTxt = new ObservableField<>("");
 
 
     public TransferSearchViewModel(@NonNull Application application) {
@@ -26,7 +27,7 @@ public class TransferSearchViewModel extends ToolbarViewModel {
         setTitleText("调拨管理");
     }
 
-    public BindingCommand onSearchCommand=new BindingCommand(new BindingAction() {
+    public BindingCommand onSearchCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             if (TextUtils.isEmpty(destDepotTxt.get())) {
@@ -38,10 +39,10 @@ public class TransferSearchViewModel extends ToolbarViewModel {
                 ToastUtils.showShort("请输入仓别！");
                 return;
             }
-            Bundle bundle=new Bundle();
-            bundle.putString(StorageOperateFragment.Extra_Invoice,destDepotTxt.get());
-            bundle.putString(StorageOperateFragment.Extra_Invoice,depotClassTxt.get());
-            startContainerActivity(StorageOperateFragment.class.getCanonicalName(),bundle);
+            Bundle bundle = new Bundle();
+            bundle.putString(TransferOperateFragment.Extra_dest_depot, destDepotTxt.get());
+            bundle.putString(TransferOperateFragment.Extra_depot_class, depotClassTxt.get());
+            startContainerActivity(TransferOperateFragment.class.getCanonicalName(), bundle);
 
         }
     });

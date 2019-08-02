@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.ClearSearchViewModel" />
+        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.SMTClearViewModel" />
 
         <variable
             name="viewModel"
-            type="ClearSearchViewModel" />
+            type="SMTClearViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,7 +38,7 @@
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
-            <com.njx.mvvmhabit.ui.widget.InstantAutoComplete
+            <EditText
                 android:id="@+id/dest_depot_auto"
                 style="@style/search_edit"
                 android:layout_width="0dp"
@@ -46,9 +46,9 @@
                 android:layout_weight="1"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入SMT类型"
                 android:imeOptions="actionNext"
-                android:text="@={viewModel.SMTTypeTxt}" />
+                android:text="清除工单"
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -88,7 +88,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/form_btn_bg"
-            android:text="搜索"
+            android:text="清除"
             android:textColor="#ffffff"
             android:textSize="20sp"
             binding:onClickCommand="@{viewModel.onSearchCommand}" />

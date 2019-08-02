@@ -48,14 +48,16 @@
                 android:dropDownHorizontalOffset="5dp"
                 android:hint="请输入类型"
                 android:imeOptions="actionNext"
-                android:text="@={viewModel.SMTTypeTxt}" />
+                android:text="@={viewModel.SMTTypeTxt}"
+                />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/order_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
             android:padding="16sp">
@@ -83,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
             android:padding="16sp">

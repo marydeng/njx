@@ -20,9 +20,6 @@ public class FeedingEntity extends BaseObservable implements Parcelable {
     private String materialRollDate;
     private int REELnum;
 
-    private int backNum;
-    private int alreadBackNum;
-    private int notBackNum;
     public interface SMTType{
         String feeding="111";
         String changeMater="112";
@@ -78,29 +75,7 @@ public class FeedingEntity extends BaseObservable implements Parcelable {
         this.REELnum = REELnum;
     }
 
-    public int getBackNum() {
-        return backNum;
-    }
 
-    public void setBackNum(int backNum) {
-        this.backNum = backNum;
-    }
-
-    public int getAlreadBackNum() {
-        return alreadBackNum;
-    }
-
-    public void setAlreadBackNum(int alreadBackNum) {
-        this.alreadBackNum = alreadBackNum;
-    }
-
-    public int getNotBackNum() {
-        return notBackNum;
-    }
-
-    public void setNotBackNum(int notBackNum) {
-        this.notBackNum = notBackNum;
-    }
 
     public String getMaterialsStaID() {
         return materialsStaID;
@@ -139,8 +114,17 @@ public class FeedingEntity extends BaseObservable implements Parcelable {
         return 0;
     }
 
+
+
+
     public FeedingEntity() {
 
+    }
+
+    public FeedingEntity(String materialsStaID, String materialsGunID, String REELID) {
+        this.materialsStaID = materialsStaID;
+        this.materialsGunID = materialsGunID;
+        this.REELID = REELID;
     }
 
     public FeedingEntity(Parcel in) {
@@ -150,9 +134,6 @@ public class FeedingEntity extends BaseObservable implements Parcelable {
         this.materialsID = in.readString();
         this.produceNum = in.readInt();
         this.REELnum = in.readInt();
-        this.backNum = in.readInt();
-        this.alreadBackNum = in.readInt();
-        this.notBackNum = in.readInt();
         this.materialsStaID=in.readString();
         this.materialsGunID=in.readString();
         this.REELID=in.readString();
@@ -167,9 +148,6 @@ public class FeedingEntity extends BaseObservable implements Parcelable {
         dest.writeString(materialsID);
         dest.writeInt(produceNum);
         dest.writeInt(REELnum);
-        dest.writeInt(backNum);
-        dest.writeInt(alreadBackNum);
-        dest.writeInt(notBackNum);
         dest.writeString(materialsStaID);
         dest.writeString(materialsGunID);
         dest.writeString(REELID);

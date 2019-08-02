@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
+import com.njx.mvvmhabit.ui.depot.ReturnOperateFragment;
 import com.njx.mvvmhabit.ui.depot.StorageOperateFragment;
 
 import me.goldze.mvvmhabit.binding.command.BindingAction;
@@ -34,8 +35,8 @@ public class ReturnSearchViewModel extends ToolbarViewModel {
             }
 
             Bundle bundle=new Bundle();
-            bundle.putString(StorageOperateFragment.Extra_Invoice,orderTxt.get());
-            startContainerActivity(StorageOperateFragment.class.getCanonicalName(),bundle);
+            bundle.putString(ReturnOperateFragment.Extra_Order,orderTxt.get());
+            startContainerActivity(ReturnOperateFragment.class.getCanonicalName(),bundle);
 
         }
     });

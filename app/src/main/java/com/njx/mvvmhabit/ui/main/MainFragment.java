@@ -17,7 +17,7 @@ import com.njx.mvvmhabit.ui.depot.TransferSearchFragment;
 import com.njx.mvvmhabit.ui.main.adapter.MenuAdapter;
 import com.njx.mvvmhabit.ui.main.bean.MenuBean;
 import com.njx.mvvmhabit.ui.main.viewmodel.MainViewModel;
-import com.njx.mvvmhabit.ui.produce.ClearSearchFragment;
+import com.njx.mvvmhabit.ui.produce.SMTClearFragment;
 import com.njx.mvvmhabit.ui.produce.SMTSearchFragment;
 import com.njx.mvvmhabit.ui.produce.StealSearchFragment;
 
@@ -71,7 +71,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
                 }else if(menus[position].equals("钢板刮刀")){
                     startContainerActivity(StealSearchFragment.class.getCanonicalName());
                 }else if(menus[position].equals("清除")){
-                    startContainerActivity(ClearSearchFragment.class.getCanonicalName());
+                    startContainerActivity(SMTClearFragment.class.getCanonicalName());
                 }
             }
         });

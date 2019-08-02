@@ -39,7 +39,7 @@
                 android:textSize="18sp" />
 
             <com.njx.mvvmhabit.ui.widget.InstantAutoComplete
-                android:id="@+id/invoice_auto"
+                android:id="@+id/order_auto"
                 style="@style/search_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 android:dropDownHorizontalOffset="5dp"
                 android:hint="请输入工单号"
                 android:imeOptions="actionNext"
-                android:text="@={viewModel.invoiceTxt}" />
+                android:text="@={viewModel.orderTxt}" />
         </LinearLayout>
 
         <LinearLayout

@@ -2,6 +2,8 @@ package com.njx.mvvmhabit.ui.produce;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -37,6 +39,8 @@ public class SMTSearchFragment extends BaseFragment<FragmentSmtSearchBinding, SM
 
         ArrayAdapter deptAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, deptList);
         binding.deptClassAuto.setAdapter(deptAdapter);
+
+
     }
 
 }

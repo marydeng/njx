@@ -31,7 +31,7 @@ public class OutSearchFragment extends BaseFragment<FragmentOutSearchBinding, Ou
         super.initData();
         viewModel.initToolBar();
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, invoiceList);
-        binding.invoiceAuto.setAdapter(arrayAdapter);
+        binding.orderAuto.setAdapter(arrayAdapter);
 
         ArrayAdapter deptAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, deptList);
         binding.deptAuto.setAdapter(deptAdapter);

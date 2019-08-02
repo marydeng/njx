@@ -6,24 +6,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.njx.mvvmhabit.R;
-import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.databinding.FragmentStorageOperateBinding;
 import com.njx.mvvmhabit.entity.StorageEntity;
+import com.njx.mvvmhabit.ui.base.fragment.BaseScanFragment;
 import com.njx.mvvmhabit.ui.depot.adapter.StorageAdapter;
 import com.njx.mvvmhabit.ui.depot.viewmodel.StorageOperateViewModel;
-import com.njx.mvvmhabit.utils.ScannerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.goldze.mvvmhabit.base.BaseFragment;
-import me.goldze.mvvmhabit.binding.command.BindingConsumer;
-import me.goldze.mvvmhabit.bus.Messenger;
-
-public class StorageOperateFragment extends BaseFragment<FragmentStorageOperateBinding, StorageOperateViewModel> {
+public class StorageOperateFragment extends BaseScanFragment<FragmentStorageOperateBinding, StorageOperateViewModel> {
     public static final String Extra_Invoice = "StorageOperateFragment.invoice";
     public static final String Extra_Dept = "StorageOperateFragment.dept";
     private List<StorageEntity> storageEntityList;
@@ -72,24 +66,10 @@ public class StorageOperateFragment extends BaseFragment<FragmentStorageOperateB
         binding.recyclerview.setAdapter(storageAdapter);
 
 
-        Messenger.getDefault().register(getContext(), Constant.TOKEN_SCAN_CONTENT_REC,String.class,new BindingConsumer<String>(){
-            @Override
-            public void call(String scanResult) {
-                if (getActivity().getCurrentFocus() instanceof EditText) {
-                    EditText editText = (EditText) getActivity().getCurrentFocus();
-                    editText.setText(scanResult);
-
-                }
-            }
-        });
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
 
     }
+
+
 
     private void createData() {
         storageEntityList = new ArrayList<>();
@@ -113,21 +93,5 @@ public class StorageOperateFragment extends BaseFragment<FragmentStorageOperateB
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        ScannerInterface.getInstance().scan_start();
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        ScannerInterface.getInstance().scan_stop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Messenger.getDefault().unregister(this);
-    }
 }

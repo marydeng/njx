@@ -8,15 +8,16 @@ import android.text.TextUtils;
 
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.ui.depot.StorageOperateFragment;
+import com.njx.mvvmhabit.ui.produce.SteelOperateFragment;
 
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class SteelSearchViewModel extends ToolbarViewModel {
-    public ObservableField<String> SMTTypeTxt =new ObservableField<>("");
-    public ObservableField<String> orderID =new ObservableField<>("");
-    public ObservableField<String> stationID =new ObservableField<>("");
+    public ObservableField<String> SMTTypeTxt = new ObservableField<>("");
+    public ObservableField<String> orderID = new ObservableField<>("");
+    public ObservableField<String> stationID = new ObservableField<>("");
 
 
     public SteelSearchViewModel(@NonNull Application application) {
@@ -27,7 +28,7 @@ public class SteelSearchViewModel extends ToolbarViewModel {
         setTitleText("钢板/刮刀");
     }
 
-    public BindingCommand onSearchCommand=new BindingCommand(new BindingAction() {
+    public BindingCommand onSearchCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             if (TextUtils.isEmpty(SMTTypeTxt.get())) {
@@ -35,18 +36,20 @@ public class SteelSearchViewModel extends ToolbarViewModel {
                 return;
             }
 
-            if (TextUtils.isEmpty(orderID.get())) {
-                ToastUtils.showShort("请输入工单号！");
-                return;
+            if (SMTTypeTxt.get().equals("上机台")) {
+                if (TextUtils.isEmpty(orderID.get())) {
+                    ToastUtils.showShort("请输入工单号！");
+                    return;
+                }
             }
             if (TextUtils.isEmpty(stationID.get())) {
                 ToastUtils.showShort("请输入工作站！");
                 return;
             }
-            Bundle bundle=new Bundle();
-            bundle.putString(StorageOperateFragment.Extra_Invoice, SMTTypeTxt.get());
-            bundle.putString(StorageOperateFragment.Extra_Invoice, orderID.get());
-            startContainerActivity(StorageOperateFragment.class.getCanonicalName(),bundle);
+            Bundle bundle = new Bundle();
+            bundle.putString(SteelOperateFragment.Extra_Station_Id, stationID.get());
+            bundle.putString(SteelOperateFragment.Extra_Steel_Type, SMTTypeTxt.get());
+            startContainerActivity(SteelOperateFragment.class.getCanonicalName(), bundle);
 
         }
     });
