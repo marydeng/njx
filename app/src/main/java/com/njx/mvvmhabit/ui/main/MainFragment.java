@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.njx.mvvmhabit.R;
+import com.njx.mvvmhabit.app.AppApplication;
+import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.databinding.FragmentMainBinding;
+import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.depot.BackSearchFragment;
 import com.njx.mvvmhabit.ui.depot.OutSearchFragment;
 import com.njx.mvvmhabit.ui.depot.ReturnSearchFragment;
@@ -20,11 +23,16 @@ import com.njx.mvvmhabit.ui.main.viewmodel.MainViewModel;
 import com.njx.mvvmhabit.ui.produce.SMTClearFragment;
 import com.njx.mvvmhabit.ui.produce.SMTSearchFragment;
 import com.njx.mvvmhabit.ui.produce.StealSearchFragment;
+import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.base.BaseFragment;
+import me.goldze.mvvmhabit.http.BaseResponse;
+import me.goldze.mvvmhabit.utils.RxUtils;
 
 public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewModel> {
     private String[] menus={"入库","出库","退库","退货","调拨","盘点","上料","对料","钢板刮刀","清除","成品入库"};
@@ -45,10 +53,13 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
         viewModel.initToolBar();
 
         List<MenuBean> menuItemList=new ArrayList<>();
-        for (int i = 0; i < menus.length; i++) {
-            MenuBean menuBean=new MenuBean(icons[i],menus[i],i) ;
-            menuItemList.add(menuBean);
-        }
+//        for (int i = 0; i < menus.length; i++) {
+//            MenuBean menuBean=new MenuBean(icons[i],menus[i],i) ;
+//            menuItemList.add(menuBean);
+//        }
+
+
+
         MenuAdapter menuAdapter=new MenuAdapter(menuItemList,getContext());
         binding.gvHome.setAdapter(menuAdapter);
         binding.gvHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {

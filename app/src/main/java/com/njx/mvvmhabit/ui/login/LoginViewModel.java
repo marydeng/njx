@@ -7,17 +7,23 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.njx.mvvmhabit.app.AppApplication;
+import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.DemoRepository;
+import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.main.DemoActivity;
 import com.njx.mvvmhabit.ui.main.MainActivity;
 
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
+import me.goldze.mvvmhabit.http.BaseResponse;
+import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
@@ -93,28 +99,68 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
             ToastUtils.showShort("请输入密码！");
             return;
         }
-        //RaJava模拟登录
-        addSubscribe(model.login()
-                .compose(RxUtils.schedulersTransformer()) //线程调度
+//        //RaJava模拟登录
+//        addSubscribe(model.login()
+//                .compose(RxUtils.schedulersTransformer()) //线程调度
+//                .doOnSubscribe(new Consumer<Disposable>() {
+//                    @Override
+//                    public void accept(Disposable disposable) throws Exception {
+//                        showDialog();
+//                    }
+//                })
+//                .subscribe(new Consumer<Object>() {
+//                    @Override
+//                    public void accept(Object o) throws Exception {
+//                        dismissDialog();
+//                        //保存账号密码
+//                        model.saveUserName(userName.get());
+//                        model.savePassword(password.get());
+//                        //进入DemoActivity页面
+//                        startActivity(MainActivity.class);
+//                        //关闭页面
+//                        finish();
+//                    }
+//                }));
+
+        model.login(userName.get(),password.get())
+                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
+                .compose(RxUtils.schedulersTransformer())
+                .compose(RxUtils.exceptionTransformer())
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
                         showDialog();
                     }
                 })
-                .subscribe(new Consumer<Object>() {
+                .subscribe(new Consumer<BaseResponse<UserEntity>>() {
                     @Override
-                    public void accept(Object o) throws Exception {
-                        dismissDialog();
-                        //保存账号密码
-                        model.saveUserName(userName.get());
-                        model.savePassword(password.get());
-                        //进入DemoActivity页面
-                        startActivity(MainActivity.class);
-                        //关闭页面
-                        finish();
+                    public void accept(BaseResponse<UserEntity> response) throws Exception {
+                        //请求成功
+                        if(response.getCode()== Constant.Ret_SUCCESS){
+                            AppApplication.getInstance().userEntity=response.getResult();
+                            //保存账号密码
+                            model.saveUserName(userName.get());
+                            model.savePassword(password.get());
+                            //进入DemoActivity页面
+                            startActivity(MainActivity.class);
+                            //关闭页面
+                            finish();
+                        }else{
+                            ToastUtils.showShort("登录失败");
+                        }
                     }
-                }));
+                }, new Consumer<ResponseThrowable>() {
+                    @Override
+                    public void accept(ResponseThrowable throwable) throws Exception {
+                        dismissDialog();
+                        ToastUtils.showShort(throwable.message);
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissDialog();
+                    }
+                });
 
     }
 

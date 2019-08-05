@@ -3,6 +3,8 @@ package com.njx.mvvmhabit.data.source.http;
 import com.njx.mvvmhabit.data.source.HttpDataSource;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.DemoEntity;
+import com.njx.mvvmhabit.entity.MenuListEntity;
+import com.njx.mvvmhabit.entity.UserEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +74,25 @@ public class HttpDataSourceImpl implements HttpDataSource {
     @Override
     public Observable<BaseResponse<DemoEntity>> demoPost(String catalog) {
         return apiService.demoPost(catalog);
+    }
+
+    @Override
+    public Observable<BaseResponse<UserEntity>> login(String username, String password) {
+        return apiService.login(username,password);
+    }
+
+    @Override
+    public Observable<BaseResponse<MenuListEntity>> getMenuList(String userId) {
+        return apiService.getMenuList(userId);
+    }
+
+    @Override
+    public Observable<BaseResponse<DemoEntity>> uplineSteelPlate(String partNum, String lineClass, String steelPlateType) {
+        return apiService.uplineSteelPlate(partNum,lineClass,steelPlateType);
+    }
+
+    @Override
+    public Observable<BaseResponse<DemoEntity>> downlineSteelPlate(String partNum, String lineClass, String steelPlateType) {
+        return apiService.downlineSteelPlate(partNum,lineClass,steelPlateType);
     }
 }

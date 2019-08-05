@@ -5,25 +5,25 @@ package com.njx.mvvmhabit.ui.main.bean;
  */
 
 public class MenuBean {
-    private int resourse;
+    private String url;
     private String name;
     private int function;
 
     public MenuBean() {
     }
 
-    public MenuBean(int resourse, String name, int function) {
-        this.resourse = resourse;
+    public MenuBean(String resourse, String name, int function) {
+        this.url = resourse;
         this.name = name;
         this.function = function;
     }
 
-    public int getResourse() {
-        return resourse;
+    public String getUrl() {
+        return url;
     }
 
-    public void setResourse(int resourse) {
-        this.resourse = resourse;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getName() {

@@ -2,6 +2,7 @@ package com.njx.mvvmhabit.app;
 
 import com.njx.mvvmhabit.BuildConfig;
 import com.njx.mvvmhabit.R;
+import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.login.LoginActivity;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -15,6 +16,8 @@ import me.goldze.mvvmhabit.utils.KLog;
 
 public class AppApplication extends BaseApplication {
     private static AppApplication instance;
+
+    public UserEntity userEntity;
 
     public static AppApplication getInstance(){
         return instance;

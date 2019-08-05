@@ -61,8 +61,8 @@ public class MenuAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        Drawable drawable= Utils.tint(ContextCompat.getDrawable(mContext,mDatas.get(position).getResourse()), ContextCompat.getColor(mContext, R.color.colorPrimary));
-        holder.mIvMenu.setImageDrawable(drawable);
+//        Drawable drawable= Utils.tint(ContextCompat.getDrawable(mContext,mDatas.get(position).getUrl()), ContextCompat.getColor(mContext, R.color.colorPrimary));
+//        holder.mIvMenu.setImageDrawable(drawable);//Todo 图片网络加载
         holder.mTvName.setText(mDatas.get(position).getName());
         return convertView;
     }
