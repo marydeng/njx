@@ -10,9 +10,14 @@ import android.view.View;
 import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.DemoRepository;
+import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.main.DemoActivity;
 import com.njx.mvvmhabit.ui.main.MainActivity;
+import com.njx.mvvmhabit.ui.main.bean.MenuBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -137,14 +142,15 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
                     public void accept(BaseResponse<UserEntity> response) throws Exception {
                         //请求成功
                         if(response.getCode()== Constant.Ret_SUCCESS){
-                            AppApplication.getInstance().userEntity=response.getResult();
-                            //保存账号密码
-                            model.saveUserName(userName.get());
-                            model.savePassword(password.get());
-                            //进入DemoActivity页面
-                            startActivity(MainActivity.class);
-                            //关闭页面
-                            finish();
+//                            AppApplication.getInstance().userEntity=response.getResult();
+//                            //保存账号密码
+//                            model.saveUserName(userName.get());
+//                            model.savePassword(password.get());
+//                            //进入DemoActivity页面
+//                            startActivity(MainActivity.class);
+//                            //关闭页面
+//                            finish();
+                            getMenuList();
                         }else{
                             ToastUtils.showShort("登录失败");
                         }
@@ -162,6 +168,45 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
                     }
                 });
 
+    }
+
+    private void getMenuList(){
+        model.getMenuList("1")
+                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
+                .compose(RxUtils.schedulersTransformer())
+                .compose(RxUtils.exceptionTransformer())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showDialog();
+                    }
+                })
+                .subscribe(new Consumer<BaseResponse<List<MenuEntity>>>() {
+                    @Override
+                    public void accept(BaseResponse<List<MenuEntity>> response) throws Exception {
+                        //请求成功
+                        if (response.getCode() == Constant.Ret_SUCCESS) {
+                            List<MenuEntity> menuListEntity = response.getResult();
+                            if (menuListEntity != null) {
+                                List<MenuBean> menuBeanList = new ArrayList<>();
+                                for (int i = 0; i < menuListEntity.size(); i++) {
+                                    MenuEntity menuEntity = menuListEntity.get(i);
+                                    MenuBean menuBean = new MenuBean(menuEntity.getIcon(), menuEntity.getMenuName(), i);
+                                    menuBeanList.add(menuBean);
+                                }
+                                if (menuBeanList.size() != 0) {
+//                                    uc.menuListEvent.setValue(menuBeanList);
+                                }
+                            } else {
+                                ToastUtils.showShort("获取菜单失败");
+                            }
+                        }}},new Consumer<ResponseThrowable>() {
+                    @Override
+                    public void accept(ResponseThrowable throwable) throws Exception {
+                        dismissDialog();
+                        ToastUtils.showShort(throwable.message);
+                    }
+                });
     }
 
     @Override

@@ -86,6 +86,19 @@
                 android:padding="5dp"
                 android:singleLine="true"
                 android:textColorHint="@color/textColorHint" />
+            <TextView
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:text="提交"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onSearchCommand}"
+                android:singleLine="true"
+                android:padding="4dp"
+                android:onClickCommand="@{viewModel.onCommint}"/>
         </LinearLayout>
 
         <View

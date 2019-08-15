@@ -6,13 +6,14 @@ import android.os.Parcelable;
 
 public class SteelEntity extends BaseObservable implements Parcelable {
     private String stationID;
-    private String operateType;
+    private String steelPlateType;
     private String orderID;
     private String type;
     private String id;
-    private String lineID;
+    private String lineClass;
     private String status;
-    private int nums;
+    private int useNum;
+    private int usageNum;
 
     public String getStationID() {
         return stationID;
@@ -22,12 +23,12 @@ public class SteelEntity extends BaseObservable implements Parcelable {
         this.stationID = stationID;
     }
 
-    public String getOperateType() {
-        return operateType;
+    public String getSteelPlateType() {
+        return steelPlateType;
     }
 
-    public void setOperateType(String operateType) {
-        this.operateType = operateType;
+    public void setSteelPlateType(String steelPlateType) {
+        this.steelPlateType = steelPlateType;
     }
 
     public String getOrderID() {
@@ -54,12 +55,12 @@ public class SteelEntity extends BaseObservable implements Parcelable {
         this.id = id;
     }
 
-    public String getLineID() {
-        return lineID;
+    public String getLineClass() {
+        return lineClass;
     }
 
-    public void setLineID(String lineID) {
-        this.lineID = lineID;
+    public void setLineClass(String lineClass) {
+        this.lineClass = lineClass;
     }
 
     public String getStatus() {
@@ -70,12 +71,12 @@ public class SteelEntity extends BaseObservable implements Parcelable {
         this.status = status;
     }
 
-    public int getNums() {
-        return nums;
+    public int getUseNum() {
+        return useNum;
     }
 
-    public void setNums(int nums) {
-        this.nums = nums;
+    public void setUseNum(int useNum) {
+        this.useNum = useNum;
     }
 
 
@@ -83,21 +84,21 @@ public class SteelEntity extends BaseObservable implements Parcelable {
     public SteelEntity() {
     }
 
-    public SteelEntity(String type, String id, String lineID) {
+    public SteelEntity(String type, String id, String lineClass) {
         this.type = type;
         this.id = id;
-        this.lineID = lineID;
+        this.lineClass = lineClass;
     }
 
     public SteelEntity(Parcel in) {
         this.stationID=in.readString();
-        this.operateType=in.readString();
+        this.steelPlateType =in.readString();
         this.orderID=in.readString();
-        this.type=in.readString();
+        this.type =in.readString();
         this.id=in.readString();
-        this.lineID=in.readString();
+        this.lineClass =in.readString();
         this.status=in.readString();
-        this.nums=in.readInt();
+        this.useNum =in.readInt();
 
     }
 
@@ -109,13 +110,13 @@ public class SteelEntity extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(stationID);
-            dest.writeString(operateType);
+            dest.writeString(steelPlateType);
             dest.writeString(orderID);
             dest.writeString(type);
             dest.writeString(id);
-            dest.writeString(lineID);
+            dest.writeString(lineClass);
             dest.writeString(status);
-            dest.writeInt(nums);
+            dest.writeInt(useNum);
     }
 
     public static final Creator<SteelEntity> CREATOR=new Creator<SteelEntity>() {

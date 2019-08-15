@@ -1,5 +1,6 @@
 package com.njx.mvvmhabit.ui.produce;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,11 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateBinding, SteelOperateViewModel> {
-    public static final String Extra_Station_Id= "SteelOperateFragment.station.id";
+    public static final String Extra_Station_Id = "SteelOperateFragment.station.id";
     public static final String Extra_Steel_Type = "SMTOperateFragment.steel.type";
+    public static final String Extra_PART_NO = "SMTOperateFragment.part.no";
     private List<SteelEntity> steelEntityList;
-    private String stationId ="";
-    private String type ="";
+    private String stationId = "";
+    private String type = "";
+    private String partNO = "";
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,10 +42,11 @@ public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateB
     @Override
     public void initParam() {
         super.initParam();
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            stationId =bundle.getString(Extra_Station_Id);
-            type =bundle.getString(Extra_Steel_Type);
+            stationId = bundle.getString(Extra_Station_Id);
+            type = bundle.getString(Extra_Steel_Type);
+            partNO = bundle.getString(Extra_PART_NO);
         }
     }
 
@@ -51,11 +55,11 @@ public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateB
         super.initData();
         viewModel.stationId.set(stationId);
         viewModel.type.set(type);
+        viewModel.partNO = partNO;
 
         viewModel.initToolBar();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
-        createData();
         SteelAdapter steelAdapter = new SteelAdapter(getContext(), steelEntityList);
         steelAdapter.setOnItemClickListener(new SteelAdapter.OnItemClickListener() {
             @Override
@@ -67,21 +71,47 @@ public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateB
         });
         binding.recyclerview.setAdapter(steelAdapter);
 
+        viewModel.uc.steelListEvent.observe(this, new Observer<List<SteelEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<SteelEntity> steelEntities) {
+                steelEntityList = steelEntities;
+                binding.recyclerview.notifyAll();
+            }
+        });
 
 
+    }
+
+    @Override
+    protected void onGetScanCode(String scanCode) {
+        if (viewModel.type.get().equals(scanCode)) {
+            if (type.equals("上机台")) {
+                viewModel.upLineSteel();
+            } else if (type.equals("下机台")) {
+                viewModel.downlineSteel();
+            }
+        }
+    }
+
+    public void onCommit(View view){
+        if (type.equals("上机台")) {
+            viewModel.upLineSteel();
+        } else if (type.equals("下机台")) {
+            viewModel.downlineSteel();
+        }
     }
 
     private void createData() {
         steelEntityList = new ArrayList<>();
 
-        SteelEntity steelEntity1=new SteelEntity("钢板","M-2-14","L5");
-        SteelEntity steelEntity2=new SteelEntity("钢板","M-2-15","L5");
-        SteelEntity steelEntity3=new SteelEntity("钢板","M-2-16","L5");
-        SteelEntity steelEntity4=new SteelEntity("钢板","M-2-17","L5");
-        SteelEntity steelEntity5=new SteelEntity("钢板","M-2-18","L5");
-        SteelEntity steelEntity6=new SteelEntity("钢板","M-2-19","L5");
-        SteelEntity steelEntity7=new SteelEntity("钢板","M-2-20","L5");
-        SteelEntity steelEntity8=new SteelEntity("钢板","M-2-21","L5");
+        SteelEntity steelEntity1 = new SteelEntity("钢板", "M-2-14", "L5");
+        SteelEntity steelEntity2 = new SteelEntity("钢板", "M-2-15", "L5");
+        SteelEntity steelEntity3 = new SteelEntity("钢板", "M-2-16", "L5");
+        SteelEntity steelEntity4 = new SteelEntity("钢板", "M-2-17", "L5");
+        SteelEntity steelEntity5 = new SteelEntity("钢板", "M-2-18", "L5");
+        SteelEntity steelEntity6 = new SteelEntity("钢板", "M-2-19", "L5");
+        SteelEntity steelEntity7 = new SteelEntity("钢板", "M-2-20", "L5");
+        SteelEntity steelEntity8 = new SteelEntity("钢板", "M-2-21", "L5");
 
         steelEntityList.add(steelEntity1);
         steelEntityList.add(steelEntity2);

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.ui.main.bean.MenuBean;
 
@@ -63,6 +65,11 @@ public class MenuAdapter extends BaseAdapter {
         }
 //        Drawable drawable= Utils.tint(ContextCompat.getDrawable(mContext,mDatas.get(position).getUrl()), ContextCompat.getColor(mContext, R.color.colorPrimary));
 //        holder.mIvMenu.setImageDrawable(drawable);//Todo 图片网络加载
+        //使用Glide框架加载图片
+        Glide.with(holder.mIvMenu.getContext())
+                .load(mDatas.get(position).getUrl())
+                .apply(new RequestOptions().placeholder(R.mipmap.depot_back))
+                .into(holder.mIvMenu);
         holder.mTvName.setText(mDatas.get(position).getName());
         return convertView;
     }

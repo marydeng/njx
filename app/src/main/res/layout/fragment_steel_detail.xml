@@ -50,7 +50,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="@{viewModel.entity.operateType}"
+                android:text="@{viewModel.entity.steelPlateType}"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -135,7 +135,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.lineID}" />
+                    android:text="@{viewModel.entity.lineClass}" />
             </LinearLayout>
 
             <LinearLayout

@@ -107,7 +107,8 @@
                 android:completionThreshold="1"
                 android:hint="请输入工作站"
                 android:imeOptions="actionDone"
-                android:text="@={viewModel.stationID}" />
+                android:text="@={viewModel.stationID}"
+                onFocusChangeCommand="@{viewModel.onOrderFocusChange}"/>
         </LinearLayout>
         <Button
             android:id="@+id/search_button"

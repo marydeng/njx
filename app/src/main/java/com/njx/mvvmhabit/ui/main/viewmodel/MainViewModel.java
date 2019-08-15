@@ -10,6 +10,7 @@ import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
+import com.njx.mvvmhabit.ui.login.LoginViewModel;
 import com.njx.mvvmhabit.ui.main.MainActivity;
 import com.njx.mvvmhabit.ui.main.bean.MenuBean;
 import com.njx.mvvmhabit.utils.RetrofitClient;
@@ -20,6 +21,7 @@ import java.util.List;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
@@ -32,6 +34,14 @@ public class MainViewModel extends ToolbarViewModel {
 
     public void initToolBar() {
         setTitleText("南极星");
+    }
+
+    //封装一个界面发生改变的观察者
+    public UIChangeObsevable uc = new UIChangeObsevable();
+
+    public class UIChangeObsevable{
+        public SingleLiveEvent<List<MenuBean>> menuListEvent=new SingleLiveEvent<>();
+
     }
 
     public void getMenuList() {
@@ -47,26 +57,26 @@ public class MainViewModel extends ToolbarViewModel {
                         showDialog();
                     }
                 })
-                .subscribe(new Consumer<BaseResponse<MenuListEntity>>() {
+                .subscribe(new Consumer<BaseResponse<List<MenuEntity>>>() {
                     @Override
-                    public void accept(BaseResponse<MenuListEntity> response) throws Exception {
+                    public void accept(BaseResponse<List<MenuEntity>> response) throws Exception {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
-                            MenuListEntity menuListEntity = response.getResult();
-                            if (menuListEntity.getMenuEntityList() != null) {
+                            List<MenuEntity> menuListEntity = response.getResult();
+                            if (menuListEntity != null) {
                                 List<MenuBean> menuBeanList = new ArrayList<>();
-                                for (int i = 0; i < menuListEntity.getMenuEntityList().size(); i++) {
-                                    MenuEntity menuEntity = menuListEntity.getMenuEntityList().get(i);
+                                for (int i = 0; i < menuListEntity.size(); i++) {
+                                    MenuEntity menuEntity = menuListEntity.get(i);
                                     MenuBean menuBean = new MenuBean(menuEntity.getIcon(), menuEntity.getMenuName(), i);
                                     menuBeanList.add(menuBean);
                                 }
                                 if (menuBeanList.size() != 0) {
-
+                                    uc.menuListEvent.setValue(menuBeanList);
                                 }
                             } else {
                                 ToastUtils.showShort("获取菜单失败");
                             }
-                        }
+                        }}}
     ,new Consumer<ResponseThrowable>() {
                             @Override
                             public void accept(ResponseThrowable throwable) throws Exception {

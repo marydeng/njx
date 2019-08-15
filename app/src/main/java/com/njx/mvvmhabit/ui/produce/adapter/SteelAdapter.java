@@ -40,7 +40,7 @@ public class SteelAdapter extends RecyclerView.Adapter<SteelAdapter.SMTViewHodle
         SteelEntity steelEntity = steelEntityList.get(position);
         SMTViewHodler.type.setText(steelEntity.getType());
         SMTViewHodler.code.setText(steelEntity.getId());
-        SMTViewHodler.line.setText(steelEntity.getLineID());
+        SMTViewHodler.line.setText(steelEntity.getLineClass());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

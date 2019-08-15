@@ -1,6 +1,7 @@
 package me.goldze.mvvmhabit.http.cookie;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.goldze.mvvmhabit.http.cookie.store.CookieStore;
@@ -24,12 +25,24 @@ public class CookieJarImpl implements CookieJar {
 
     @Override
     public synchronized void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+        for (Cookie cookie : cookies) {
+            System.out.println("scookie Name:" + cookie.name());
+            System.out.println("scookie Path:" + cookie.path());
+        }
         cookieStore.saveCookie(url, cookies);
     }
 
     @Override
     public synchronized List<Cookie> loadForRequest(HttpUrl url) {
-        return cookieStore.loadCookie(url);
+        if(url.url().getPath().contains("loginByUserName")){
+            return new ArrayList<>();
+        }
+        List<Cookie> cookieList=cookieStore.loadCookie(url);
+        for (Cookie cookie : cookieList) {
+            System.out.println("lcookie Name:" + cookie.name());
+            System.out.println("lcookie Path:" + cookie.path());
+        }
+        return cookieList;
     }
 
     public CookieStore getCookieStore() {

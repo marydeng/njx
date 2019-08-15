@@ -11,12 +11,12 @@ import me.goldze.mvvmhabit.base.BaseViewModel;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
 import me.goldze.mvvmhabit.bus.Messenger;
 
-public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment<V , VM > {
+public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends BaseViewModel> extends BaseFragment<V, VM> {
 
     @Override
     public void initData() {
         super.initData();
-        Messenger.getDefault().register(getContext(), Constant.TOKEN_SCAN_CONTENT_REC,String.class,new BindingConsumer<String>(){
+        Messenger.getDefault().register(getContext(), Constant.TOKEN_SCAN_CONTENT_REC, String.class, new BindingConsumer<String>() {
             @Override
             public void call(String scanResult) {
                 if (getActivity().getCurrentFocus() instanceof EditText) {
@@ -24,6 +24,7 @@ public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends Bas
                     editText.setText(scanResult);
 
                 }
+                onGetScanCode(scanResult);
             }
         });
     }
@@ -44,5 +45,9 @@ public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends Bas
     public void onDestroyView() {
         super.onDestroyView();
         Messenger.getDefault().unregister(this);
+    }
+
+    protected void onGetScanCode(String scanCode) {
+
     }
 }

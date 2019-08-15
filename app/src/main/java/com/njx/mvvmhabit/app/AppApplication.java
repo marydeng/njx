@@ -19,6 +19,7 @@ public class AppApplication extends BaseApplication {
 
     public UserEntity userEntity;
 
+
     public static AppApplication getInstance(){
         return instance;
     }

@@ -93,6 +93,6 @@ public class HttpDataSourceImpl implements HttpDataSource {
 
     @Override
     public Observable<BaseResponse<DemoEntity>> downlineSteelPlate(String partNum, String lineClass, String steelPlateType) {
-        return apiService.downlineSteelPlate(partNum,lineClass,steelPlateType);
+        return apiService.downlineSteelPlate(lineClass,steelPlateType);
     }
 }
