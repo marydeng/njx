@@ -8,4 +8,6 @@ public class Constant {
 
     public static final int Ret_SUCCESS=0;
     public static final int Ret_NOTICE_ERROR=500;//Todo 需要提示的错误
+
+    public static final String SP_Coonkie_Key="coonkie_key";
 }

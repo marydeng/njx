@@ -11,6 +11,7 @@ import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.DemoRepository;
 import com.njx.mvvmhabit.entity.MenuEntity;
+import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.main.DemoActivity;
 import com.njx.mvvmhabit.ui.main.MainActivity;
@@ -104,30 +105,8 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
             ToastUtils.showShort("请输入密码！");
             return;
         }
-//        //RaJava模拟登录
-//        addSubscribe(model.login()
-//                .compose(RxUtils.schedulersTransformer()) //线程调度
-//                .doOnSubscribe(new Consumer<Disposable>() {
-//                    @Override
-//                    public void accept(Disposable disposable) throws Exception {
-//                        showDialog();
-//                    }
-//                })
-//                .subscribe(new Consumer<Object>() {
-//                    @Override
-//                    public void accept(Object o) throws Exception {
-//                        dismissDialog();
-//                        //保存账号密码
-//                        model.saveUserName(userName.get());
-//                        model.savePassword(password.get());
-//                        //进入DemoActivity页面
-//                        startActivity(MainActivity.class);
-//                        //关闭页面
-//                        finish();
-//                    }
-//                }));
 
-        model.login(userName.get(),password.get())
+        model.login(userName.get(), password.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -141,17 +120,17 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
                     @Override
                     public void accept(BaseResponse<UserEntity> response) throws Exception {
                         //请求成功
-                        if(response.getCode()== Constant.Ret_SUCCESS){
-//                            AppApplication.getInstance().userEntity=response.getResult();
-//                            //保存账号密码
-//                            model.saveUserName(userName.get());
-//                            model.savePassword(password.get());
-//                            //进入DemoActivity页面
-//                            startActivity(MainActivity.class);
-//                            //关闭页面
-//                            finish();
-                            getMenuList();
-                        }else{
+                        if (response.getCode() == Constant.Ret_SUCCESS) {
+                            AppApplication.getInstance().userEntity=response.getResult();
+                            //保存账号密码
+                            model.saveUserName(userName.get());
+                            model.savePassword(password.get());
+                            //进入DemoActivity页面
+                            startActivity(MainActivity.class);
+                            //关闭页面
+                            finish();
+
+                        } else {
                             ToastUtils.showShort("登录失败");
                         }
                     }
@@ -170,44 +149,7 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
 
     }
 
-    private void getMenuList(){
-        model.getMenuList("1")
-                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .compose(RxUtils.exceptionTransformer())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog();
-                    }
-                })
-                .subscribe(new Consumer<BaseResponse<List<MenuEntity>>>() {
-                    @Override
-                    public void accept(BaseResponse<List<MenuEntity>> response) throws Exception {
-                        //请求成功
-                        if (response.getCode() == Constant.Ret_SUCCESS) {
-                            List<MenuEntity> menuListEntity = response.getResult();
-                            if (menuListEntity != null) {
-                                List<MenuBean> menuBeanList = new ArrayList<>();
-                                for (int i = 0; i < menuListEntity.size(); i++) {
-                                    MenuEntity menuEntity = menuListEntity.get(i);
-                                    MenuBean menuBean = new MenuBean(menuEntity.getIcon(), menuEntity.getMenuName(), i);
-                                    menuBeanList.add(menuBean);
-                                }
-                                if (menuBeanList.size() != 0) {
-//                                    uc.menuListEvent.setValue(menuBeanList);
-                                }
-                            } else {
-                                ToastUtils.showShort("获取菜单失败");
-                            }
-                        }}},new Consumer<ResponseThrowable>() {
-                    @Override
-                    public void accept(ResponseThrowable throwable) throws Exception {
-                        dismissDialog();
-                        ToastUtils.showShort(throwable.message);
-                    }
-                });
-    }
+
 
     @Override
     public void onDestroy() {

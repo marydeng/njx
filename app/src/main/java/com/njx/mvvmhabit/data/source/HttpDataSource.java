@@ -1,8 +1,11 @@
 package com.njx.mvvmhabit.data.source;
 
 import com.njx.mvvmhabit.entity.DemoEntity;
+import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import me.goldze.mvvmhabit.http.BaseResponse;
@@ -23,7 +26,7 @@ public interface HttpDataSource {
 
     Observable<BaseResponse<UserEntity>> login(String username, String password);
 
-    Observable<BaseResponse<MenuListEntity>> getMenuList(String userId);
+    Observable<BaseResponse<List<MenuEntity>>> getMenuList(String userId);
 
     Observable<BaseResponse<DemoEntity>> uplineSteelPlate(String partNum, String lineClass, String steelPlateType);
 

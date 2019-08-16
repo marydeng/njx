@@ -6,8 +6,11 @@ import android.support.annotation.VisibleForTesting;
 import com.njx.mvvmhabit.data.source.HttpDataSource;
 import com.njx.mvvmhabit.data.source.LocalDataSource;
 import com.njx.mvvmhabit.entity.DemoEntity;
+import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import me.goldze.mvvmhabit.base.BaseModel;
@@ -75,7 +78,7 @@ public class DemoRepository extends BaseModel implements HttpDataSource, LocalDa
     }
 
     @Override
-    public Observable<BaseResponse<MenuListEntity>> getMenuList(String userId) {
+    public Observable<BaseResponse<List<MenuEntity>>> getMenuList(String userId) {
         return mHttpDataSource.getMenuList(userId);
     }
 

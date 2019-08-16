@@ -62,29 +62,29 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
 
         viewModel.uc.menuListEvent.observe(this, new Observer<List<MenuBean>>() {
             @Override
-            public void onChanged(@Nullable List<MenuBean> menuBeans) {
+            public void onChanged(@Nullable final List<MenuBean> menuBeans) {
                 MenuAdapter menuAdapter=new MenuAdapter(menuBeans,getContext());
                 binding.gvHome.setAdapter(menuAdapter);
                 binding.gvHome.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        if (menus[position].equals("入库")) {
+                        if (menuBeans.get(position).getName().equals("入库")) {
                             startContainerActivity(StorageSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("出库")){
+                        }else if(menuBeans.get(position).getName().equals("出库")){
                             startContainerActivity(OutSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("退库")){
+                        }else if(menuBeans.get(position).getName().equals("退库")){
                             startContainerActivity(BackSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("退货")){
+                        }else if(menuBeans.get(position).getName().equals("退货")){
                             startContainerActivity(ReturnSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("调拨")){
+                        }else if(menuBeans.get(position).getName().equals("调拨")){
                             startContainerActivity(TransferSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("上料")){
+                        }else if(menuBeans.get(position).getName().equals("上料")){
                             startContainerActivity(SMTSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("对料")){
+                        }else if(menuBeans.get(position).getName().equals("对料")){
                             startContainerActivity(SMTSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("钢板刮刀")){
+                        }else if(menuBeans.get(position).getName().equals("钢板刮刀")){
                             startContainerActivity(StealSearchFragment.class.getCanonicalName());
-                        }else if(menus[position].equals("清除")){
+                        }else if(menuBeans.get(position).getName().equals("清除")){
                             startContainerActivity(SMTClearFragment.class.getCanonicalName());
                         }
                     }

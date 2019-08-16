@@ -83,7 +83,7 @@ public class SteelSearchViewModel extends ToolbarViewModel {
                     if (TextUtils.isEmpty(orderID.get())) {
                         ToastUtils.showShort("请输入工单号！");
                     } else {
-                        queryOrder();
+//                        queryOrder();
                     }
                 }
             }

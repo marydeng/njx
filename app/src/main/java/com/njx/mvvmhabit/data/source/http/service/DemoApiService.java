@@ -1,10 +1,13 @@
 package com.njx.mvvmhabit.data.source.http.service;
 
 import com.njx.mvvmhabit.entity.DemoEntity;
+import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.OrderEntity;
 import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import me.goldze.mvvmhabit.http.BaseResponse;
@@ -32,7 +35,7 @@ public interface DemoApiService {
 
     //菜单
     @GET("api/user/getMenuList")
-    Observable<BaseResponse<MenuListEntity>> getMenuList(@Query("userId") String userId);
+    Observable<BaseResponse<List<MenuEntity>>> getMenuList(@Query("userId") String userId);
 
     //上机台
     @POST("api/production/edit")
@@ -50,5 +53,9 @@ public interface DemoApiService {
     //获取在线钢板和刮刀
     @POST("api/production/scSteelPlateUplineList")
     Observable<BaseResponse<SteelEntity>> getSteelList(@Query("lineClass") String lineClass);
+
+    //删除工单 Todo
+    @POST("api/production/scSteelPlateUplineList")
+    Observable<BaseResponse<Object>> clearWorkItem(@Query("workItem") String workItem);
 
 }

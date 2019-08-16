@@ -3,6 +3,7 @@ package com.njx.mvvmhabit.data.source.http;
 import com.njx.mvvmhabit.data.source.HttpDataSource;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.DemoEntity;
+import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 
@@ -82,7 +83,7 @@ public class HttpDataSourceImpl implements HttpDataSource {
     }
 
     @Override
-    public Observable<BaseResponse<MenuListEntity>> getMenuList(String userId) {
+    public Observable<BaseResponse<List<MenuEntity>>> getMenuList(String userId) {
         return apiService.getMenuList(userId);
     }
 

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.njx.mvvmhabit.BuildConfig;
+import com.njx.mvvmhabit.data.source.http.Interceptor.AddCookiesInterceptor;
+import com.njx.mvvmhabit.data.source.http.Interceptor.ReceivedCookiesInterceptor;
 
 import java.io.File;
 import java.util.Map;
@@ -84,6 +86,8 @@ public class RetrofitClient {
 //                .cache(cache)
                 .addInterceptor(new BaseInterceptor(headers))
                 .addInterceptor(new CacheInterceptor(mContext))
+                .addInterceptor(new ReceivedCookiesInterceptor())
+                .addInterceptor(new AddCookiesInterceptor())
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
                 .addInterceptor(new LoggingInterceptor
                         .Builder()//构建者模式

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.ui.main.bean.MenuBean;
+import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class MenuAdapter extends BaseAdapter {
 //        holder.mIvMenu.setImageDrawable(drawable);//Todo 图片网络加载
         //使用Glide框架加载图片
         Glide.with(holder.mIvMenu.getContext())
-                .load(mDatas.get(position).getUrl())
+                .load(RetrofitClient.baseUrl+mDatas.get(position).getUrl())
                 .apply(new RequestOptions().placeholder(R.mipmap.depot_back))
                 .into(holder.mIvMenu);
         holder.mTvName.setText(mDatas.get(position).getName());

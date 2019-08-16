@@ -9,6 +9,7 @@ import com.squareup.leakcanary.LeakCanary;
 import me.goldze.mvvmhabit.base.BaseApplication;
 import me.goldze.mvvmhabit.crash.CaocConfig;
 import me.goldze.mvvmhabit.utils.KLog;
+import me.goldze.mvvmhabit.utils.SPUtils;
 
 /**
  * Created by goldze on 2017/7/16.
@@ -51,5 +52,13 @@ public class AppApplication extends BaseApplication {
 //                .errorActivity(YourCustomErrorActivity.class) //崩溃后的错误activity
 //                .eventListener(new YourCustomEventListener()) //崩溃后的错误监听
                 .apply();
+    }
+
+    /**
+     * 退出登录,清除cookie
+     */
+    private static void out(String msg) {
+        SPUtils.getInstance().remove(Constant.SP_Coonkie_Key);
+
     }
 }

@@ -29,8 +29,9 @@ public class InstantAutoComplete extends AppCompatAutoCompleteTextView {
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if(focused){
-            performFiltering(getText(),0);
-            showDropDown();
+            //Todo 挂机，暂时屏蔽
+//            performFiltering(getText(),0);
+//            showDropDown();
         }
     }
 

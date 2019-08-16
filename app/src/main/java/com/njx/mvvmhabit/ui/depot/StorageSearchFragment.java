@@ -31,11 +31,11 @@ public class StorageSearchFragment extends BaseFragment<FragmentStorageSearchBin
     public void initData() {
         super.initData();
         viewModel.initToolBar();
-        ArrayAdapter arrayAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,invoiceList);
-        binding.invoiceAuto.setAdapter(arrayAdapter);
-
-        ArrayAdapter deptAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,deptList);
-        binding.deptAuto.setAdapter(deptAdapter);
+//        ArrayAdapter arrayAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,invoiceList);
+//        binding.invoiceAuto.setAdapter(arrayAdapter);
+//
+//        ArrayAdapter deptAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,deptList);
+//        binding.deptAuto.setAdapter(deptAdapter);
         KLog.d("initData");
     }
 
