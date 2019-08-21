@@ -38,8 +38,8 @@ public class SteelAdapter extends RecyclerView.Adapter<SteelAdapter.SMTViewHodle
     @Override
     public void onBindViewHolder(@NonNull SMTViewHodler SMTViewHodler, final int position) {
         SteelEntity steelEntity = steelEntityList.get(position);
-        SMTViewHodler.type.setText(steelEntity.getType());
-        SMTViewHodler.code.setText(steelEntity.getId());
+        SMTViewHodler.type.setText(steelEntity.getCategory());
+        SMTViewHodler.code.setText(steelEntity.getSteelPlateType());
         SMTViewHodler.line.setText(steelEntity.getLineClass());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {
             @Override

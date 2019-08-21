@@ -30,7 +30,9 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
 public class SteelOperateViewModel extends ToolbarViewModel {
     public ObservableField<String> stationId = new ObservableField<>();
     public ObservableField<String> type = new ObservableField<>();
+    public ObservableField<String> steelCode = new ObservableField<>("");
     public String partNO;
+    public String workId;
 
     //封装一个界面发生改变的观察者
     public UIChangeObsevable uc = new UIChangeObsevable();
@@ -45,13 +47,13 @@ public class SteelOperateViewModel extends ToolbarViewModel {
     }
 
     public void initToolBar() {
-        setTitleText("上料管理");
+        setTitleText("钢板刮刀管理");
     }
 
     public void upLineSteel() {
         //网络API服务
         DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
-        apiService.uplineSteelPlate(partNO, stationId.get(), type.get())
+        apiService.uplineSteelPlate(partNO, stationId.get(), steelCode.get(), workId)
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -68,7 +70,8 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                    if (response.getCode() == Constant.Ret_SUCCESS) {
                                        ToastUtils.showShort("上机台成功");
                                        getSteelList();
-
+                                   } else {
+                                       ToastUtils.showShort(response.getMsg());
                                    }
                                }
                            }
@@ -78,20 +81,18 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                 dismissDialog();
                                 ToastUtils.showShort(throwable.message);
                             }
-                        }, new
-
-                                Action() {
-                                    @Override
-                                    public void run() throws Exception {
-                                        dismissDialog();
-                                    }
-                                });
+                        }, new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                dismissDialog();
+                            }
+                        });
     }
 
     public void downlineSteel() {
         //网络API服务
         DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
-        apiService.downlineSteelPlate(stationId.get(), type.get())
+        apiService.downlineSteelPlate(stationId.get(), steelCode.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -108,8 +109,10 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                    if (response.getCode() == Constant.Ret_SUCCESS) {
                                        ToastUtils.showShort("下机台成功");
                                        getSteelList();
-
+                                   } else {
+                                       ToastUtils.showShort(response.getMsg());
                                    }
+
                                }
                            }
                         , new Consumer<ResponseThrowable>() {
@@ -148,11 +151,10 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                    if (response.getCode() == Constant.Ret_SUCCESS) {
                                        //刷新列表
                                        List<SteelEntity> steelEntityList = response.getResult();
-                                       if (steelEntityList != null && steelEntityList.size() > 0) {
-                                           uc.steelListEvent.setValue(steelEntityList);
-                                       }
+                                       uc.steelListEvent.setValue(steelEntityList);
 
-
+                                   } else {
+                                       ToastUtils.showShort(response.getMsg());
                                    }
                                }
                            }
@@ -173,7 +175,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
     }
 
 
-    public BindingCommand onCommint=new BindingCommand(new BindingAction(){
+    public BindingCommand onCommit = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             if (type.get().equals("上机台")) {

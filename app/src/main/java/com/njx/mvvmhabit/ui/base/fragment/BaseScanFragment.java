@@ -19,11 +19,11 @@ public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends Bas
         Messenger.getDefault().register(getContext(), Constant.TOKEN_SCAN_CONTENT_REC, String.class, new BindingConsumer<String>() {
             @Override
             public void call(String scanResult) {
-                if (getActivity().getCurrentFocus() instanceof EditText) {
-                    EditText editText = (EditText) getActivity().getCurrentFocus();
-                    editText.setText(scanResult);
-
-                }
+//                if (getActivity().getCurrentFocus() instanceof EditText) {
+//                    EditText editText = (EditText) getActivity().getCurrentFocus();
+//                    editText.setText(scanResult);
+//
+//                }
                 onGetScanCode(scanResult);
             }
         });

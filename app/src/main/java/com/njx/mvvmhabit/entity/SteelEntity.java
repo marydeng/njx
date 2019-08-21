@@ -3,7 +3,24 @@ package com.njx.mvvmhabit.entity;
 import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
-
+//            "searchValue": null,
+//                    "createBy": null,
+//                    "createTime": "2019-07-23 13:23:48",
+//                    "updateBy": null,
+//                    "updateTime": null,
+//                    "remark": null,
+//                    "params": {},
+//                    "id": "dc1605ff-ad09-11e9-9975-484d7eac031f",
+//                    "steelPlateType": "2",
+//                    "describes": "2",
+//                    "useNum": 6,
+//                    "usageNum": 2,
+//                    "status": "上机台",
+//                    "testPoint": 5,
+//                    "category": "钢板",
+//                    "lineClass": "L5",
+//                    "jobNum": null,
+//                    "partNum": "6871L-5809B"
 public class SteelEntity extends BaseObservable implements Parcelable {
     private String stationID;
     private String steelPlateType;
@@ -12,8 +29,10 @@ public class SteelEntity extends BaseObservable implements Parcelable {
     private String id;
     private String lineClass;
     private String status;
-    private int useNum;
-    private int usageNum;
+    private String useNum;
+    private String usageNum;
+    private String category;
+    private String jobNum;
 
     public String getStationID() {
         return stationID;
@@ -71,15 +90,38 @@ public class SteelEntity extends BaseObservable implements Parcelable {
         this.status = status;
     }
 
-    public int getUseNum() {
+    public String getUseNum() {
         return useNum;
     }
 
-    public void setUseNum(int useNum) {
+    public void setUseNum(String useNum) {
         this.useNum = useNum;
     }
 
+    public String getUsageNum() {
+        return usageNum;
+    }
 
+    public void setUsageNum(String usageNum) {
+        this.usageNum = usageNum;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
+    public String getJobNum() {
+        return jobNum;
+    }
+
+    public void setJobNum(String jobNum) {
+        this.jobNum = jobNum;
+    }
 
     public SteelEntity() {
     }
@@ -98,7 +140,10 @@ public class SteelEntity extends BaseObservable implements Parcelable {
         this.id=in.readString();
         this.lineClass =in.readString();
         this.status=in.readString();
-        this.useNum =in.readInt();
+        this.useNum =in.readString();
+        this.usageNum=in.readString();
+        this.jobNum=in.readString();
+        this.category=in.readString();
 
     }
 
@@ -116,7 +161,10 @@ public class SteelEntity extends BaseObservable implements Parcelable {
             dest.writeString(id);
             dest.writeString(lineClass);
             dest.writeString(status);
-            dest.writeInt(useNum);
+            dest.writeString(useNum);
+            dest.writeString(usageNum);
+            dest.writeString(jobNum);
+            dest.writeString(category);
     }
 
     public static final Creator<SteelEntity> CREATOR=new Creator<SteelEntity>() {

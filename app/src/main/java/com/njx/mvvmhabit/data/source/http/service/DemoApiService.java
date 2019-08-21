@@ -39,7 +39,7 @@ public interface DemoApiService {
 
     //上机台
     @POST("api/production/edit")
-    Observable<BaseResponse<DemoEntity>> uplineSteelPlate(@Query("partNum") String partNum, @Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType);
+    Observable<BaseResponse<DemoEntity>> uplineSteelPlate(@Query("partNum") String partNum, @Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType,@Query("jobNum") String jobNum);
 
 
     //下机台
@@ -52,10 +52,20 @@ public interface DemoApiService {
 
     //获取在线钢板和刮刀
     @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<SteelEntity>> getSteelList(@Query("lineClass") String lineClass);
+    Observable<BaseResponse<List<SteelEntity>>> getSteelList(@Query("lineClass") String lineClass);
+
+    //查询所有线体
+    @POST("api/production/selectScProductLineList")
+    Observable<BaseResponse<List<String>>> queryAllLine();
+
+    //fqc 上传生产条码
+    @POST("api/fqc/add")
+    Observable<BaseResponse<String>> commitProduceCode(@Query("palletNumber") String zhanbanId,@Query("number") String num,@Query("checkResult") String testType,@Query("productBarcode") String produceCode,@Query("operator") String operator);
 
     //删除工单 Todo
     @POST("api/production/scSteelPlateUplineList")
     Observable<BaseResponse<Object>> clearWorkItem(@Query("workItem") String workItem);
+
+
 
 }

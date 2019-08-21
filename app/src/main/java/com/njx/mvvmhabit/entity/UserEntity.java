@@ -8,7 +8,11 @@ import java.util.List;
 
 public class UserEntity extends BaseObservable implements Parcelable {
     private String userId;
+    private String loginName;
+    private String userName;
+    private String phonenumber;
     private List<RoleEntity> roleEntityList;
+    private DeptEntity dept;
 
     public String getUserId() {
         return userId;
@@ -24,6 +28,38 @@ public class UserEntity extends BaseObservable implements Parcelable {
 
     public void setRoleEntityList(List<RoleEntity> roleEntityList) {
         this.roleEntityList = roleEntityList;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public DeptEntity getDept() {
+        return dept;
+    }
+
+    public void setDept(DeptEntity dept) {
+        this.dept = dept;
     }
 
     @Override

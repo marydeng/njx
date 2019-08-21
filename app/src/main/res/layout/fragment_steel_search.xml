@@ -28,7 +28,8 @@
             android:layout_marginTop="150dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="80dp"
@@ -38,18 +39,13 @@
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
-            <com.njx.mvvmhabit.ui.widget.InstantAutoComplete
-                android:id="@+id/dest_depot_auto"
-                style="@style/search_edit"
+            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
+                android:id="@+id/steel_type_spinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:completionThreshold="1"
-                android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入类型"
-                android:imeOptions="actionNext"
-                android:text="@={viewModel.SMTTypeTxt}"
-                />
+                android:layout_height="@dimen/spinnerpop_height"
+                android:background="@drawable/edit_bg"
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -82,47 +78,33 @@
                 android:text="@={viewModel.orderID}" />
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/query_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/form_btn_bg"
-            android:text="查询工单"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:singleLine="true"
-            android:padding="4dp"
-            android:layout_gravity="center_horizontal"
-            />
+
         <LinearLayout
+            android:id="@+id/station_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:gravity="center_vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="工作站:"
+                android:text="线体:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/steel_station_auto"
-                style="@style/search_edit"
+            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
+                android:id="@+id/line_type_spinner"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:completionThreshold="1"
-                android:hint="请输入工作站"
-                android:imeOptions="actionDone"
-                android:text="@={viewModel.stationID}"
-                android:enabled="false"
+                android:layout_height="@dimen/spinnerpop_height"
+                android:background="@drawable/edit_bg"
                 />
         </LinearLayout>
         <Button

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.njx.mvvmhabit.ui.business.viewmodel.ProductStorageViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ProductStorageViewModel" />
+    </data>
+
+    <LinearLayout xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="货号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/dept_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入物料号"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint"
+                android:text="@{viewModel.location}"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="箱号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/steel_code_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:text="@={viewModel.boxId}"
+                android:textColorHint="@color/textColorHint"
+                android:hint="请输入箱号"
+                />
+
+            <TextView
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="提交"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onCommit}" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/common_hori_padding"
+            android:paddingRight="@dimen/common_hori_padding"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="货位仓库"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="箱号数量"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="料号"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/divider" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_hori_padding"
+            android:layout_marginRight="@dimen/common_hori_padding"
+            android:background="@color/divider" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/common_hori_padding"
+            android:paddingRight="@dimen/common_hori_padding" />
+    </LinearLayout>
+</layout>

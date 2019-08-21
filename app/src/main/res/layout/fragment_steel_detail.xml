@@ -32,8 +32,8 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:text="工作站:"
+                android:gravity="center_vertical"
+                android:text="线体:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.stationID}" />
+                android:text="@{viewModel.entity.lineClass}" />
 
             <TextView
                 android:layout_width="60dp"
@@ -52,7 +52,8 @@
                 android:gravity="right|center_vertical"
                 android:text="@{viewModel.entity.steelPlateType}"
                 android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
             />
         </LinearLayout>
@@ -63,12 +64,13 @@
             android:layout_marginLeft="@dimen/hori_margin"
             android:layout_marginTop="20dp"
             android:layout_marginRight="@dimen/hori_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
+                android:gravity="center_vertical"
                 android:text="工单："
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
@@ -80,7 +82,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.orderID}" />
+                android:text="@{viewModel.entity.jobNum}" />
             />
         </LinearLayout>
 
@@ -105,7 +107,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.type}" />
+                    android:text="@{viewModel.entity.category}" />
             </LinearLayout>
 
             <LinearLayout
@@ -120,14 +122,15 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.id}" />
+                    android:text="@{viewModel.entity.steelPlateType}" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/detail_txt_label"
@@ -165,7 +168,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="" />
+                    android:text="@{viewModel.entity.usageNum}" />
             </LinearLayout>
 
         </LinearLayout>

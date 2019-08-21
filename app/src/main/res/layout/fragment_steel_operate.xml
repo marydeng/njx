@@ -33,7 +33,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity=""
-                android:text="工作站:"
+                android:text="线体:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/content_padding_left"
-                android:text="@{viewModel.type}" />
+                android:text="@={viewModel.type}" />
         </LinearLayout>
 
 
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
 
@@ -74,7 +74,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/box_edit"
+                android:id="@+id/steel_code_edit"
                 style="@style/txt_content_two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -85,19 +85,21 @@
                 android:dropDownHorizontalOffset="5dp"
                 android:padding="5dp"
                 android:singleLine="true"
+                android:text="@={viewModel.steelCode}"
                 android:textColorHint="@color/textColorHint" />
+
             <TextView
                 android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
                 android:text="提交"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:singleLine="true"
-                android:padding="4dp"
-                />
+                binding:onClickCommand="@{viewModel.onCommit}" />
         </LinearLayout>
 
         <View
@@ -147,6 +149,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/divider" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

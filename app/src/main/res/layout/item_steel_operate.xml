@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="HSK1111111111111111111111" />
+             />
 
         <View
             android:layout_width="1dp"
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="本次入库2000 \n 已入库8000\n需入库8000" />
+             />
 
         <View
             android:layout_width="1dp"
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="本次入库2000 \n 已入库8000\n需入库8000" />
+             />
 
         <View
             android:layout_width="1dp"

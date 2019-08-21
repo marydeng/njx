@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- *********************popwindow样式下拉菜单************************* -->
+    <!-- 下拉菜单文本大小 -->
+    <dimen name="spinnerpop_text_size">18sp</dimen>
+    <!-- 下拉菜单列表项的文本大小 -->
+    <dimen name="spinnerpop_listitem_text_size">16sp</dimen>
+    <!-- 下拉菜单列表项的内边距 -->
+    <dimen name="spinnerpop_listitem_padding">10dp</dimen>
+    <!-- 下拉菜单高度 -->
+    <dimen name="spinnerpop_height">36dp</dimen>
+    <!-- 下拉菜单按钮的外边距 -->
+    <dimen name="spinnerpop_confirm_margin">20dp</dimen>
+
+    <dimen name="three_grid_unit">24dp</dimen>
+    <dimen name="one_and_a_half_grid_unit">12dp</dimen>
+</resources>
