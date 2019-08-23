@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.SMTSearchViewModel" />
+        <import type="com.njx.mvvmhabit.ui.quality.viewmodel.QualitySearchViewModel" />
 
         <variable
             name="viewModel"
-            type="SMTSearchViewModel" />
+            type="QualitySearchViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,14 +37,18 @@
                 android:text="SMT类型:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
-
-            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
-                android:id="@+id/smt_type_spinner"
+            <EditText
+                android:id="@+id/dest_depot_auto"
+                style="@style/search_edit"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="@dimen/spinnerpop_height"
-                android:background="@drawable/edit_bg"
-                />
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:imeOptions="actionNext"
+                android:text="对料"
+                android:enabled="false"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -74,18 +78,6 @@
                 android:hint="请输入工单号"
                 android:imeOptions="actionDone"
                 android:text="@={viewModel.orderID}" />
-            <TextView
-                android:id="@+id/query_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/form_btn_bg"
-                android:padding="4dp"
-                android:singleLine="true"
-                android:text="查找"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                binding:onClickCommand="@{viewModel.onQuery}" />
         </LinearLayout>
 
         <Button
@@ -100,18 +92,5 @@
             android:textColor="#ffffff"
             android:textSize="20sp"
             binding:onClickCommand="@{viewModel.onSearchCommand}" />
-
-        <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/form_btn_bg"
-            android:text="完毕确认"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            binding:onClickCommand="@{viewModel.onConfirmCommand}" />
     </LinearLayout>
 </layout>

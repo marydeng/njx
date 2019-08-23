@@ -1,31 +1,26 @@
 package com.njx.mvvmhabit.ui.produce.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.njx.mvvmhabit.R;
-import com.njx.mvvmhabit.entity.FeedingEntity;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
-import com.njx.mvvmhabit.entity.StorageEntity;
 
 import java.util.List;
-//上料记录adapter
-public class SMTAdapter extends RecyclerView.Adapter<SMTAdapter.SMTViewHodler> {
+
+//更换料枪记录adapter
+public class GunChangeAdapter extends RecyclerView.Adapter<GunChangeAdapter.SMTViewHodler> {
     private Context context;
     private List<SMTRecordEntity> feedingEntityList;
     private OnItemClickListener onItemClickListener;
 
-    public SMTAdapter(Context context, List<SMTRecordEntity> feedingEntities) {
+    public GunChangeAdapter(Context context, List<SMTRecordEntity> feedingEntities) {
         this.context = context;
         this.feedingEntityList = feedingEntities;
     }
@@ -37,7 +32,7 @@ public class SMTAdapter extends RecyclerView.Adapter<SMTAdapter.SMTViewHodler> {
     @NonNull
     @Override
     public SMTViewHodler onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_smt_operate, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_smt_gun, viewGroup, false);
         SMTViewHodler SMTViewHodler = new SMTViewHodler(view);
         return SMTViewHodler;
     }
@@ -45,8 +40,14 @@ public class SMTAdapter extends RecyclerView.Adapter<SMTAdapter.SMTViewHodler> {
     @Override
     public void onBindViewHolder(@NonNull SMTViewHodler SMTViewHodler, final int position) {
         SMTRecordEntity feedingEntity = feedingEntityList.get(position);
-        SMTViewHodler.materGun.setText(feedingEntity.getMaterialGun());
-        SMTViewHodler.materRoll.setText(feedingEntity.getMaterialRoll());
+        String gun = feedingEntity.getMaterialGun();
+        if (!TextUtils.isEmpty(gun)) {
+            String[] gunList = gun.split(";");
+            if (gunList.length == 2) {
+                SMTViewHodler.newMaterGun.setText(gunList[0]);
+                SMTViewHodler.oldMaterGun.setText(gunList[1]);
+            }
+        }
         SMTViewHodler.materStation.setText(feedingEntity.getMaterialStation());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,15 +69,15 @@ public class SMTAdapter extends RecyclerView.Adapter<SMTAdapter.SMTViewHodler> {
     }
 
     public class SMTViewHodler extends RecyclerView.ViewHolder {
-        private TextView materGun;
-        private TextView materRoll;
+        private TextView newMaterGun;
+        private TextView oldMaterGun;
         private TextView materStation;
         private View view;
 
         public SMTViewHodler(@NonNull View itemView) {
             super(itemView);
-            this.materGun = itemView.findViewById(R.id.mater_gun);
-            this.materRoll = itemView.findViewById(R.id.mater_roll);
+            this.newMaterGun = itemView.findViewById(R.id.new_mater_gun);
+            this.oldMaterGun = itemView.findViewById(R.id.old_mater_gun);
             this.materStation = itemView.findViewById(R.id.mater_station);
             view = itemView;
         }

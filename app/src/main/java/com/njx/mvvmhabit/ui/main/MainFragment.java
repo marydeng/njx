@@ -26,6 +26,7 @@ import com.njx.mvvmhabit.ui.produce.FQCConfigFragment;
 import com.njx.mvvmhabit.ui.produce.SMTClearFragment;
 import com.njx.mvvmhabit.ui.produce.SMTSearchFragment;
 import com.njx.mvvmhabit.ui.produce.StealSearchFragment;
+import com.njx.mvvmhabit.ui.quality.QualitySearchFragment;
 import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
                         } else if (menuBeans.get(position).getName().equals("上料")) {
                             startContainerActivity(SMTSearchFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("对料")) {
-                            startContainerActivity(SMTSearchFragment.class.getCanonicalName());
+                            startContainerActivity(QualitySearchFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("钢板刮刀")) {
                             startContainerActivity(StealSearchFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("清除")) {

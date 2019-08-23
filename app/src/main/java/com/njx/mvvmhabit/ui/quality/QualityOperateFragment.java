@@ -1,4 +1,4 @@
-package com.njx.mvvmhabit.ui.produce;
+package com.njx.mvvmhabit.ui.quality;
 
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
@@ -10,20 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.njx.mvvmhabit.R;
-import com.njx.mvvmhabit.databinding.FragmentGunChangeOperateBinding;
 import com.njx.mvvmhabit.databinding.FragmentSmtOperateBinding;
 import com.njx.mvvmhabit.entity.FeedingEntity;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.ui.base.fragment.BaseScanFragment;
-import com.njx.mvvmhabit.ui.produce.adapter.GunChangeAdapter;
+import com.njx.mvvmhabit.ui.produce.SMTDetailFragment;
 import com.njx.mvvmhabit.ui.produce.adapter.SMTAdapter;
-import com.njx.mvvmhabit.ui.produce.viewmodel.GunChangeViewModel;
 import com.njx.mvvmhabit.ui.produce.viewmodel.SMTOperateViewModel;
+import com.njx.mvvmhabit.ui.quality.viewmodel.QualityOperateViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChangeOperateBinding, GunChangeViewModel> {
+public class QualityOperateFragment extends BaseScanFragment<FragmentSmtOperateBinding, QualityOperateViewModel> {
     public static final String Extra_order_id = "SMTOperateFragment.order.id";
     public static final String Extra_smt_type = "SMTOperateFragment.smt.type";
     private List<FeedingEntity> feedingEntityList;
@@ -31,9 +30,10 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
     private String smtType ="";
     private List<SMTRecordEntity> recordEntityList;
 
+
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return R.layout.fragment_gun_change_operate;
+        return R.layout.fragment_quality_operate;
     }
 
     @Override
@@ -61,8 +61,8 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
         recordEntityList=new ArrayList<>();
-        GunChangeAdapter smtAdapter = new GunChangeAdapter(getContext(), recordEntityList);
-        smtAdapter.setOnItemClickListener(new GunChangeAdapter.OnItemClickListener() {
+        SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
+        smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
                 Bundle bundle = new Bundle();
@@ -72,6 +72,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         });
         binding.recyclerview.setAdapter(smtAdapter);
 
+        binding.gunScanEdit.requestFocus();
 
 
     }
@@ -105,7 +106,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         viewModel.uc.clearEdit.observe(this, new Observer() {
             @Override
             public void onChanged(@Nullable Object o) {
-                binding.newGunEdit.requestFocus();
+                binding.gunScanEdit.requestFocus();
             }
         });
     }
@@ -114,11 +115,11 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
     @Override
     protected void onGetScanCode(String scanCode) {
         super.onGetScanCode(scanCode);
-        if(TextUtils.isEmpty(viewModel.newGunTxt.get())){
-            viewModel.newGunTxt.set(scanCode);
-            binding.oldGunEdit.requestFocus();
-        }else if(TextUtils.isEmpty(viewModel.oldGunTxt.get())){
-            viewModel.oldGunTxt.set(scanCode);
+        if(TextUtils.isEmpty(viewModel.gunTxt.get())){
+            viewModel.gunTxt.set(scanCode);
+            binding.rollScanEdit.requestFocus();
+        }else if(TextUtils.isEmpty(viewModel.rollTxt.get())){
+            viewModel.rollTxt.set(scanCode);
             binding.stationScanEdit.requestFocus();
         }else{
             viewModel.stationTxt.set(scanCode);

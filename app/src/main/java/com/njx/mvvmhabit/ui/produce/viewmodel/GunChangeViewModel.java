@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
-import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.utils.RetrofitClient;
@@ -26,15 +25,15 @@ import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
-public class SMTOperateViewModel extends ToolbarViewModel {
+public class GunChangeViewModel extends ToolbarViewModel {
     public ObservableField<String> orderId = new ObservableField<>();
     public ObservableField<String> smtType = new ObservableField<>();
-    public ObservableField<String> gunTxt = new ObservableField<>();
-    public ObservableField<String> rollTxt = new ObservableField<>();
+    public ObservableField<String> newGunTxt = new ObservableField<>();
+    public ObservableField<String> oldGunTxt = new ObservableField<>();
     public ObservableField<String> stationTxt = new ObservableField<>();
     private DemoApiService apiService;
 
-    public SMTOperateViewModel(@NonNull Application application) {
+    public GunChangeViewModel(@NonNull Application application) {
         super(application);
     }
 
@@ -44,7 +43,8 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
+        String gunList=newGunTxt.get()+";"+oldGunTxt.get();
+        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunList, "", stationTxt.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -60,8 +60,8 @@ public class SMTOperateViewModel extends ToolbarViewModel {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
                             ToastUtils.showShort("提交记录成功");
-                            gunTxt.set("");
-                            rollTxt.set("");
+                            newGunTxt.set("");
+                            oldGunTxt.set("");
                             stationTxt.set("");
                             uc.clearEdit.call();
                             queryRecordList();
@@ -132,12 +132,12 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     public BindingCommand onCommit=new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if(TextUtils.isEmpty(gunTxt.get())){
-                ToastUtils.showShort("料枪不能为空");
+            if(TextUtils.isEmpty(newGunTxt.get())){
+                ToastUtils.showShort("新料枪不能为空");
                 return;
             }
-            if(TextUtils.isEmpty(rollTxt.get())){
-                ToastUtils.showShort("料卷不能为空");
+            if(TextUtils.isEmpty(oldGunTxt.get())){
+                ToastUtils.showShort("旧料枪不能为空");
                 return;
             }
 

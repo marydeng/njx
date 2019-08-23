@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.SMTOperateViewModel" />
+        <import type="com.njx.mvvmhabit.ui.quality.viewmodel.QualityOperateViewModel" />
 
         <variable
             name="viewModel"
-            type="SMTOperateViewModel" />
+            type="QualityOperateViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

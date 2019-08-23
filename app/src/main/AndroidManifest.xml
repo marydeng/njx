@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.njx.mvvmhabit.ui.main.DemoActivity"></activity>
         <activity android:name="com.njx.mvvmhabit.ui.tab_bar.activity.TabBarActivity"></activity>
         <activity android:name="com.njx.mvvmhabit.ui.viewpager.activity.ViewPagerActivity"></activity>
         <activity android:name="com.njx.mvvmhabit.ui.main.MainActivity"></activity>

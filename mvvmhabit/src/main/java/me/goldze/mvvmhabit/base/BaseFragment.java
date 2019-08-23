@@ -142,6 +142,7 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
                 startContainerActivity(canonicalName, bundle);
             }
         });
+
         //关闭界面
         viewModel.getUC().getFinishEvent().observe(this, new Observer<Void>() {
             @Override
@@ -218,6 +219,15 @@ public abstract class BaseFragment<V extends ViewDataBinding, VM extends BaseVie
             intent.putExtra(ContainerActivity.BUNDLE, bundle);
         }
         startActivity(intent);
+    }
+
+    public void startContainerActivityForResult(String canonicalName, Bundle bundle,int requestCode ){
+        Intent intent = new Intent(getContext(), ContainerActivity.class);
+        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
+        if (bundle != null) {
+            intent.putExtra(ContainerActivity.BUNDLE, bundle);
+        }
+        getActivity().startActivityForResult(intent,requestCode);
     }
 
     /**

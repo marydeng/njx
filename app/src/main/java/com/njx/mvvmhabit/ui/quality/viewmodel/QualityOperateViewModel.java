@@ -1,4 +1,4 @@
-package com.njx.mvvmhabit.ui.produce.viewmodel;
+package com.njx.mvvmhabit.ui.quality.viewmodel;
 
 import android.app.Application;
 import android.databinding.ObservableField;
@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
-import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.utils.RetrofitClient;
@@ -26,7 +25,7 @@ import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
-public class SMTOperateViewModel extends ToolbarViewModel {
+public class QualityOperateViewModel extends ToolbarViewModel {
     public ObservableField<String> orderId = new ObservableField<>();
     public ObservableField<String> smtType = new ObservableField<>();
     public ObservableField<String> gunTxt = new ObservableField<>();
@@ -34,17 +33,17 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     public ObservableField<String> stationTxt = new ObservableField<>();
     private DemoApiService apiService;
 
-    public SMTOperateViewModel(@NonNull Application application) {
+    public QualityOperateViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void initToolBar() {
-        setTitleText("上料管理");
+        setTitleText("对料管理");
         apiService = RetrofitClient.getInstance().create(DemoApiService.class);
     }
 
     public void uploadRecord() {
-        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
+        apiService.uploadQualityScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -93,7 +92,7 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     }
 
     public void queryRecordList() {
-        apiService.queryScanRecord(smtType.get(),orderId.get())
+        apiService.queryQualityScanRecord(smtType.get(),orderId.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())

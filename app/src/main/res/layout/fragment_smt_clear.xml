@@ -67,9 +67,8 @@
                 android:text="工单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
-
-            <com.njx.mvvmhabit.ui.widget.InstantAutoComplete
-                android:id="@+id/dept_class_auto"
+            <EditText
+                android:id="@+id/clear_order_edit"
                 style="@style/search_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -91,6 +90,6 @@
             android:text="清除"
             android:textColor="#ffffff"
             android:textSize="20sp"
-            binding:onClickCommand="@{viewModel.onSearchCommand}" />
+            binding:onClickCommand="@{viewModel.onClearCommand}" />
     </LinearLayout>
 </layout>

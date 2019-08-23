@@ -55,8 +55,7 @@ public class SMTClearFragment extends BaseFragment<FragmentSmtClearBinding, SMTC
         super.initData();
         viewModel.initToolBar();
 
-        ArrayAdapter deptAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, deptList);
-        binding.deptClassAuto.setAdapter(deptAdapter);
+//
 
 
     }

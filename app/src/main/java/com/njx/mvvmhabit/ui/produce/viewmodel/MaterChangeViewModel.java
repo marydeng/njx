@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
-import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.utils.RetrofitClient;
@@ -26,25 +25,27 @@ import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
-public class SMTOperateViewModel extends ToolbarViewModel {
+public class MaterChangeViewModel extends ToolbarViewModel {
     public ObservableField<String> orderId = new ObservableField<>();
     public ObservableField<String> smtType = new ObservableField<>();
     public ObservableField<String> gunTxt = new ObservableField<>();
-    public ObservableField<String> rollTxt = new ObservableField<>();
+    public ObservableField<String> newRollTxt = new ObservableField<>();
+    public ObservableField<String> oldRollTxt = new ObservableField<>();
     public ObservableField<String> stationTxt = new ObservableField<>();
     private DemoApiService apiService;
 
-    public SMTOperateViewModel(@NonNull Application application) {
+    public MaterChangeViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void initToolBar() {
-        setTitleText("上料管理");
+        setTitleText("换料管理");
         apiService = RetrofitClient.getInstance().create(DemoApiService.class);
     }
 
     public void uploadRecord() {
-        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
+        String rolllist=newRollTxt.get()+";"+oldRollTxt.get();
+        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rolllist, stationTxt.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -61,7 +62,8 @@ public class SMTOperateViewModel extends ToolbarViewModel {
                         if (response.getCode() == Constant.Ret_SUCCESS) {
                             ToastUtils.showShort("提交记录成功");
                             gunTxt.set("");
-                            rollTxt.set("");
+                            newRollTxt.set("");
+                            oldRollTxt.set("");
                             stationTxt.set("");
                             uc.clearEdit.call();
                             queryRecordList();
@@ -136,8 +138,12 @@ public class SMTOperateViewModel extends ToolbarViewModel {
                 ToastUtils.showShort("料枪不能为空");
                 return;
             }
-            if(TextUtils.isEmpty(rollTxt.get())){
-                ToastUtils.showShort("料卷不能为空");
+            if(TextUtils.isEmpty(newRollTxt.get())){
+                ToastUtils.showShort("新料卷不能为空");
+                return;
+            }
+            if(TextUtils.isEmpty(oldRollTxt.get())){
+                ToastUtils.showShort("旧料卷不能为空");
                 return;
             }
 

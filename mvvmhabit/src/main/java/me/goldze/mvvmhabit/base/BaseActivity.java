@@ -8,17 +8,22 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 
 import me.goldze.mvvmhabit.base.BaseViewModel.ParameterField;
 import me.goldze.mvvmhabit.bus.Messenger;
+import me.goldze.mvvmhabit.http.interceptor.logging.Logger;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
 
@@ -60,7 +65,7 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
         if (viewModel != null) {
             viewModel.removeRxBus();
         }
-        if(binding != null){
+        if (binding != null) {
             binding.unbind();
         }
     }
@@ -266,4 +271,34 @@ public abstract class BaseActivity<V extends ViewDataBinding, VM extends BaseVie
     public <T extends ViewModel> T createViewModel(FragmentActivity activity, Class<T> cls) {
         return ViewModelProviders.of(activity).get(cls);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("BaseActivity  onActivityResult");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
+            Fragment fragment = fragmentManager.getFragments().get(i);
+            if (fragment == null) {
+                Log.i(BaseActivity.class.getSimpleName(), Integer.toHexString(requestCode));
+            } else {
+                handleResult(fragment, requestCode, resultCode, data);
+            }
+        }
+    }
+
+    private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data) {
+        fragment.onActivityResult(requestCode, resultCode, data);//调用每个Fragment的onActivityResult
+        List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments(); //找到第二层Fragment
+        if (childFragment != null)
+            for (Fragment f : childFragment)
+                if (f != null) {
+                    handleResult(f, requestCode, resultCode, data);
+                }
+        if (childFragment == null) {
+            Log.i(BaseActivity.class.getSimpleName(), "MyBaseFragmentActivity is null");
+        }
+    }
+
 }

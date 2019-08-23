@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.SMTOperateViewModel" />
+        <import type="com.njx.mvvmhabit.ui.produce.viewmodel.GunChangeViewModel" />
 
         <variable
             name="viewModel"
-            type="SMTOperateViewModel" />
+            type="GunChangeViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,12 +70,12 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="扫码:"
+                android:text="新料枪:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/box_edit"
+                android:id="@+id/new_gun_edit"
                 style="@style/txt_content_two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -86,7 +86,82 @@
                 android:dropDownHorizontalOffset="5dp"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:textColorHint="@color/textColorHint" />
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.newGunTxt}"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="旧料枪:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/old_gun_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.oldGunTxt}"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="料站:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/station_scan_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.stationTxt}"/>
+            <TextView
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="提交"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onCommit}" />
         </LinearLayout>
 
         <View
@@ -114,7 +189,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="料枪"
+                android:text="新料枪"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -128,7 +203,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="新料枪号"
+                android:text="旧料枪"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 

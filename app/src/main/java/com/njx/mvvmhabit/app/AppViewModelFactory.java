@@ -9,7 +9,6 @@ import android.support.annotation.VisibleForTesting;
 
 import com.njx.mvvmhabit.data.DemoRepository;
 import com.njx.mvvmhabit.ui.login.LoginViewModel;
-import com.njx.mvvmhabit.ui.network.NetWorkViewModel;
 
 /**
  * Created by goldze on 2019/3/26.
@@ -44,9 +43,7 @@ public class AppViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(NetWorkViewModel.class)) {
-            return (T) new NetWorkViewModel(mApplication, mRepository);
-        } else if (modelClass.isAssignableFrom(LoginViewModel.class)) {
+        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             return (T) new LoginViewModel(mApplication, mRepository);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());

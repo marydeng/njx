@@ -1,8 +1,10 @@
 package com.njx.mvvmhabit.ui.produce;
 
+import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.databinding.FragmentSmtOperateBinding;
 import com.njx.mvvmhabit.entity.FeedingEntity;
+import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.entity.StorageEntity;
 import com.njx.mvvmhabit.ui.base.fragment.BaseScanFragment;
 import com.njx.mvvmhabit.ui.depot.adapter.StorageAdapter;
@@ -25,6 +28,8 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
     private List<FeedingEntity> feedingEntityList;
     private String orderID ="";
     private String smtType ="";
+    private List<SMTRecordEntity> recordEntityList;
+
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,8 +60,8 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         viewModel.initToolBar();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
-        createData();
-        SMTAdapter smtAdapter = new SMTAdapter(getContext(), feedingEntityList);
+        recordEntityList=new ArrayList<>();
+        SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
         smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
@@ -67,8 +72,59 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         });
         binding.recyclerview.setAdapter(smtAdapter);
 
+        binding.gunScanEdit.requestFocus();
 
 
+    }
+
+    @Override
+    public void initViewObservable() {
+        super.initViewObservable();
+        viewModel.uc.listChangeEvent.observe(this, new Observer<List<SMTRecordEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<SMTRecordEntity> dataList) {
+                if(dataList==null){
+                    recordEntityList=new ArrayList<>();
+                }else {
+                    recordEntityList=dataList;
+                }
+
+                SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
+                smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int position, View view) {
+                        //Todo 待接口提供
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
+//                        startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
+                    }
+                });
+                binding.recyclerview.setAdapter(smtAdapter);
+            }
+        });
+
+        viewModel.uc.clearEdit.observe(this, new Observer() {
+            @Override
+            public void onChanged(@Nullable Object o) {
+                binding.gunScanEdit.requestFocus();
+            }
+        });
+    }
+
+
+    @Override
+    protected void onGetScanCode(String scanCode) {
+        super.onGetScanCode(scanCode);
+        if(TextUtils.isEmpty(viewModel.gunTxt.get())){
+            viewModel.gunTxt.set(scanCode);
+            binding.rollScanEdit.requestFocus();
+        }else if(TextUtils.isEmpty(viewModel.rollTxt.get())){
+            viewModel.rollTxt.set(scanCode);
+            binding.stationScanEdit.requestFocus();
+        }else{
+            viewModel.stationTxt.set(scanCode);
+            viewModel.uploadRecord();
+        }
     }
 
     private void createData() {

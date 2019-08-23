@@ -10,15 +10,8 @@ import android.view.View;
 import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.DemoRepository;
-import com.njx.mvvmhabit.entity.MenuEntity;
-import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
-import com.njx.mvvmhabit.ui.main.DemoActivity;
 import com.njx.mvvmhabit.ui.main.MainActivity;
-import com.njx.mvvmhabit.ui.main.bean.MenuBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;

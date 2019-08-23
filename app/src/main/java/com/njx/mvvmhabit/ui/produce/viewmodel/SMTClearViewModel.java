@@ -29,6 +29,7 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
 public class SMTClearViewModel extends ToolbarViewModel {
     public ObservableField<String> SMTTypeTxt = new ObservableField<>("");
     public ObservableField<String> orderID = new ObservableField<>("");
+    private DemoApiService apiService;
 
     //封装一个界面发生改变的观察者
     public UIChangeObservable uc = new UIChangeObservable();
@@ -42,10 +43,11 @@ public class SMTClearViewModel extends ToolbarViewModel {
     }
 
     public void initToolBar() {
-        setTitleText("SMT换料");
+        setTitleText("清除工单");
+        apiService = RetrofitClient.getInstance().create(DemoApiService.class);
     }
 
-    public BindingCommand onSearchCommand = new BindingCommand(new BindingAction() {
+    public BindingCommand onClearCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
 
@@ -60,7 +62,6 @@ public class SMTClearViewModel extends ToolbarViewModel {
     });
 
     public void clearWorkItem(){
-        DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
         apiService.clearWorkItem(orderID.get())
                 .compose(RxUtils.<BaseResponse<Object>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())

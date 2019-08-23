@@ -4,6 +4,7 @@ import com.njx.mvvmhabit.entity.DemoEntity;
 import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.OrderEntity;
+import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 
@@ -39,12 +40,12 @@ public interface DemoApiService {
 
     //上机台
     @POST("api/production/edit")
-    Observable<BaseResponse<DemoEntity>> uplineSteelPlate(@Query("partNum") String partNum, @Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType,@Query("jobNum") String jobNum);
+    Observable<BaseResponse<DemoEntity>> uplineSteelPlate(@Query("partNum") String partNum, @Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType, @Query("jobNum") String jobNum);
 
 
     //下机台
     @POST("api/production/leaveEditSave")
-    Observable<BaseResponse<DemoEntity>> downlineSteelPlate( @Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType);
+    Observable<BaseResponse<DemoEntity>> downlineSteelPlate(@Query("lineClass") String lineClass, @Query("steelPlateType") String steelPlateType);
 
     //根据工单号查询线体
     @POST("api/production/selectWorkorderList")
@@ -60,12 +61,35 @@ public interface DemoApiService {
 
     //fqc 上传生产条码
     @POST("api/fqc/add")
-    Observable<BaseResponse<String>> commitProduceCode(@Query("palletNumber") String zhanbanId,@Query("number") String num,@Query("checkResult") String testType,@Query("productBarcode") String produceCode,@Query("operator") String operator);
+    Observable<BaseResponse<String>> commitProduceCode(@Query("palletNumber") String zhanbanId, @Query("number") String num, @Query("checkResult") String testType, @Query("productBarcode") String produceCode, @Query("operator") String operator);
 
-    //删除工单 Todo
+    //SMT 清除工单 Todo
     @POST("api/production/scSteelPlateUplineList")
     Observable<BaseResponse<Object>> clearWorkItem(@Query("workItem") String workItem);
 
+    //SMT 上传扫码记录 //Todo
+    @POST("api/production/insertLoadmaterial")
+    Observable<BaseResponse<Object>> uploadScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation);
 
+    //SMT查询扫码记录 Todo
+    @POST("api/production/scSteelPlateUplineList")
+    Observable<BaseResponse<List<SMTRecordEntity>>> queryScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem);
+
+    //SMT 确认完毕 Todo
+    @POST("api/production/scSteelPlateUplineList")
+    Observable<BaseResponse<Object>> confirmEnd(@Query("loadType") String loadType,@Query("workItem") String workItem);
+
+    //查询工单 Todo
+    @POST("api/production/scSteelPlateUplineList")
+    Observable<BaseResponse<Object>> queryWorkItem(@Query("lineClass") String lineClass);
+
+
+    //质检 上传扫码记录 //Todo
+    @POST("api/production/insertLoadmaterial")
+    Observable<BaseResponse<Object>> uploadQualityScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation);
+
+    //质检 查询扫码记录 Todo
+    @POST("api/production/scSteelPlateUplineList")
+    Observable<BaseResponse<Object>> queryQualityScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem);
 
 }
