@@ -58,7 +58,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="80dp"
@@ -77,6 +78,18 @@
                 android:hint="请输入工单号"
                 android:imeOptions="actionDone"
                 android:text="@={viewModel.orderID}" />
+            <TextView
+                android:id="@+id/query_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="查找"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onQuery}" />
         </LinearLayout>
 
         <Button

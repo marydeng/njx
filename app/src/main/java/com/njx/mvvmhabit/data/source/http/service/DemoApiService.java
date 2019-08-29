@@ -4,6 +4,7 @@ import com.njx.mvvmhabit.entity.DemoEntity;
 import com.njx.mvvmhabit.entity.MenuEntity;
 import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.OrderEntity;
+import com.njx.mvvmhabit.entity.OrderListEntity;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
@@ -64,32 +65,40 @@ public interface DemoApiService {
     Observable<BaseResponse<String>> commitProduceCode(@Query("palletNumber") String zhanbanId, @Query("number") String num, @Query("checkResult") String testType, @Query("productBarcode") String produceCode, @Query("operator") String operator);
 
     //SMT 清除工单 Todo
-    @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<Object>> clearWorkItem(@Query("workItem") String workItem);
+    @POST("api/production/clearLoadMaterial")
+    Observable<BaseResponse<Object>> clearWorkItem(@Query("workorderNumber") String workItem,@Query("loadStatus") String loadStatus);
 
-    //SMT 上传扫码记录 //Todo
+    //SMT 上传上料扫码记录
     @POST("api/production/insertLoadmaterial")
-    Observable<BaseResponse<Object>> uploadScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation);
+    Observable<BaseResponse<Object>> uploadScanRecord(@Query("loadType") String loadType,@Query("loadStatus") String loadStatus, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
+    //SMT 上传接料扫码记录
+    @POST("api/production/insertLoadmaterial")
+    Observable<BaseResponse<Object>> uploadMaterChangeScanRecord(@Query("loadType") String loadType,@Query("loadStatus") String loadStatus, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll,@Query("materialRollNew") String materialRollNew, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
+    //SMT 上传料枪变更扫码记录
+    @POST("api/production/changeMaterialRack")
+    Observable<BaseResponse<Object>> uploadGunChangeScanRecord(@Query("loadType") String loadType,@Query("loadStatus") String loadStatus, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun,@Query("materialRackNew") String materialGunNew, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
+    //SMT查询扫码记录
+    @POST("api/production/selectLoadMaterial")
+    Observable<BaseResponse<List<SMTRecordEntity>>> queryScanRecord(@Query("loadType") String loadType, @Query("workorderNumber") String workItem);
 
-    //SMT查询扫码记录 Todo
-    @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<List<SMTRecordEntity>>> queryScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem);
+    //SMT 确认完毕
+    @POST("api/production/comfirmLoadmaterial")
+    Observable<BaseResponse<List<String>>> confirmEnd(@Query("loadType") String loadType,@Query("workorderNumber") String workItem);
 
-    //SMT 确认完毕 Todo
-    @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<Object>> confirmEnd(@Query("loadType") String loadType,@Query("workItem") String workItem);
-
-    //查询工单 Todo
-    @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<Object>> queryWorkItem(@Query("lineClass") String lineClass);
+    //查询工单列表
+    @POST("api/production/selectWorkorderByPresetLine")
+    Observable<BaseResponse<OrderListEntity>> queryWorkItem(@Query("presetLine") String lineClass,@Query("pageNum") int pageNum,@Query("pageSize") int pageSize);
 
 
     //质检 上传扫码记录 //Todo
-    @POST("api/production/insertLoadmaterial")
-    Observable<BaseResponse<Object>> uploadQualityScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation);
+    @POST("api/production/insertPqc")
+    Observable<BaseResponse<Object>> uploadQualityScanRecord(@Query("loadType") String loadType, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
 
     //质检 查询扫码记录 Todo
-    @POST("api/production/scSteelPlateUplineList")
-    Observable<BaseResponse<Object>> queryQualityScanRecord(@Query("loadType") String loadType, @Query("workItem") String workItem);
+    @POST("api/production/selectPqc")
+    Observable<BaseResponse<List<SMTRecordEntity>>> queryQualityScanRecord(@Query("loadType") String loadType, @Query("workorderNumber") String workItem);
 
+    //SMT input
+    @POST("api/production/addSmtInput")
+    Observable<BaseResponse<String>> addSMTInput(@Query("remark") String orderID, @Query("operator ") String operator , @Query("productBarcode ") String productBarcode );
 }

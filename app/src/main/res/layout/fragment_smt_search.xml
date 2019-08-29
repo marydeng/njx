@@ -25,10 +25,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="80dp"
@@ -54,7 +55,8 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="80dp"
@@ -74,6 +76,7 @@
                 android:hint="请输入工单号"
                 android:imeOptions="actionDone"
                 android:text="@={viewModel.orderID}" />
+
             <TextView
                 android:id="@+id/query_button"
                 android:layout_width="wrap_content"
@@ -106,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="40dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="30dp"
             android:layout_marginRight="40dp"
             android:background="@drawable/form_btn_bg"
             android:text="完毕确认"

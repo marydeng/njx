@@ -17,30 +17,50 @@ import com.njx.mvvmhabit.ui.produce.MaterChangeOperateFragment;
 import com.njx.mvvmhabit.ui.produce.SMTOperateFragment;
 import com.njx.mvvmhabit.utils.RetrofitClient;
 
+import java.util.List;
+
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
+import me.goldze.mvvmhabit.binding.command.BindingConsumer;
+import me.goldze.mvvmhabit.bus.Messenger;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class SMTSearchViewModel extends ToolbarViewModel {
-    public ObservableField<String> SMTTypeTxt = new ObservableField<>("");
+
+    public ObservableField<String> SMTTypeTxt = new ObservableField<>("上料");
     public ObservableField<String> orderID = new ObservableField<>("");
     private DemoApiService apiService;
+    //封装一个界面发生改变的观察者
+    public UIChangeObservable uc = new UIChangeObservable();
 
+    public class UIChangeObservable {
+        //密码开关观察者
+        public SingleLiveEvent<Boolean> showConfirmDialog = new SingleLiveEvent<>();
+    }
 
     public SMTSearchViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void initToolBar() {
-        setTitleText("SMT换料");
+        setTitleText("SMT上料");
         apiService = RetrofitClient.getInstance().create(DemoApiService.class);
+
+        Messenger.getDefault().register(this, Constant.TOKEN__Receive_Work_Item, String.class, new BindingConsumer<String>() {
+            @Override
+            public void call(String workItem) {
+                orderID.set(workItem);
+            }
+        });
     }
+
 
     public BindingCommand onSearchCommand = new BindingCommand(new BindingAction() {
         @Override
@@ -59,14 +79,11 @@ public class SMTSearchViewModel extends ToolbarViewModel {
             bundle.putString(SMTOperateFragment.Extra_order_id, orderID.get());
             if ("上料".equals(SMTTypeTxt.get())) {
                 startContainerActivity(SMTOperateFragment.class.getCanonicalName(), bundle);
-            } else if ("换料".equals(SMTTypeTxt.get())) {
+            } else if ("料枪变更".equals(SMTTypeTxt.get())) {
                 startContainerActivity(GunChangeOperateFragment.class.getCanonicalName(), bundle);
-            } else if ("换料枪".equals(SMTTypeTxt.get())) {
+            } else if ("接料".equals(SMTTypeTxt.get())) {
                 startContainerActivity(MaterChangeOperateFragment.class.getCanonicalName(), bundle);
-            } else if ("对料".equals(SMTTypeTxt.get())) {
-                startContainerActivity(SMTOperateFragment.class.getCanonicalName(), bundle);
             }
-
         }
     });
 
@@ -98,12 +115,16 @@ public class SMTSearchViewModel extends ToolbarViewModel {
                         showDialog();
                     }
                 })
-                .subscribe(new Consumer<BaseResponse<String>>() {
+                .subscribe(new Consumer<BaseResponse<List<String>>>() {
                     @Override
-                    public void accept(BaseResponse<String> response) throws Exception {
+                    public void accept(BaseResponse<List<String>> response) throws Exception {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
-                            ToastUtils.showShort("确认完毕成功");
+                            if (response.getResult() == null || response.getResult().size() == 0) {
+                                uc.showConfirmDialog.setValue(true);
+                            } else {
+                                uc.showConfirmDialog.setValue(false);
+                            }
                         } else {
                             ToastUtils.showShort(response.getMsg());
                         }
@@ -122,11 +143,13 @@ public class SMTSearchViewModel extends ToolbarViewModel {
                 });
     }
 
-    public BindingCommand onQuery=new BindingCommand(new BindingAction() {
+    public BindingCommand onQuery = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
             startContainerActivity(OrderListFragment.class.getCanonicalName());
         }
     });
+
+
 
 }

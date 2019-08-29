@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
+import com.njx.mvvmhabit.ui.common.OrderListFragment;
 import com.njx.mvvmhabit.ui.login.LoginViewModel;
 import com.njx.mvvmhabit.ui.produce.GunChangeOperateFragment;
 import com.njx.mvvmhabit.ui.produce.MaterChangeOperateFragment;
@@ -20,6 +21,8 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
+import me.goldze.mvvmhabit.binding.command.BindingConsumer;
+import me.goldze.mvvmhabit.bus.Messenger;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
@@ -45,6 +48,12 @@ public class SMTClearViewModel extends ToolbarViewModel {
     public void initToolBar() {
         setTitleText("清除工单");
         apiService = RetrofitClient.getInstance().create(DemoApiService.class);
+        Messenger.getDefault().register(this, Constant.TOKEN__Receive_Work_Item, String.class, new BindingConsumer<String>() {
+            @Override
+            public void call(String workItem) {
+                orderID.set(workItem);
+            }
+        });
     }
 
     public BindingCommand onClearCommand = new BindingCommand(new BindingAction() {
@@ -62,7 +71,7 @@ public class SMTClearViewModel extends ToolbarViewModel {
     });
 
     public void clearWorkItem(){
-        apiService.clearWorkItem(orderID.get())
+        apiService.clearWorkItem(orderID.get(),"下线")
                 .compose(RxUtils.<BaseResponse<Object>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -98,6 +107,11 @@ public class SMTClearViewModel extends ToolbarViewModel {
                                 });
     }
 
-
+    public BindingCommand onQuery = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            startContainerActivity(OrderListFragment.class.getCanonicalName());
+        }
+    });
 
 }

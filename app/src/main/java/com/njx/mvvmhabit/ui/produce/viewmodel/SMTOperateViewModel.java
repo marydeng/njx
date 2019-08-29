@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
@@ -44,7 +45,7 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
+        apiService.uploadScanRecord(smtType.get(),"上线", orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())

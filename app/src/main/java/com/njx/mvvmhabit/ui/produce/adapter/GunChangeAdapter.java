@@ -40,14 +40,8 @@ public class GunChangeAdapter extends RecyclerView.Adapter<GunChangeAdapter.SMTV
     @Override
     public void onBindViewHolder(@NonNull SMTViewHodler SMTViewHodler, final int position) {
         SMTRecordEntity feedingEntity = feedingEntityList.get(position);
-        String gun = feedingEntity.getMaterialGun();
-        if (!TextUtils.isEmpty(gun)) {
-            String[] gunList = gun.split(";");
-            if (gunList.length == 2) {
-                SMTViewHodler.newMaterGun.setText(gunList[0]);
-                SMTViewHodler.oldMaterGun.setText(gunList[1]);
-            }
-        }
+        SMTViewHodler.newMaterGun.setText(feedingEntity.getMaterialRackNew());
+        SMTViewHodler.oldMaterGun.setText(feedingEntity.getMaterialRack());
         SMTViewHodler.materStation.setText(feedingEntity.getMaterialStation());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {
             @Override

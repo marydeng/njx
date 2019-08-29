@@ -24,6 +24,8 @@ import com.njx.mvvmhabit.ui.main.bean.MenuBean;
 import com.njx.mvvmhabit.ui.main.viewmodel.MainViewModel;
 import com.njx.mvvmhabit.ui.produce.FQCConfigFragment;
 import com.njx.mvvmhabit.ui.produce.SMTClearFragment;
+import com.njx.mvvmhabit.ui.produce.SMTInputConfigFragment;
+import com.njx.mvvmhabit.ui.produce.SMTInputScanFragment;
 import com.njx.mvvmhabit.ui.produce.SMTSearchFragment;
 import com.njx.mvvmhabit.ui.produce.StealSearchFragment;
 import com.njx.mvvmhabit.ui.quality.QualitySearchFragment;
@@ -39,8 +41,6 @@ import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.utils.RxUtils;
 
 public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewModel> {
-    private String[] menus = {"入库", "出库", "退库", "退货", "调拨", "盘点", "上料", "对料", "钢板刮刀", "清除", "成品入库"};
-    private int[] icons = {R.mipmap.depot_in, R.mipmap.depot_out, R.mipmap.depot_back, R.mipmap.depot_purchase_return, R.mipmap.depot_transfer, R.mipmap.depot_check, R.mipmap.produce_consume, R.mipmap.produce_compare, R.mipmap.produce_gangban, R.mipmap.produce_clear, R.mipmap.trade_depot_in};
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,11 +58,6 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
         viewModel.initToolBar();
         viewModel.getMenuList();
 
-//        List<MenuBean> menuItemList=new ArrayList<>();
-//        for (int i = 0; i < menus.length; i++) {
-//            MenuBean menuBean=new MenuBean(icons[i],menus[i],i) ;
-//            menuItemList.add(menuBean);
-//        }
 
         viewModel.uc.menuListEvent.observe(this, new Observer<List<MenuBean>>() {
             @Override
@@ -92,6 +87,8 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
                             startContainerActivity(SMTClearFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("FQC")) {
                             startContainerActivity(FQCConfigFragment.class.getCanonicalName());
+                        } else if (menuBeans.get(position).getName().equals("SMTInput")) {
+                            startContainerActivity(SMTInputConfigFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("成品入库")) {
                             startContainerActivity(ProductStorageFragment.class.getCanonicalName());
                         }

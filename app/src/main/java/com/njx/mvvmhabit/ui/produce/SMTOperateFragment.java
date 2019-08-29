@@ -65,16 +65,17 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
-                startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
+                //Todo 待接口提供
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
+//                startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
             }
         });
         binding.recyclerview.setAdapter(smtAdapter);
 
         binding.gunScanEdit.requestFocus();
 
-
+        viewModel.queryRecordList();
     }
 
     @Override
@@ -127,27 +128,6 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         }
     }
 
-    private void createData() {
-        feedingEntityList = new ArrayList<>();
-
-        FeedingEntity feedingEntity1=new FeedingEntity("HSK2087908923HS00","HK2","OAH897NH55667788");
-        FeedingEntity feedingEntity2=new FeedingEntity("HSK2087908923HS01","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity3=new FeedingEntity("HSK2087908923HS02","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity4=new FeedingEntity("HSK2087908923HS03","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity5=new FeedingEntity("HSK2087908923HS04","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity6=new FeedingEntity("HSK2087908923HS05","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity7=new FeedingEntity("HSK2087908923HS06","HK3","OAH897NH55667788");
-        FeedingEntity feedingEntity8=new FeedingEntity("HSK2087908923HS07","HK3","OAH897NH55667788");
-
-        feedingEntityList.add(feedingEntity1);
-        feedingEntityList.add(feedingEntity2);
-        feedingEntityList.add(feedingEntity3);
-        feedingEntityList.add(feedingEntity4);
-        feedingEntityList.add(feedingEntity5);
-        feedingEntityList.add(feedingEntity6);
-        feedingEntityList.add(feedingEntity7);
-        feedingEntityList.add(feedingEntity8);
-    }
 
 
 }

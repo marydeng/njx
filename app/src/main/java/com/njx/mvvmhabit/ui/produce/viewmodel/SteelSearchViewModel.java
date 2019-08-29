@@ -11,6 +11,7 @@ import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.OrderEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
+import com.njx.mvvmhabit.ui.common.OrderListFragment;
 import com.njx.mvvmhabit.ui.produce.SteelOperateFragment;
 import com.njx.mvvmhabit.utils.RetrofitClient;
 
@@ -22,6 +23,7 @@ import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
+import me.goldze.mvvmhabit.bus.Messenger;
 import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
@@ -47,6 +49,12 @@ public class SteelSearchViewModel extends ToolbarViewModel {
 
     public void initToolBar() {
         setTitleText("钢板/刮刀");
+        Messenger.getDefault().register(this, Constant.TOKEN__Receive_Work_Item, String.class, new BindingConsumer<String>() {
+            @Override
+            public void call(String workItem) {
+                orderID.set(workItem);
+            }
+        });
     }
 
     public BindingCommand onSearchCommand = new BindingCommand(new BindingAction() {
@@ -184,6 +192,11 @@ public class SteelSearchViewModel extends ToolbarViewModel {
                                     }
                                 });
     }
-
+    public BindingCommand onQuery = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            startContainerActivity(OrderListFragment.class.getCanonicalName());
+        }
+    });
 
 }

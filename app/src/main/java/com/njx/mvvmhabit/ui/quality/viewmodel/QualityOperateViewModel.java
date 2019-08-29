@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
@@ -43,7 +44,7 @@ public class QualityOperateViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        apiService.uploadQualityScanRecord(smtType.get(), orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get())
+        apiService.uploadQualityScanRecord(smtType.get(),orderId.get(), gunTxt.get(), rollTxt.get(), stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -53,9 +54,9 @@ public class QualityOperateViewModel extends ToolbarViewModel {
                         showDialog();
                     }
                 })
-                .subscribe(new Consumer<BaseResponse<String>>() {
+                .subscribe(new Consumer<BaseResponse<Object>>() {
                     @Override
-                    public void accept(BaseResponse<String> response) throws Exception {
+                    public void accept(BaseResponse<Object> response) throws Exception {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
                             ToastUtils.showShort("提交记录成功");

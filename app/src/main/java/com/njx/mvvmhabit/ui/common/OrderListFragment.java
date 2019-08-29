@@ -4,13 +4,18 @@ import android.arch.lifecycle.Observer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.njx.mvvmhabit.BR;
 import com.njx.mvvmhabit.R;
+import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.databinding.FragmentOrderListBinding;
+import com.njx.mvvmhabit.entity.OrderListEntity;
 import com.njx.mvvmhabit.ui.common.viewmodel.OrderListViewModel;
+import com.njx.mvvmhabit.ui.produce.viewmodel.SMTSearchViewModel;
 import com.njx.mvvmhabit.ui.widget.spinner.bean.SpinnearBean;
 import com.njx.mvvmhabit.ui.widget.spinner.listener.OnSpinnerItemClickListener;
 
@@ -18,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
+import me.goldze.mvvmhabit.bus.Messenger;
 
 public class OrderListFragment extends BaseFragment<FragmentOrderListBinding, OrderListViewModel> {
     private ArrayList<SpinnearBean> lineList;
@@ -41,6 +47,8 @@ public class OrderListFragment extends BaseFragment<FragmentOrderListBinding, Or
             @Override
             public void onChanged(@Nullable List<String> lineNameList) {
                 lineList.clear();
+                SpinnearBean allBean = new SpinnearBean("全部", "");
+                lineList.add(allBean);
                 if (lineNameList != null && lineNameList.size() > 0) {
                     for (String lineName : lineNameList) {
                         SpinnearBean spinnearBean = new SpinnearBean(lineName, lineName);
@@ -51,13 +59,29 @@ public class OrderListFragment extends BaseFragment<FragmentOrderListBinding, Or
             }
         });
 
-        viewModel.uc.showOrderList.observe(this, new Observer<List<String>>() {
+        viewModel.uc.showOrderList.observe(this, new Observer<List<OrderListEntity.WorkEntity>>() {
             @Override
-            public void onChanged(@Nullable List<String> dataList) {
-                orderList.clear();
-                if (dataList != null && dataList.size() > 0) {
-                    orderList.addAll(dataList);
+            public void onChanged(@Nullable List<OrderListEntity.WorkEntity> dataList) {
+                if (!viewModel.isLoad) {
+                    orderList.clear();
                 }
+                if (dataList != null && dataList.size() > 0) {
+                    for (OrderListEntity.WorkEntity workEntity : dataList) {
+                        orderList.add(workEntity.getWorkorderNumber());
+                    }
+                }
+
+                if (viewModel.isLoad) {
+                    viewModel.isLoad = false;
+                    binding.twinklingRefreshLayout.finishLoadmore();
+                }
+
+                if (orderList.size() >= viewModel.totalSize) {
+                    binding.twinklingRefreshLayout.setEnableLoadmore(false);
+                } else {
+                    binding.twinklingRefreshLayout.setEnableLoadmore(true);
+                }
+                viewModel.mStartPage++;
                 orderAdapter.notifyDataSetChanged();
             }
         });
@@ -66,6 +90,11 @@ public class OrderListFragment extends BaseFragment<FragmentOrderListBinding, Or
     @Override
     public void initData() {
         super.initData();
+        viewModel.initToolBar();
+
+        binding.twinklingRefreshLayout.setEnableLoadmore(true);
+        binding.twinklingRefreshLayout.setEnableRefresh(false);
+
         lineList = new ArrayList<>();
 
         binding.lineTypeSpinner.setData(lineList);
@@ -73,13 +102,21 @@ public class OrderListFragment extends BaseFragment<FragmentOrderListBinding, Or
         binding.lineTypeSpinner.setOnSpinnerItemClickListener(new OnSpinnerItemClickListener() {
             @Override
             public void OnFinished(int position) {
-                viewModel.lineClass = lineList.get(position).getParaName();
+                viewModel.lineClass = lineList.get(position).getParaValue();
+                viewModel.mStartPage=1;
                 viewModel.queryOrderList();
             }
         });
 
         orderList = new ArrayList<>();
         orderAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_dropdown_item_1line, orderList);
+        binding.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Messenger.getDefault().send(orderList.get(position), Constant.TOKEN__Receive_Work_Item);
+                getActivity().finish();
+            }
+        });
         binding.listView.setAdapter(orderAdapter);
 
         viewModel.queryLine();

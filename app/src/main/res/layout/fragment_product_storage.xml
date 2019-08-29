@@ -19,13 +19,15 @@
             android:id="@+id/include"
             layout="@layout/layout_toolbar"
             binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="60dp"
@@ -45,19 +47,21 @@
                 android:background="@drawable/edit_bg"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入物料号"
+                android:hint="请输入货号"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:textColorHint="@color/textColorHint"
-                android:text="@{viewModel.location}"/>
+                android:text="@{viewModel.location}"
+                android:textColorHint="@color/textColorHint" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="60dp"
@@ -77,12 +81,11 @@
                 android:background="@drawable/edit_bg"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入箱号"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:text="@={viewModel.boxId}"
-                android:textColorHint="@color/textColorHint"
-                android:hint="请输入箱号"
-                />
+                android:textColorHint="@color/textColorHint" />
 
             <TextView
                 android:id="@+id/search_button"
@@ -97,13 +100,21 @@
                 android:textSize="16sp"
                 binding:onClickCommand="@{viewModel.onCommit}" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/common_hori_padding"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/common_hori_padding"
+            android:background="@color/divider" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/common_hori_padding"
-            android:paddingRight="@dimen/common_hori_padding"
-            android:layout_marginTop="20dp">
+            android:paddingRight="@dimen/common_hori_padding">
 
             <View
                 android:layout_width="1dp"

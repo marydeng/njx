@@ -40,15 +40,9 @@ public class MaterChangeAdapter extends RecyclerView.Adapter<MaterChangeAdapter.
     @Override
     public void onBindViewHolder(@NonNull SMTViewHodler SMTViewHodler, final int position) {
         SMTRecordEntity feedingEntity = feedingEntityList.get(position);
-        SMTViewHodler.materGun.setText(feedingEntity.getMaterialGun());
-        String roll = feedingEntity.getMaterialRoll();
-        if (!TextUtils.isEmpty(roll)) {
-            String[] rollList = roll.split(";");
-            if (rollList.length == 2) {
-                SMTViewHodler.newMaterRoll.setText(rollList[0]);
-                SMTViewHodler.oldMaterRoll.setText(rollList[1]);
-            }
-        }
+        SMTViewHodler.materGun.setText(feedingEntity.getMaterialRack());
+        SMTViewHodler.newMaterRoll.setText(feedingEntity.getMaterialRollNew());
+        SMTViewHodler.oldMaterRoll.setText(feedingEntity.getMaterialRoll());
         SMTViewHodler.materStation.setText(feedingEntity.getMaterialStation());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {
             @Override

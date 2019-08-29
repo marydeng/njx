@@ -45,7 +45,7 @@ public class SMTAdapter extends RecyclerView.Adapter<SMTAdapter.SMTViewHodler> {
     @Override
     public void onBindViewHolder(@NonNull SMTViewHodler SMTViewHodler, final int position) {
         SMTRecordEntity feedingEntity = feedingEntityList.get(position);
-        SMTViewHodler.materGun.setText(feedingEntity.getMaterialGun());
+        SMTViewHodler.materGun.setText(feedingEntity.getMaterialRack());
         SMTViewHodler.materRoll.setText(feedingEntity.getMaterialRoll());
         SMTViewHodler.materStation.setText(feedingEntity.getMaterialStation());
         SMTViewHodler.view.setOnClickListener(new View.OnClickListener() {

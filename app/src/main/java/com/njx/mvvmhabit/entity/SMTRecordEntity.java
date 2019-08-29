@@ -4,19 +4,14 @@ import java.util.Observable;
 
 // SMT 扫码记录
 public class SMTRecordEntity extends Observable {
-    private String materialGun;
+
     private String materialRoll;
+    private String materialRollNew;
     private String materialStation;
+    private String materialRack;
+    private String materialRackNew;
     private String type;
     private String workItem;
-
-    public String getMaterialGun() {
-        return materialGun;
-    }
-
-    public void setMaterialGun(String materialGun) {
-        this.materialGun = materialGun;
-    }
 
     public String getMaterialRoll() {
         return materialRoll;
@@ -48,5 +43,29 @@ public class SMTRecordEntity extends Observable {
 
     public void setWorkItem(String workItem) {
         this.workItem = workItem;
+    }
+
+    public String getMaterialRollNew() {
+        return materialRollNew;
+    }
+
+    public void setMaterialRollNew(String materialRollNew) {
+        this.materialRollNew = materialRollNew;
+    }
+
+    public String getMaterialRack() {
+        return materialRack;
+    }
+
+    public void setMaterialRack(String materialRack) {
+        this.materialRack = materialRack;
+    }
+
+    public String getMaterialRackNew() {
+        return materialRackNew;
+    }
+
+    public void setMaterialRackNew(String materialRackNew) {
+        this.materialRackNew = materialRackNew;
     }
 }

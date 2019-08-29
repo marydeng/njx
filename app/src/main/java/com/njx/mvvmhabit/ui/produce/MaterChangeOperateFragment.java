@@ -71,7 +71,7 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
             }
         });
         binding.recyclerview.setAdapter(smtAdapter);
-
+        viewModel.queryRecordList();
 
     }
 
@@ -109,8 +109,8 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
                     recordEntityList = dataList;
                 }
 
-                SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
-                smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
+                MaterChangeAdapter smtAdapter = new MaterChangeAdapter(getContext(), recordEntityList);
+                smtAdapter.setOnItemClickListener(new MaterChangeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position, View view) {
                         //Todo 待接口提供

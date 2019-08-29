@@ -77,6 +77,19 @@
                 android:imeOptions="actionDone"
                 android:text="@={viewModel.orderID}" />
 
+            <TextView
+                android:id="@+id/query_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="查找"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onQuery}" />
+
         </LinearLayout>
 
         <LinearLayout

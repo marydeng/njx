@@ -72,7 +72,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         });
         binding.recyclerview.setAdapter(smtAdapter);
 
-
+        viewModel.queryRecordList();
 
     }
 
@@ -88,8 +88,8 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
                     recordEntityList=dataList;
                 }
 
-                SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
-                smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
+                GunChangeAdapter smtAdapter = new GunChangeAdapter(getContext(), recordEntityList);
+                smtAdapter.setOnItemClickListener(new GunChangeAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int position, View view) {
                         //Todo 待接口提供

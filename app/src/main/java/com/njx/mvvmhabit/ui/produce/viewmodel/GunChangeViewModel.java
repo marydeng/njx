@@ -5,6 +5,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
@@ -38,13 +39,13 @@ public class GunChangeViewModel extends ToolbarViewModel {
     }
 
     public void initToolBar() {
-        setTitleText("上料管理");
+        setTitleText("料枪变更管理");
         apiService = RetrofitClient.getInstance().create(DemoApiService.class);
     }
 
     public void uploadRecord() {
         String gunList=newGunTxt.get()+";"+oldGunTxt.get();
-        apiService.uploadScanRecord(smtType.get(), orderId.get(), gunList, "", stationTxt.get())
+        apiService.uploadGunChangeScanRecord(smtType.get(),"上线", orderId.get(), oldGunTxt.get(),newGunTxt.get(), "", stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
