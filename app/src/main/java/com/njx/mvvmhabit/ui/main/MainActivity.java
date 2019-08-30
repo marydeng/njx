@@ -108,6 +108,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        ScannerInterface.getInstance().scan_stop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         ScannerInterface.destroy();

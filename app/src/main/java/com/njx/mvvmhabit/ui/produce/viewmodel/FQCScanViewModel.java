@@ -20,6 +20,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
+import me.goldze.mvvmhabit.binding.command.BindingConsumer;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
@@ -33,7 +34,7 @@ public class FQCScanViewModel extends ToolbarViewModel {
 
     public String zhanbanId;
     public String num;
-    public String testType;
+    public String testType="NG";
 
     public FQCScanViewModel(@NonNull Application application) {
         super(application);
@@ -59,7 +60,7 @@ public class FQCScanViewModel extends ToolbarViewModel {
     public void commitProduceCode(){
         //网络API服务
         DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
-        apiService.commitProduceCode(zhanbanId,num,testType,produceCode.get(), AppApplication.getInstance().userEntity.getUserName())
+        apiService.commitProduceCode(testType,produceCode.get(), AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -99,6 +100,11 @@ public class FQCScanViewModel extends ToolbarViewModel {
                                     }
                                 });
     }
-
+    public BindingCommand<String> onTestTypeCheckedChange=new BindingCommand<String>(new BindingConsumer<String>() {
+        @Override
+        public void call(String type) {
+            testType=type;
+        }
+    });
 
 }

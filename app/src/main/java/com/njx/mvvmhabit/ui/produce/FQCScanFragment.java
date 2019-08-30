@@ -32,12 +32,12 @@ public class FQCScanFragment extends BaseScanFragment<FragmentFqcScanBinding, FQ
     @Override
     public void initParam() {
         super.initParam();
-        Bundle bundle = getArguments();
-        if (null != bundle) {
-            zhanbanId = bundle.getString(Extra_zhanban_id);
-            num = bundle.getString(Extra_num);
-            testType = bundle.getString(Extra_test_type);
-        }
+//        Bundle bundle = getArguments();
+//        if (null != bundle) {
+//            zhanbanId = bundle.getString(Extra_zhanban_id);
+//            num = bundle.getString(Extra_num);
+//            testType = bundle.getString(Extra_test_type);
+//        }
 
     }
 
@@ -45,10 +45,10 @@ public class FQCScanFragment extends BaseScanFragment<FragmentFqcScanBinding, FQ
     public void initData() {
         super.initData();
         viewModel.initToolBar();
-        viewModel.zhanbanId = zhanbanId;
-        viewModel.num = num;
-        viewModel.testType = testType;
-        viewModel.numStatic.set("0/" + num);
+//        viewModel.zhanbanId = zhanbanId;
+//        viewModel.num = num;
+//        viewModel.testType = testType;
+//        viewModel.numStatic.set("0/" + num);
 
         binding.endButton.setOnClickListener(new View.OnClickListener() {
             @Override

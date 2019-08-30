@@ -66,12 +66,12 @@ public class SMTSearchFragment extends BaseFragment<FragmentSmtSearchBinding, SM
         viewModel.uc.showConfirmDialog.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                String msg;
-                if (aBoolean) {
-                    msg = viewModel.SMTTypeTxt.get() + "成功";
-                } else {
-                    msg = viewModel.SMTTypeTxt.get() + "失败";
-                }
+                String msg="上料成功";
+//                if (aBoolean) {
+//                    msg = viewModel.SMTTypeTxt.get() + "成功";
+//                } else {
+//                    msg = viewModel.SMTTypeTxt.get() + "失败";
+//                }
                 MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialogNoCancel(getActivity(), "上料结果确认", msg);
                 builder.show();
 

@@ -90,11 +90,6 @@ public class SMTSearchViewModel extends ToolbarViewModel {
     public BindingCommand onConfirmCommand = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if (TextUtils.isEmpty(SMTTypeTxt.get())) {
-                ToastUtils.showShort("请输入SMT类型！");
-                return;
-            }
-
             if (TextUtils.isEmpty(orderID.get())) {
                 ToastUtils.showShort("请输入工单号！");
                 return;
@@ -105,7 +100,7 @@ public class SMTSearchViewModel extends ToolbarViewModel {
     });
 
     public void confirmEnd() {
-        apiService.confirmEnd(SMTTypeTxt.get(), orderID.get())
+        apiService.confirmEnd("上线", orderID.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())

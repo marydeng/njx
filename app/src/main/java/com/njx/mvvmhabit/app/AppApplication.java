@@ -61,4 +61,5 @@ public class AppApplication extends BaseApplication {
         SPUtils.getInstance().remove(Constant.SP_Coonkie_Key);
 
     }
+
 }

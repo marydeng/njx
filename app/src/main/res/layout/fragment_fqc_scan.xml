@@ -24,6 +24,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:padding="16sp">
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="检验结果:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                binding:onCheckedChangedCommand="@{viewModel.onTestTypeCheckedChange}"
+                >
+
+                <RadioButton
+                    android:id="@+id/ng_radiobtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NG"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/ok_radiobtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OK"
+                    android:layout_marginLeft="20dp"/>
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal">
@@ -72,7 +110,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:orientation="horizontal"
-            android:padding="16sp">
+            android:padding="16sp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="80dp"

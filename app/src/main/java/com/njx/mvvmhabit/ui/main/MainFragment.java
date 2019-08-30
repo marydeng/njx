@@ -23,6 +23,7 @@ import com.njx.mvvmhabit.ui.main.adapter.MenuAdapter;
 import com.njx.mvvmhabit.ui.main.bean.MenuBean;
 import com.njx.mvvmhabit.ui.main.viewmodel.MainViewModel;
 import com.njx.mvvmhabit.ui.produce.FQCConfigFragment;
+import com.njx.mvvmhabit.ui.produce.FQCScanFragment;
 import com.njx.mvvmhabit.ui.produce.SMTClearFragment;
 import com.njx.mvvmhabit.ui.produce.SMTInputConfigFragment;
 import com.njx.mvvmhabit.ui.produce.SMTInputScanFragment;
@@ -86,7 +87,7 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
                         } else if (menuBeans.get(position).getName().equals("清除")) {
                             startContainerActivity(SMTClearFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("FQC")) {
-                            startContainerActivity(FQCConfigFragment.class.getCanonicalName());
+                            startContainerActivity(FQCScanFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("SMTInput")) {
                             startContainerActivity(SMTInputConfigFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("成品入库")) {

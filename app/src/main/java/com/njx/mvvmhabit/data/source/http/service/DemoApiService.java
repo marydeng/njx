@@ -62,7 +62,7 @@ public interface DemoApiService {
 
     //fqc 上传生产条码
     @POST("api/fqc/add")
-    Observable<BaseResponse<String>> commitProduceCode(@Query("palletNumber") String zhanbanId, @Query("number") String num, @Query("checkResult") String testType, @Query("productBarcode") String produceCode, @Query("operator") String operator);
+    Observable<BaseResponse<String>> commitProduceCode( @Query("checkResult") String testType, @Query("productBarcode") String produceCode, @Query("operator") String operator);
 
     //SMT 清除工单 Todo
     @POST("api/production/clearLoadMaterial")
@@ -83,7 +83,7 @@ public interface DemoApiService {
 
     //SMT 确认完毕
     @POST("api/production/comfirmLoadmaterial")
-    Observable<BaseResponse<List<String>>> confirmEnd(@Query("loadType") String loadType,@Query("workorderNumber") String workItem);
+    Observable<BaseResponse<List<String>>> confirmEnd(@Query("loadStatus") String loadType,@Query("workorderNumber") String workItem);
 
     //查询工单列表
     @POST("api/production/selectWorkorderByPresetLine")
@@ -100,5 +100,5 @@ public interface DemoApiService {
 
     //SMT input
     @POST("api/production/addSmtInput")
-    Observable<BaseResponse<String>> addSMTInput(@Query("remark") String orderID, @Query("operator ") String operator , @Query("productBarcode ") String productBarcode );
+    Observable<BaseResponse<String>> addSMTInput(@Query("remark") String orderID, @Query("operator") String operator , @Query("productBarcode") String productBarcode );
 }
