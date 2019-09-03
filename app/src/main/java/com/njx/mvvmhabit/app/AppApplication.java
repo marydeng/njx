@@ -4,6 +4,7 @@ import com.njx.mvvmhabit.BuildConfig;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.login.LoginActivity;
+import com.njx.mvvmhabit.utils.RetrofitClient;
 import com.squareup.leakcanary.LeakCanary;
 
 import me.goldze.mvvmhabit.base.BaseApplication;
@@ -37,6 +38,8 @@ public class AppApplication extends BaseApplication {
         if (!LeakCanary.isInAnalyzerProcess(this)) {
             LeakCanary.install(this);
         }
+
+        RetrofitClient.baseUrl=SPUtils.getInstance().getString(Constant.SP_Coonkie_Key,Constant.defaultBaseUrl);
     }
 
     private void initCrash() {

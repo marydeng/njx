@@ -3,16 +3,29 @@ package com.njx.mvvmhabit.ui.login;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.lcodecore.tkrefreshlayout.utils.LogUtil;
 import com.njx.mvvmhabit.BR;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.app.AppViewModelFactory;
+import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.databinding.ActivityLoginBinding;
+import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import me.goldze.mvvmhabit.base.BaseActivity;
+import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
+import me.goldze.mvvmhabit.utils.SPUtils;
+import me.goldze.mvvmhabit.utils.ToastUtils;
 
 /**
  * 一个MVVM模式的登陆界面
@@ -53,6 +66,38 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
                     binding.ivSwichPasswrod.setImageResource(R.mipmap.show_psw_press);
                     binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+        super.initData();
+        binding.configTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MaterialDialog.Builder builder = MaterialDialogUtils.showInputDialog(LoginActivity.this, "IP配置", "IP:");
+                builder.onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        String ip = dialog.getInputEditText().getText().toString().trim();
+                        if (TextUtils.isEmpty(ip)) {
+                            ToastUtils.showShort("请输入服务器IP地址！");
+                        } else {
+                            if (ip.split("\\.").length != 4) {
+                                ToastUtils.showShort("IP地址不符合规范！");
+                            } else {
+                                SPUtils.getInstance().put(Constant.SP_Base_URL_Key, dialog.getInputEditText().getText().toString().trim());
+                                RetrofitClient.baseUrl = SPUtils.getInstance().getString(Constant.SP_Base_URL_Key);
+                                RetrofitClient.reCreateClient();
+                                LogUtil.i("ip 地址："+ip);
+                            }
+                        }
+                    }
+                });
+                MaterialDialog dialog = builder.show();
+                dialog.getInputEditText().setHint("");
+                dialog.getInputEditText().setText(RetrofitClient.baseUrl);
             }
         });
     }

@@ -172,12 +172,15 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/config_txt"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="模拟一个登陆操作,随便输入账号密码点击登录即可进入"
-                android:textColor="#EE1010"
-                android:visibility="invisible"/>
+                android:text="IP配置"
+                android:textSize="14sp"
+                android:textColor="@color/textColor"
+                android:layout_marginTop="10dp"
+                />
         </LinearLayout>
     </RelativeLayout>
 </layout>

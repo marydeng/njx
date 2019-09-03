@@ -11,4 +11,7 @@ public class Constant {
     public static final int Ret_NOTICE_ERROR=500;//Todo 需要提示的错误
 
     public static final String SP_Coonkie_Key="coonkie_key";
+    public static final String SP_Base_URL_Key="base_url_key";
+
+    public static final String defaultBaseUrl="http://192.168.1.137:8080/";
 }

@@ -10,8 +10,10 @@ import android.view.View;
 import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.DemoRepository;
+import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.main.MainActivity;
+import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -98,8 +100,8 @@ public class LoginViewModel extends BaseViewModel<DemoRepository> {
             ToastUtils.showShort("请输入密码！");
             return;
         }
-
-        model.login(userName.get(), password.get())
+        DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
+        apiService.login(userName.get(), password.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())

@@ -2,6 +2,7 @@ package com.njx.mvvmhabit.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.SurfaceHolder;
 
 import com.njx.mvvmhabit.BuildConfig;
 import com.njx.mvvmhabit.data.source.http.Interceptor.AddCookiesInterceptor;
@@ -41,7 +42,7 @@ public class RetrofitClient {
     //缓存时间
     private static final int CACHE_TIMEOUT = 10 * 1024 * 1024;
     //服务端根路径
-    public static String baseUrl = "http://192.168.1.66:81/";
+    public static String baseUrl = "http://192.168.1.137:8080/";
 
     private static Context mContext = Utils.getContext();
 
@@ -53,6 +54,10 @@ public class RetrofitClient {
 
     private static class SingletonHolder {
         private static RetrofitClient INSTANCE = new RetrofitClient();
+
+        public static void reCreate(){
+            INSTANCE=new RetrofitClient();
+        }
     }
 
     public static RetrofitClient getInstance() {
@@ -143,5 +148,9 @@ public class RetrofitClient {
                 .subscribe(subscriber);
 
         return null;
+    }
+
+    public static void reCreateClient(){
+        SingletonHolder.reCreate();
     }
 }
