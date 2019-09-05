@@ -25,6 +25,7 @@ import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewModel> {
+    public static final String UBX_i6200S="i6200S";
     private List<BaseFragment> mFragments;
     private FragmentManager fragmentManager;
     private ScannerResultReceiver scannerResultReceiver;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
         scannerResultReceiver = new ScannerResultReceiver();
         registerReceiver(scannerResultReceiver, intentFilter);
 
-        if (Build.MODEL.startsWith("UBX")) {
+        if (Build.MODEL.startsWith(UBX_i6200S)) {
             ubxScan = new UBXScan();
             ubxScan.registerReceiver(this);
         }
@@ -129,7 +130,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
             unregisterReceiver(scannerResultReceiver);
         }
 
-        if (Build.MODEL.startsWith("UBX")) {
+        if (Build.MODEL.startsWith(UBX_i6200S)) {
             ubxScan.destroy();
         }
     }

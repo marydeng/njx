@@ -86,9 +86,9 @@ public class SMTClearViewModel extends ToolbarViewModel {
                                public void accept(BaseResponse<Object> response) throws Exception {
                                    //请求成功
                                    if (response.getCode() == Constant.Ret_SUCCESS) {
-                                       ToastUtils.showShort("删除工单成功");
+                                       ToastUtils.showShort("清除工单成功");
                                        } else {
-                                           ToastUtils.showShort("删除工单失败");
+                                           ToastUtils.showShort("清除工单失败");
                                        }
                                    }}
                         ,new Consumer<ResponseThrowable>() {

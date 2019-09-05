@@ -15,6 +15,7 @@ public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends Bas
 
     @Override
     public void initData() {
+
         super.initData();
         Messenger.getDefault().register(getContext(), Constant.TOKEN_SCAN_CONTENT_REC, String.class, new BindingConsumer<String>() {
             @Override
@@ -44,7 +45,7 @@ public abstract class BaseScanFragment<V extends ViewDataBinding, VM extends Bas
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Messenger.getDefault().unregister(this);
+        Messenger.getDefault().unregister(getContext());
     }
 
     protected void onGetScanCode(String scanCode) {

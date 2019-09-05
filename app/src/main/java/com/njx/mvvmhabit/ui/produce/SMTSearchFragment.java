@@ -21,6 +21,7 @@ import com.njx.mvvmhabit.ui.widget.spinner.bean.SpinnearBean;
 import com.njx.mvvmhabit.ui.widget.spinner.listener.OnSpinnerItemClickListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import me.goldze.mvvmhabit.base.BaseFragment;
 import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
@@ -63,18 +64,16 @@ public class SMTSearchFragment extends BaseFragment<FragmentSmtSearchBinding, SM
     @Override
     public void initViewObservable() {
         super.initViewObservable();
-        viewModel.uc.showConfirmDialog.observe(this, new Observer<Boolean>() {
+        viewModel.uc.showConfirmDialog.observe(this, new Observer<List<String>>() {
             @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                String msg="上料成功";
-//                if (aBoolean) {
-//                    msg = viewModel.SMTTypeTxt.get() + "成功";
-//                } else {
-//                    msg = viewModel.SMTTypeTxt.get() + "失败";
-//                }
-                MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialogNoCancel(getActivity(), "上料结果确认", msg);
-                builder.show();
-
+            public void onChanged(@Nullable List<String> dataList) {
+                if (dataList == null || dataList.size() == 0) {
+                    MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialogNoCancel(getActivity(), "上料结果确认", "上料成功");
+                    builder.show();
+                } else {
+                    MaterialDialog.Builder builder=MaterialDialogUtils.showBasicListDialog(getActivity(),"上料失败，以下料站未上料",dataList);
+                    builder.show();
+                }
             }
         });
     }

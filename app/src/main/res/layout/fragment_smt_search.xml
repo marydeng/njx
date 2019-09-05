@@ -23,98 +23,99 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:padding="16sp"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <TextView
-                android:layout_width="80dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="SMT类型:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:orientation="horizontal"
+                android:padding="16sp">
 
-            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
-                android:id="@+id/smt_type_spinner"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="@dimen/spinnerpop_height"
-                android:background="@drawable/edit_bg"
-                />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="SMT类型:"
+                    android:textColor="@color/textColor"
+                    android:textSize="18sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:padding="16sp"
-            android:gravity="center_vertical">
+                <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
+                    android:id="@+id/smt_type_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spinnerpop_height"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_bg" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="80dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="工单号:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="16sp">
 
-            <EditText
-                android:id="@+id/dept_class_auto"
-                style="@style/search_edit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:completionThreshold="1"
-                android:hint="请输入工单号"
-                android:imeOptions="actionDone"
-                android:text="@={viewModel.orderID}" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="工单号:"
+                    android:textColor="@color/textColor"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/query_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                <EditText
+                    android:id="@+id/dept_class_auto"
+                    style="@style/search_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:completionThreshold="1"
+                    android:hint="请输入工单号"
+                    android:imeOptions="actionDone"
+                    android:text="@={viewModel.orderID}" />
+
+                <TextView
+                    android:id="@+id/query_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/form_btn_bg"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="查找"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp"
+                    binding:onClickCommand="@{viewModel.onQuery}" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginRight="40dp"
                 android:background="@drawable/form_btn_bg"
-                android:padding="4dp"
-                android:singleLine="true"
-                android:text="查找"
+                android:text="搜索"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
-                binding:onClickCommand="@{viewModel.onQuery}" />
+                android:textSize="20sp"
+                binding:onClickCommand="@{viewModel.onSearchCommand}" />
+
+            <Button
+                android:id="@+id/confirm_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/form_btn_bg"
+                android:text="完毕确认"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                binding:onClickCommand="@{viewModel.onConfirmCommand}" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/search_button"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/form_btn_bg"
-            android:text="搜索"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            binding:onClickCommand="@{viewModel.onSearchCommand}" />
-
-        <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/form_btn_bg"
-            android:text="完毕确认"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            binding:onClickCommand="@{viewModel.onConfirmCommand}" />
     </LinearLayout>
 </layout>

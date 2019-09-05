@@ -24,9 +24,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginRight="20dp"
+
+            android:layout_marginTop="100dp"
+
             android:orientation="horizontal"
             android:padding="16sp">
 
@@ -46,20 +46,20 @@
                 android:layout_weight="1"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
+                android:enabled="false"
                 android:imeOptions="actionNext"
-                android:text="清除工单"
-                android:enabled="false"/>
+                android:text="清除工单" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+
             android:layout_marginTop="30dp"
-            android:layout_marginRight="20dp"
+
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16sp"
-            android:gravity="center_vertical">
+            android:padding="16sp">
 
             <TextView
                 android:layout_width="80dp"
@@ -68,6 +68,7 @@
                 android:text="工单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
+
             <EditText
                 android:id="@+id/clear_order_edit"
                 style="@style/search_edit"
@@ -78,6 +79,7 @@
                 android:hint="请输入工单号"
                 android:imeOptions="actionDone"
                 android:text="@={viewModel.orderID}" />
+
             <TextView
                 android:id="@+id/query_button"
                 android:layout_width="wrap_content"

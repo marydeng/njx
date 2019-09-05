@@ -42,7 +42,7 @@ public class SMTSearchViewModel extends ToolbarViewModel {
 
     public class UIChangeObservable {
         //密码开关观察者
-        public SingleLiveEvent<Boolean> showConfirmDialog = new SingleLiveEvent<>();
+        public SingleLiveEvent<List<String>> showConfirmDialog = new SingleLiveEvent<>();
     }
 
     public SMTSearchViewModel(@NonNull Application application) {
@@ -115,11 +115,7 @@ public class SMTSearchViewModel extends ToolbarViewModel {
                     public void accept(BaseResponse<List<String>> response) throws Exception {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
-                            if (response.getResult() == null || response.getResult().size() == 0) {
-                                uc.showConfirmDialog.setValue(true);
-                            } else {
-                                uc.showConfirmDialog.setValue(false);
-                            }
+                            uc.showConfirmDialog.setValue(response.getResult());
                         } else {
                             ToastUtils.showShort(response.getMsg());
                         }
@@ -144,7 +140,6 @@ public class SMTSearchViewModel extends ToolbarViewModel {
             startContainerActivity(OrderListFragment.class.getCanonicalName());
         }
     });
-
 
 
 }
