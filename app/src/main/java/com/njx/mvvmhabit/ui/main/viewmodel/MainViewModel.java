@@ -2,6 +2,7 @@ package com.njx.mvvmhabit.ui.main.viewmodel;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
@@ -39,13 +40,17 @@ public class MainViewModel extends ToolbarViewModel {
     //封装一个界面发生改变的观察者
     public UIChangeObsevable uc = new UIChangeObsevable();
 
-    public class UIChangeObsevable{
-        public SingleLiveEvent<List<MenuBean>> menuListEvent=new SingleLiveEvent<>();
+    public class UIChangeObsevable {
+        public SingleLiveEvent<List<MenuBean>> menuListEvent = new SingleLiveEvent<>();
 
     }
 
     public void getMenuList() {
         //网络API服务
+        if (AppApplication.getInstance().userEntity == null || TextUtils.isEmpty(AppApplication.getInstance().userEntity.getUserId())) {
+            ToastUtils.showShort("用户信息为空");
+            return;
+        }
         DemoApiService apiService = RetrofitClient.getInstance().create(DemoApiService.class);
         apiService.getMenuList(AppApplication.getInstance().userEntity.getUserId())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
@@ -58,26 +63,28 @@ public class MainViewModel extends ToolbarViewModel {
                     }
                 })
                 .subscribe(new Consumer<BaseResponse<List<MenuEntity>>>() {
-                    @Override
-                    public void accept(BaseResponse<List<MenuEntity>> response) throws Exception {
-                        //请求成功
-                        if (response.getCode() == Constant.Ret_SUCCESS) {
-                            List<MenuEntity> menuListEntity = response.getResult();
-                            if (menuListEntity != null) {
-                                List<MenuBean> menuBeanList = new ArrayList<>();
-                                for (int i = 0; i < menuListEntity.size(); i++) {
-                                    MenuEntity menuEntity = menuListEntity.get(i);
-                                    MenuBean menuBean = new MenuBean(menuEntity.getIcon(), menuEntity.getMenuName(), i);
-                                    menuBeanList.add(menuBean);
-                                }
-                                if (menuBeanList.size() != 0) {
-                                    uc.menuListEvent.setValue(menuBeanList);
-                                }
-                            } else {
-                                ToastUtils.showShort("获取菜单失败");
-                            }
-                        }}}
-    ,new Consumer<ResponseThrowable>() {
+                               @Override
+                               public void accept(BaseResponse<List<MenuEntity>> response) throws Exception {
+                                   //请求成功
+                                   if (response.getCode() == Constant.Ret_SUCCESS) {
+                                       List<MenuEntity> menuListEntity = response.getResult();
+                                       if (menuListEntity != null) {
+                                           List<MenuBean> menuBeanList = new ArrayList<>();
+                                           for (int i = 0; i < menuListEntity.size(); i++) {
+                                               MenuEntity menuEntity = menuListEntity.get(i);
+                                               MenuBean menuBean = new MenuBean(menuEntity.getIcon(), menuEntity.getMenuName(), i);
+                                               menuBeanList.add(menuBean);
+                                           }
+                                           if (menuBeanList.size() != 0) {
+                                               uc.menuListEvent.setValue(menuBeanList);
+                                           }
+                                       } else {
+                                           ToastUtils.showShort("获取菜单失败");
+                                       }
+                                   }
+                               }
+                           }
+                        , new Consumer<ResponseThrowable>() {
                             @Override
                             public void accept(ResponseThrowable throwable) throws Exception {
                                 dismissDialog();
@@ -91,6 +98,6 @@ public class MainViewModel extends ToolbarViewModel {
                                         dismissDialog();
                                     }
                                 });
-                    }
+    }
 
-                }
+}
