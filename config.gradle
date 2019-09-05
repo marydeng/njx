@@ -5,7 +5,7 @@ ext {
             buildToolsVersion: "28.0.0",
             applicationId    : "com.njx.mvvmhabit",
             minSdkVersion    : 15,
-            targetSdkVersion : 28,
+            targetSdkVersion : 24,
             versionCode      : 1,
             versionName      : "1.0",
     ]

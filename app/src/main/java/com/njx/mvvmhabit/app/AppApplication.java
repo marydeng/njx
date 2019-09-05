@@ -39,7 +39,7 @@ public class AppApplication extends BaseApplication {
             LeakCanary.install(this);
         }
 
-        RetrofitClient.baseUrl=SPUtils.getInstance().getString(Constant.SP_Coonkie_Key,Constant.defaultBaseUrl);
+        RetrofitClient.baseUrl=SPUtils.getInstance().getString(Constant.SP_Base_URL_Key,Constant.defaultBaseUrl);
     }
 
     private void initCrash() {

@@ -1,6 +1,7 @@
 package com.njx.mvvmhabit.ui.main;
 
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.databinding.ActivityMainBinding;
 import com.njx.mvvmhabit.ui.receiver.ScannerResultReceiver;
 import com.njx.mvvmhabit.utils.ScannerInterface;
+import com.njx.mvvmhabit.utils.UBXScan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     private List<BaseFragment> mFragments;
     private FragmentManager fragmentManager;
     private ScannerResultReceiver scannerResultReceiver;
+    private UBXScan ubxScan;
 
     @Override
     public int initContentView(Bundle savedInstanceState) {
@@ -53,6 +56,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
 
         scannerResultReceiver = new ScannerResultReceiver();
         registerReceiver(scannerResultReceiver, intentFilter);
+
+        if (Build.MODEL.startsWith("UBX")) {
+            ubxScan = new UBXScan();
+            ubxScan.registerReceiver(this);
+        }
     }
 
     private void initFragment() {
@@ -117,7 +125,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
     protected void onDestroy() {
         super.onDestroy();
         ScannerInterface.destroy();
-        if (scannerResultReceiver != null)
+        if (scannerResultReceiver != null) {
             unregisterReceiver(scannerResultReceiver);
+        }
+
+        if (Build.MODEL.startsWith("UBX")) {
+            ubxScan.destroy();
+        }
     }
 }

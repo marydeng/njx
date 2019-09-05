@@ -13,5 +13,5 @@ public class Constant {
     public static final String SP_Coonkie_Key="coonkie_key";
     public static final String SP_Base_URL_Key="base_url_key";
 
-    public static final String defaultBaseUrl="http://192.168.1.137:8080/";
+    public static final String defaultBaseUrl="http://192.168.1.123:8080/";
 }
