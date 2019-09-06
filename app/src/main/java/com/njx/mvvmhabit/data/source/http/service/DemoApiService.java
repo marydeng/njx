@@ -72,7 +72,7 @@ public interface DemoApiService {
     @POST("api/production/insertLoadmaterial")
     Observable<BaseResponse<Object>> uploadScanRecord(@Query("loadType") String loadType,@Query("loadStatus") String loadStatus, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
     //SMT 上传接料扫码记录
-    @POST("api/production/insertLoadmaterial")
+    @POST("api/production/ReLoadmaterial")
     Observable<BaseResponse<Object>> uploadMaterChangeScanRecord(@Query("loadType") String loadType,@Query("loadStatus") String loadStatus, @Query("workorderNumber") String workItem, @Query("materialRack") String materialGun, @Query("materialRoll") String materialRoll,@Query("materialRollNew") String materialRollNew, @Query("materialStation") String materialStation, @Query("loadPeople") String loadPeople);
     //SMT 上传料枪变更扫码记录
     @POST("api/production/changeMaterialRack")

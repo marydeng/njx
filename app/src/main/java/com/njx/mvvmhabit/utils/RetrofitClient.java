@@ -38,8 +38,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitClient {
     //超时时间
-    private static final int DEFAULT_TIMEOUT = 20;
-    //缓存时间
+    private static final int DEFAULT_TIMEOUT =40; //=20;
+//    缓存时间
     private static final int CACHE_TIMEOUT = 10 * 1024 * 1024;
     //服务端根路径
     public static String baseUrl ;
