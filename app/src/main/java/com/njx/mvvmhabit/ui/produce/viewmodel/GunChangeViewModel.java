@@ -44,7 +44,6 @@ public class GunChangeViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        String gunList=newGunTxt.get()+";"+oldGunTxt.get();
         apiService.uploadGunChangeScanRecord(smtType.get(),"上线", orderId.get(), oldGunTxt.get(),newGunTxt.get(), "", stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
@@ -67,14 +66,14 @@ public class GunChangeViewModel extends ToolbarViewModel {
                             uc.clearEdit.call();
                             queryRecordList();
                         } else {
-                            ToastUtils.showShort(response.getMsg());
+                            uc.showErrorDialog.setValue(response.getMsg());
                         }
                     }
                 }, new Consumer<ResponseThrowable>() {
                     @Override
                     public void accept(ResponseThrowable throwable) throws Exception {
                         dismissDialog();
-                        ToastUtils.showShort(throwable.message);
+                        uc.showErrorDialog.setValue(throwable.message);
                     }
                 }, new Action() {
                     @Override
@@ -90,7 +89,7 @@ public class GunChangeViewModel extends ToolbarViewModel {
     public class UIChangeObsevable {
         public SingleLiveEvent<List<SMTRecordEntity>> listChangeEvent = new SingleLiveEvent<>();
         public SingleLiveEvent clearEdit=new SingleLiveEvent();
-
+        public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
     }
 
     public void queryRecordList() {

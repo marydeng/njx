@@ -1,6 +1,7 @@
 package com.njx.mvvmhabit.ui.produce;
 
 import android.arch.lifecycle.Observer;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.databinding.FragmentSteelOperateBinding;
 import com.njx.mvvmhabit.entity.SteelEntity;
@@ -17,6 +19,8 @@ import com.njx.mvvmhabit.ui.produce.viewmodel.SteelOperateViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
 public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateBinding, SteelOperateViewModel> {
     public static final String Extra_Line_Name = "SteelOperateFragment.station.id";
@@ -28,6 +32,7 @@ public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateB
     private String type = "";
     private String partNO = "";
     private String workId = "";
+    private boolean isShowErrorDialog = false;
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -101,15 +106,31 @@ public class SteelOperateFragment extends BaseScanFragment<FragmentSteelOperateB
                 binding.recyclerview.setAdapter(steelAdapter);
             }
         });
+
+        viewModel.uc.showErrorDialog.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                isShowErrorDialog = true;
+                MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", s);
+                builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        isShowErrorDialog = false;
+                    }
+                });
+            }
+        });
     }
 
     @Override
     protected void onGetScanCode(String scanCode) {
         binding.steelCodeEdit.setText(scanCode);
-        if (type.equals("上机台")) {
-            viewModel.upLineSteel();
-        } else if (type.equals("下机台")) {
-            viewModel.downlineSteel();
+        if (!isShowErrorDialog) {
+            if (type.equals("上机台")) {
+                viewModel.upLineSteel();
+            } else if (type.equals("下机台")) {
+                viewModel.downlineSteel();
+            }
         }
 
     }

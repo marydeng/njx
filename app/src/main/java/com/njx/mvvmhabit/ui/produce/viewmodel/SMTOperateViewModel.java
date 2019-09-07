@@ -35,6 +35,7 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     public ObservableField<String> stationTxt = new ObservableField<>();
     private DemoApiService apiService;
 
+
     public SMTOperateViewModel(@NonNull Application application) {
         super(application);
     }
@@ -67,14 +68,14 @@ public class SMTOperateViewModel extends ToolbarViewModel {
                             uc.clearEdit.call();
                             queryRecordList();
                         } else {
-                            ToastUtils.showShort(response.getMsg());
+                            uc.showErrorDialog.setValue(response.getMsg());
                         }
                     }
                 }, new Consumer<ResponseThrowable>() {
                     @Override
                     public void accept(ResponseThrowable throwable) throws Exception {
                         dismissDialog();
-                        ToastUtils.showShort(throwable.message);
+                        uc.showErrorDialog.setValue(throwable.getMessage());
                     }
                 }, new Action() {
                     @Override
@@ -90,6 +91,8 @@ public class SMTOperateViewModel extends ToolbarViewModel {
     public class UIChangeObsevable {
         public SingleLiveEvent<List<SMTRecordEntity>> listChangeEvent = new SingleLiveEvent<>();
         public SingleLiveEvent clearEdit=new SingleLiveEvent();
+        public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
+
 
     }
 

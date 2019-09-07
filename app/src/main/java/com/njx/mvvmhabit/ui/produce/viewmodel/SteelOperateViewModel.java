@@ -39,7 +39,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
 
     public class UIChangeObsevable {
         public SingleLiveEvent<List<SteelEntity>> steelListEvent = new SingleLiveEvent<>();
-
+        public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
     }
 
     public SteelOperateViewModel(@NonNull Application application) {
@@ -71,7 +71,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                        ToastUtils.showShort("上机台成功");
                                        getSteelList();
                                    } else {
-                                       ToastUtils.showShort(response.getMsg());
+                                       uc.showErrorDialog.setValue(response.getMsg());
                                    }
                                }
                            }
@@ -79,7 +79,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                             @Override
                             public void accept(ResponseThrowable throwable) throws Exception {
                                 dismissDialog();
-                                ToastUtils.showShort(throwable.message);
+                                uc.showErrorDialog.setValue(throwable.getMessage());
                             }
                         }, new Action() {
                             @Override
@@ -110,7 +110,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                                        ToastUtils.showShort("下机台成功");
                                        getSteelList();
                                    } else {
-                                       ToastUtils.showShort(response.getMsg());
+                                       uc.showErrorDialog.setValue(response.getMsg());
                                    }
 
                                }
@@ -119,7 +119,7 @@ public class SteelOperateViewModel extends ToolbarViewModel {
                             @Override
                             public void accept(ResponseThrowable throwable) throws Exception {
                                 dismissDialog();
-                                ToastUtils.showShort(throwable.message);
+                                uc.showErrorDialog.setValue(throwable.getMessage());
                             }
                         }, new
 

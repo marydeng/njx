@@ -1,6 +1,7 @@
 package com.njx.mvvmhabit.ui.produce;
 
 import android.arch.lifecycle.Observer;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.databinding.FragmentSmtOperateBinding;
 import com.njx.mvvmhabit.entity.FeedingEntity;
@@ -22,14 +24,16 @@ import com.njx.mvvmhabit.ui.produce.viewmodel.SMTOperateViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
+
 public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBinding, SMTOperateViewModel> {
     public static final String Extra_order_id = "SMTOperateFragment.order.id";
     public static final String Extra_smt_type = "SMTOperateFragment.smt.type";
     private List<FeedingEntity> feedingEntityList;
-    private String orderID ="";
-    private String smtType ="";
+    private String orderID = "";
+    private String smtType = "";
     private List<SMTRecordEntity> recordEntityList;
-
+    private boolean isShowErrorDialog = false;
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,10 +48,10 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
     @Override
     public void initParam() {
         super.initParam();
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            orderID =bundle.getString(Extra_order_id);
-            smtType =bundle.getString(Extra_smt_type);
+            orderID = bundle.getString(Extra_order_id);
+            smtType = bundle.getString(Extra_smt_type);
         }
     }
 
@@ -60,7 +64,7 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         viewModel.initToolBar();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
-        recordEntityList=new ArrayList<>();
+        recordEntityList = new ArrayList<>();
         SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
         smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
             @Override
@@ -84,10 +88,10 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         viewModel.uc.listChangeEvent.observe(this, new Observer<List<SMTRecordEntity>>() {
             @Override
             public void onChanged(@Nullable List<SMTRecordEntity> dataList) {
-                if(dataList==null){
-                    recordEntityList=new ArrayList<>();
-                }else {
-                    recordEntityList=dataList;
+                if (dataList == null) {
+                    recordEntityList = new ArrayList<>();
+                } else {
+                    recordEntityList = dataList;
                 }
 
                 SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
@@ -110,24 +114,39 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
                 binding.gunScanEdit.requestFocus();
             }
         });
+
+        viewModel.uc.showErrorDialog.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                isShowErrorDialog = true;
+                MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", s);
+                builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        isShowErrorDialog = false;
+                    }
+                });
+            }
+        });
     }
 
 
     @Override
     protected void onGetScanCode(String scanCode) {
         super.onGetScanCode(scanCode);
-        if(TextUtils.isEmpty(viewModel.gunTxt.get())){
-            viewModel.gunTxt.set(scanCode);
-            binding.rollScanEdit.requestFocus();
-        }else if(TextUtils.isEmpty(viewModel.rollTxt.get())){
-            viewModel.rollTxt.set(scanCode);
-            binding.stationScanEdit.requestFocus();
-        }else{
-            viewModel.stationTxt.set(scanCode);
-            viewModel.uploadRecord();
+        if (!isShowErrorDialog) {
+            if (TextUtils.isEmpty(viewModel.gunTxt.get())) {
+                viewModel.gunTxt.set(scanCode);
+                binding.rollScanEdit.requestFocus();
+            } else if (TextUtils.isEmpty(viewModel.rollTxt.get())) {
+                viewModel.rollTxt.set(scanCode);
+                binding.stationScanEdit.requestFocus();
+            } else {
+                viewModel.stationTxt.set(scanCode);
+                viewModel.uploadRecord();
+            }
         }
     }
-
 
 
 }

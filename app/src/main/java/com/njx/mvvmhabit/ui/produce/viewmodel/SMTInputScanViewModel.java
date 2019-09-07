@@ -10,6 +10,7 @@ import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
+import com.njx.mvvmhabit.ui.login.LoginViewModel;
 import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
@@ -28,6 +30,15 @@ public class SMTInputScanViewModel extends ToolbarViewModel {
     public ObservableField<String> prodouceBarcode = new ObservableField<>("");
     public String orderID;
     private DemoApiService apiService;
+    //封装一个界面发生改变的观察者
+    public UIChangeObservable uc = new UIChangeObservable();
+
+    public class UIChangeObservable {
+        //报警对话框开关观察者
+        public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
+    }
+
+
 
     public SMTInputScanViewModel(@NonNull Application application) {
         super(application);
@@ -58,14 +69,14 @@ public class SMTInputScanViewModel extends ToolbarViewModel {
                             ToastUtils.showShort("上传成功");
                             prodouceBarcode.set("");
                         } else {
-                            ToastUtils.showShort(response.getMsg());
+                            uc.showErrorDialog.setValue(response.getMsg());
                         }
                     }
                 }, new Consumer<ResponseThrowable>() {
                     @Override
                     public void accept(ResponseThrowable throwable) throws Exception {
                         dismissDialog();
-                        ToastUtils.showShort(throwable.message);
+                        uc.showErrorDialog.setValue(throwable.message);
                     }
                 }, new Action() {
                     @Override

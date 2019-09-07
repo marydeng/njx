@@ -10,10 +10,13 @@ import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.entity.OrderEntity;
+import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 import com.njx.mvvmhabit.ui.produce.SteelOperateFragment;
 import com.njx.mvvmhabit.utils.RetrofitClient;
+
+import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
@@ -21,6 +24,7 @@ import io.reactivex.functions.Consumer;
 import me.goldze.mvvmhabit.binding.command.BindingAction;
 import me.goldze.mvvmhabit.binding.command.BindingCommand;
 import me.goldze.mvvmhabit.binding.command.BindingConsumer;
+import me.goldze.mvvmhabit.bus.event.SingleLiveEvent;
 import me.goldze.mvvmhabit.http.BaseResponse;
 import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
@@ -35,6 +39,13 @@ public class FQCScanViewModel extends ToolbarViewModel {
     public String zhanbanId;
     public String num;
     public String testType="NG";
+
+    //封装一个界面发生改变的观察者
+    public UIChangeObsevable uc = new UIChangeObsevable();
+
+    public class UIChangeObsevable {
+        public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
+    }
 
     public FQCScanViewModel(@NonNull Application application) {
         super(application);
@@ -81,7 +92,7 @@ public class FQCScanViewModel extends ToolbarViewModel {
                                             numStatic.set(str+"/"+num);
                                        }
                                    }else{
-                                       ToastUtils.showShort(response.getMsg());
+                                     uc.showErrorDialog.setValue(response.getMsg());
                                    }
                                }
                            }
@@ -89,7 +100,7 @@ public class FQCScanViewModel extends ToolbarViewModel {
                             @Override
                             public void accept(ResponseThrowable throwable) throws Exception {
                                 dismissDialog();
-                                ToastUtils.showShort(throwable.message);
+                                uc.showErrorDialog.setValue(throwable.getMessage());
                             }
                         }, new
 
