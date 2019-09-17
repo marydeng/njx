@@ -85,6 +85,47 @@ public class MaterChangeViewModel extends ToolbarViewModel {
                     }
                 });
     }
+    public void checkStatus(String materialGun, String materialRoll, String materialStation) {
+        apiService.checkSMTStatus(materialGun, materialRoll, materialStation)
+                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
+                .compose(RxUtils.schedulersTransformer())
+                .compose(RxUtils.exceptionTransformer())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showDialog();
+                    }
+                })
+                .subscribe(new Consumer<BaseResponse<String>>() {
+                    @Override
+                    public void accept(BaseResponse<String> response) throws Exception {
+                        //请求成功
+                        if (response.getCode() == Constant.Ret_SUCCESS) {
+                            ToastUtils.showShort("OK");
+                        } else {
+                            uc.showErrorDialog.setValue(response.getMsg());
+                            dataClear();
+                        }
+                    }
+                }, new Consumer<ResponseThrowable>() {
+                    @Override
+                    public void accept(ResponseThrowable throwable) throws Exception {
+                        dismissDialog();
+                        uc.showErrorDialog.setValue(throwable.getMessage());
+                        dataClear();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissDialog();
+                    }
+                });
+    }
+
+    private void dataClear(){
+        newRollTxt.set("");
+        uc.rollEdit.call();
+    }
 
     //封装一个界面发生改变的观察者
     public UIChangeObsevable uc = new UIChangeObsevable();
@@ -92,6 +133,7 @@ public class MaterChangeViewModel extends ToolbarViewModel {
     public class UIChangeObsevable {
         public SingleLiveEvent<List<SMTRecordEntity>> listChangeEvent = new SingleLiveEvent<>();
         public SingleLiveEvent clearEdit=new SingleLiveEvent();
+        public SingleLiveEvent rollEdit = new SingleLiveEvent();
         public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
     }
 

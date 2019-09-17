@@ -20,7 +20,9 @@ import me.goldze.mvvmhabit.utils.MaterialDialogUtils;
 
 public class SMTInputScanFragment extends BaseScanFragment<FragmentSmtInputScanBinding, SMTInputScanViewModel> {
     public static final String Extra_order_id = "SMTInputScanFragment.order.id";
+    public static final String Extra_last_order_id = "SMTInputScanFragment.last.order.id";
     private String orderId;
+    private String lastWorkOrder;
     private boolean isShowErrorDialog = false;
 
     @Override
@@ -39,6 +41,7 @@ public class SMTInputScanFragment extends BaseScanFragment<FragmentSmtInputScanB
         Bundle bundle = getArguments();
         if (null != bundle) {
             orderId = bundle.getString(Extra_order_id);
+            lastWorkOrder=bundle.getString(Extra_last_order_id);
         }
 
     }
@@ -66,6 +69,7 @@ public class SMTInputScanFragment extends BaseScanFragment<FragmentSmtInputScanB
         super.initData();
         viewModel.initToolBar();
         viewModel.orderID = orderId;
+        viewModel.lastWorkOrder=lastWorkOrder;
     }
 
     @Override

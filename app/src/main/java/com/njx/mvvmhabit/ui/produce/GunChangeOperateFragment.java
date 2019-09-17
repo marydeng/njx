@@ -135,38 +135,37 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         super.onGetScanCode(scanCode);
         if (!isShowErrorDialog) {
             if (TextUtils.isEmpty(viewModel.newGunTxt.get())) {
+                if (TextUtils.isEmpty(scanCode)||scanCode.length()>18) {
+                    showErrorDialog("料枪扫错");
+                    return;
+                }
+                viewModel.checkStatus(scanCode, "", "");
                 viewModel.newGunTxt.set(scanCode);
                 binding.oldGunEdit.requestFocus();
             } else if (TextUtils.isEmpty(viewModel.oldGunTxt.get())) {
+                if (TextUtils.isEmpty(scanCode)||scanCode.length()>18) {
+                    showErrorDialog("料枪扫错");
+                    return;
+                }
                 viewModel.oldGunTxt.set(scanCode);
-                binding.stationScanEdit.requestFocus();
-            } else {
-                viewModel.stationTxt.set(scanCode);
                 viewModel.uploadRecord();
             }
+//            } else {
+//                viewModel.stationTxt.set(scanCode);
+//                viewModel.uploadRecord();
+//            }
         }
     }
 
-    private void createData() {
-        feedingEntityList = new ArrayList<>();
-
-        FeedingEntity feedingEntity1 = new FeedingEntity("HSK2087908923HS00", "HK2", "OAH897NH55667788");
-        FeedingEntity feedingEntity2 = new FeedingEntity("HSK2087908923HS01", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity3 = new FeedingEntity("HSK2087908923HS02", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity4 = new FeedingEntity("HSK2087908923HS03", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity5 = new FeedingEntity("HSK2087908923HS04", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity6 = new FeedingEntity("HSK2087908923HS05", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity7 = new FeedingEntity("HSK2087908923HS06", "HK3", "OAH897NH55667788");
-        FeedingEntity feedingEntity8 = new FeedingEntity("HSK2087908923HS07", "HK3", "OAH897NH55667788");
-
-        feedingEntityList.add(feedingEntity1);
-        feedingEntityList.add(feedingEntity2);
-        feedingEntityList.add(feedingEntity3);
-        feedingEntityList.add(feedingEntity4);
-        feedingEntityList.add(feedingEntity5);
-        feedingEntityList.add(feedingEntity6);
-        feedingEntityList.add(feedingEntity7);
-        feedingEntityList.add(feedingEntity8);
+    private void showErrorDialog(String msg) {
+        isShowErrorDialog = true;
+        MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", msg);
+        builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                isShowErrorDialog = false;
+            }
+        });
     }
 
 

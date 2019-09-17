@@ -3,7 +3,9 @@ package com.njx.mvvmhabit.ui.produce;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.njx.mvvmhabit.BR;
 import com.njx.mvvmhabit.R;
@@ -27,5 +29,18 @@ public class SMTInputConfigFragment extends BaseFragment<FragmentSmtInputConfigB
     public void initData() {
         super.initData();
         viewModel.initToolBar();
+        binding.lastOrderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.yes_radiobtn) {
+                    binding.lastOrderLinear.setVisibility(View.VISIBLE);
+                    viewModel.isConnectOrder=true;
+                } else {
+                    binding.lastOrderLinear.setVisibility(View.INVISIBLE);
+                    viewModel.isConnectOrder=false;
+                    viewModel.lastOrderID.set("");
+                }
+            }
+        });
     }
 }

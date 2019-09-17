@@ -20,6 +20,10 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
 
 public class SMTInputConfigViewModel extends ToolbarViewModel {
     public ObservableField<String> orderID = new ObservableField<>("");
+    public ObservableField<String> lastOrderID = new ObservableField<>("");
+    private boolean isLastOrder = false;
+    public boolean isConnectOrder=false;
+
 
     public SMTInputConfigViewModel(@NonNull Application application) {
         super(application);
@@ -30,32 +34,52 @@ public class SMTInputConfigViewModel extends ToolbarViewModel {
         Messenger.getDefault().register(this, Constant.TOKEN__Receive_Work_Item, String.class, new BindingConsumer<String>() {
             @Override
             public void call(String workItem) {
-                orderID.set(workItem);
+                if (isLastOrder) {
+                    lastOrderID.set(workItem);
+                } else {
+                    orderID.set(workItem);
+                }
             }
         });
     }
 
-    public BindingCommand onOKClick=new BindingCommand(new BindingAction() {
+    public BindingCommand onOKClick = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if(TextUtils.isEmpty(orderID.get())){
+            if (TextUtils.isEmpty(orderID.get())) {
                 ToastUtils.showShort("请输入工单号！");
+                return;
+            }
+            if (isConnectOrder && TextUtils.isEmpty(lastOrderID.get())) {
+                ToastUtils.showShort("请输入承接工单号！");
                 return;
             }
 
             //携带参数，跳转页面
             Bundle bundle = new Bundle();
             bundle.putString(SMTInputScanFragment.Extra_order_id, orderID.get());
+            bundle.putString(SMTInputScanFragment.Extra_last_order_id, lastOrderID.get());
             startContainerActivity(SMTInputScanFragment.class.getCanonicalName(), bundle);
             //清空配置页面
             orderID.set("");
+            lastOrderID.set("");
         }
     });
 
     public BindingCommand onQuery = new BindingCommand(new BindingAction() {
         @Override
         public void call() {
+            isLastOrder = false;
             startContainerActivity(OrderListFragment.class.getCanonicalName());
         }
     });
+
+    public BindingCommand onLastOrderQuery = new BindingCommand(new BindingAction() {
+        @Override
+        public void call() {
+            isLastOrder = true;
+            startContainerActivity(OrderListFragment.class.getCanonicalName());
+        }
+    });
+
 }

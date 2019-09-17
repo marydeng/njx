@@ -111,6 +111,12 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
                 binding.gunScanEdit.requestFocus();
             }
         });
+        viewModel.uc.rollEdit.observe(this, new Observer() {
+            @Override
+            public void onChanged(@Nullable Object o) {
+                binding.newRollEdit.requestFocus();
+            }
+        });
 
         viewModel.uc.showErrorDialog.observe(this, new Observer<String>() {
             @Override
@@ -133,18 +139,46 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
         super.onGetScanCode(scanCode);
         if (!isShowErrorDialog) {
             if (TextUtils.isEmpty(viewModel.gunTxt.get())) {
+                if(TextUtils.isEmpty(scanCode)||scanCode.length()>18 ){
+                    showErrorDialog("料枪扫错");
+                    return;
+                }
                 viewModel.gunTxt.set(scanCode);
                 binding.newRollEdit.requestFocus();
             } else if (TextUtils.isEmpty(viewModel.newRollTxt.get())) {
+                if(TextUtils.isEmpty(scanCode) || scanCode.length()<18){
+                    showErrorDialog("料卷扫错");
+                    return;
+                }
+                viewModel.checkStatus("",scanCode,"");
                 viewModel.newRollTxt.set(scanCode);
                 binding.oldRollEdit.requestFocus();
             } else if (TextUtils.isEmpty(viewModel.oldRollTxt.get())) {
+                if(TextUtils.isEmpty(scanCode) || scanCode.length()<18){
+                    showErrorDialog("料卷扫错");
+                    return;
+                }
                 viewModel.oldRollTxt.set(scanCode);
                 binding.stationScanEdit.requestFocus();
             } else {
+                if(TextUtils.isEmpty(scanCode) || scanCode.length()>14){
+                    showErrorDialog("料站扫错");
+                    return;
+                }
                 viewModel.stationTxt.set(scanCode);
                 viewModel.uploadRecord();
             }
         }
+    }
+
+    private void showErrorDialog(String msg){
+        isShowErrorDialog = true;
+        MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", msg);
+        builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                isShowErrorDialog = false;
+            }
+        });
     }
 }

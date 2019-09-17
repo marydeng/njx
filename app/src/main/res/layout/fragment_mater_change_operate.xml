@@ -235,18 +235,20 @@
                 android:gravity="center"
                 android:text="新料卷"
                 android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/divider" />
+                android:background="@color/divider"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="旧料卷"
+                android:text="料卷"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 

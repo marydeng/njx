@@ -126,7 +126,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="60dp"
@@ -189,7 +190,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="新料枪"
+                android:text="料枪"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -203,14 +204,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="旧料枪"
+                android:text="料卷"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/divider" />
+                android:background="@color/divider"
+                />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -218,7 +220,8 @@
                 android:gravity="center"
                 android:text="料站"
                 android:textColor="@color/textColor"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                />
 
             <View
                 android:layout_width="1dp"

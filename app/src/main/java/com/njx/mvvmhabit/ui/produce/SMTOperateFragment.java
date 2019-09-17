@@ -15,9 +15,7 @@ import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.databinding.FragmentSmtOperateBinding;
 import com.njx.mvvmhabit.entity.FeedingEntity;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
-import com.njx.mvvmhabit.entity.StorageEntity;
 import com.njx.mvvmhabit.ui.base.fragment.BaseScanFragment;
-import com.njx.mvvmhabit.ui.depot.adapter.StorageAdapter;
 import com.njx.mvvmhabit.ui.produce.adapter.SMTAdapter;
 import com.njx.mvvmhabit.ui.produce.viewmodel.SMTOperateViewModel;
 
@@ -108,10 +106,22 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
             }
         });
 
-        viewModel.uc.clearEdit.observe(this, new Observer() {
+        viewModel.uc.gunEdit.observe(this, new Observer() {
             @Override
             public void onChanged(@Nullable Object o) {
                 binding.gunScanEdit.requestFocus();
+            }
+        });
+        viewModel.uc.rollEdit.observe(this, new Observer() {
+            @Override
+            public void onChanged(@Nullable Object o) {
+                binding.rollScanEdit.requestFocus();
+            }
+        });
+        viewModel.uc.stationEdit.observe(this, new Observer() {
+            @Override
+            public void onChanged(@Nullable Object o) {
+                binding.stationScanEdit.requestFocus();
             }
         });
 
@@ -136,16 +146,41 @@ public class SMTOperateFragment extends BaseScanFragment<FragmentSmtOperateBindi
         super.onGetScanCode(scanCode);
         if (!isShowErrorDialog) {
             if (TextUtils.isEmpty(viewModel.gunTxt.get())) {
+                if(TextUtils.isEmpty(scanCode) || scanCode.length()>18 ){
+                    showErrorDialog("料枪扫错");
+                    return;
+                }
+                viewModel.checkStatus(scanCode,"","", SMTOperateViewModel.SCANTYPE.gun);
                 viewModel.gunTxt.set(scanCode);
                 binding.rollScanEdit.requestFocus();
             } else if (TextUtils.isEmpty(viewModel.rollTxt.get())) {
+                if(TextUtils.isEmpty(scanCode) ||scanCode.length()<18 ){
+                    showErrorDialog("料卷扫错");
+                    return;
+                }
+                viewModel.checkStatus("",scanCode,"", SMTOperateViewModel.SCANTYPE.roll);
                 viewModel.rollTxt.set(scanCode);
                 binding.stationScanEdit.requestFocus();
             } else {
+                if(TextUtils.isEmpty(scanCode) || scanCode.length()>14){
+                    showErrorDialog("料站扫错");
+                    return;
+                }
                 viewModel.stationTxt.set(scanCode);
                 viewModel.uploadRecord();
             }
         }
+    }
+
+    private void showErrorDialog(String msg){
+        isShowErrorDialog = true;
+        MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", msg);
+        builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                isShowErrorDialog = false;
+            }
+        });
     }
 
 

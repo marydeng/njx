@@ -29,6 +29,7 @@ import me.goldze.mvvmhabit.utils.ToastUtils;
 public class SMTInputScanViewModel extends ToolbarViewModel {
     public ObservableField<String> prodouceBarcode = new ObservableField<>("");
     public String orderID;
+    public String lastWorkOrder;
     private DemoApiService apiService;
     //封装一个界面发生改变的观察者
     public UIChangeObservable uc = new UIChangeObservable();
@@ -51,7 +52,7 @@ public class SMTInputScanViewModel extends ToolbarViewModel {
 
     public void addSMTInput() {
 
-        apiService.addSMTInput(orderID, AppApplication.getInstance().userEntity.getUserName(), prodouceBarcode.get())
+        apiService.addSMTInput(orderID, AppApplication.getInstance().userEntity.getUserName(), prodouceBarcode.get(),lastWorkOrder)
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())

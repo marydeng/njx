@@ -44,7 +44,8 @@ public class GunChangeViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        apiService.uploadGunChangeScanRecord(smtType.get(),"上线", orderId.get(), oldGunTxt.get(),newGunTxt.get(), "", stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
+//        apiService.uploadGunChangeScanRecord(smtType.get(),"上线", orderId.get(), oldGunTxt.get(),newGunTxt.get(), "", stationTxt.get(), AppApplication.getInstance().userEntity.getUserName())
+        apiService.uploadGunChangeScanRecord(smtType.get(),"上线", orderId.get(), oldGunTxt.get(),newGunTxt.get(), "", "", AppApplication.getInstance().userEntity.getUserName())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -81,6 +82,48 @@ public class GunChangeViewModel extends ToolbarViewModel {
                         dismissDialog();
                     }
                 });
+    }
+
+    public void checkStatus(String materialGun, String materialRoll, String materialStation) {
+        apiService.checkSMTStatus(materialGun, materialRoll, materialStation)
+                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
+                .compose(RxUtils.schedulersTransformer())
+                .compose(RxUtils.exceptionTransformer())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        showDialog();
+                    }
+                })
+                .subscribe(new Consumer<BaseResponse<String>>() {
+                    @Override
+                    public void accept(BaseResponse<String> response) throws Exception {
+                        //请求成功
+                        if (response.getCode() == Constant.Ret_SUCCESS) {
+                            ToastUtils.showShort("OK");
+                        } else {
+                            uc.showErrorDialog.setValue(response.getMsg());
+                            dataClear();
+                        }
+                    }
+                }, new Consumer<ResponseThrowable>() {
+                    @Override
+                    public void accept(ResponseThrowable throwable) throws Exception {
+                        dismissDialog();
+                        uc.showErrorDialog.setValue(throwable.getMessage());
+                        dataClear();
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        dismissDialog();
+                    }
+                });
+    }
+
+    private void dataClear(){
+        newGunTxt.set("");
+        uc.clearEdit.call();
     }
 
     //封装一个界面发生改变的观察者
