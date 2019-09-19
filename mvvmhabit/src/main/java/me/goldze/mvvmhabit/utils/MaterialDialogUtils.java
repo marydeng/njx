@@ -1,5 +1,6 @@
 package me.goldze.mvvmhabit.utils;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -391,6 +392,29 @@ public class MaterialDialogUtils {
                 });
 
         return builder;
+    }
+
+    /***
+     * 显示一个基础的对话框  带标题 带内容
+     * @param
+     * @return MaterialDialog.Builder
+     */
+    public static MaterialDialog showErrorDialog(final Context context, String
+            title, String content, DialogInterface.OnDismissListener onDismissListener) {
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .positiveText("确定")
+                .negativeText("取消");
+
+        MaterialDialog dialog = builder.build();
+        dialog.getContentView().setTextColor(context.getResources().getColor(R.color.red));
+        if (null != onDismissListener) {
+            dialog.setOnDismissListener(onDismissListener);
+        }
+        dialog.show();
+        return dialog;
     }
 
 }

@@ -2,6 +2,11 @@
 apply from: "config.gradle"
 buildscript {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven{ url 'http://maven.aliyun.com/nexus/repository/central'}
+        maven{ url 'http://maven.aliyun.com/nexus/repositories/gradle-plugin'}
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/google'}
         google()
         jcenter()
     }
@@ -18,6 +23,11 @@ buildscript {
 
 allprojects {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        maven{ url 'http://maven.aliyun.com/nexus/repository/central'}
+        maven{ url 'http://maven.aliyun.com/nexus/repositories/gradle-plugin'}
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/google'}
         google()
         jcenter()
         maven { url 'https://jitpack.io' }

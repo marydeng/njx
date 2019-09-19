@@ -117,14 +117,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
         viewModel.uc.showErrorDialog.observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                isShowErrorDialog = true;
-                MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", s);
-                builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        isShowErrorDialog = false;
-                    }
-                });
+                showErrorDialog(s);
             }
         });
     }
@@ -148,7 +141,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
                     return;
                 }
                 viewModel.oldGunTxt.set(scanCode);
-                viewModel.uploadRecord();
+                viewModel.onCommit.execute();
             }
 //            } else {
 //                viewModel.stationTxt.set(scanCode);
@@ -159,8 +152,7 @@ public class GunChangeOperateFragment extends BaseScanFragment<FragmentGunChange
 
     private void showErrorDialog(String msg) {
         isShowErrorDialog = true;
-        MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", msg);
-        builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+        MaterialDialogUtils.showErrorDialog(getContext(), "报警", msg, new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 isShowErrorDialog = false;

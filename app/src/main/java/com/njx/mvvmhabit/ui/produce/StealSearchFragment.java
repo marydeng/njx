@@ -12,6 +12,7 @@ import com.njx.mvvmhabit.databinding.FragmentSteelSearchBinding;
 import com.njx.mvvmhabit.ui.produce.viewmodel.SteelSearchViewModel;
 import com.njx.mvvmhabit.ui.widget.spinner.bean.SpinnearBean;
 import com.njx.mvvmhabit.ui.widget.spinner.listener.OnSpinnerItemClickListener;
+import com.njx.mvvmhabit.ui.widget.spinner.util.PopWindowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +102,12 @@ public class StealSearchFragment extends BaseFragment<FragmentSteelSearchBinding
                 binding.lineTypeSpinner.setData(lineList);
             }
         });
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PopWindowUtil.closePopupWindows();
     }
 }

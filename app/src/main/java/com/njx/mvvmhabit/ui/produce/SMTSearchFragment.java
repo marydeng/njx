@@ -19,6 +19,7 @@ import com.njx.mvvmhabit.ui.depot.viewmodel.TransferSearchViewModel;
 import com.njx.mvvmhabit.ui.produce.viewmodel.SMTSearchViewModel;
 import com.njx.mvvmhabit.ui.widget.spinner.bean.SpinnearBean;
 import com.njx.mvvmhabit.ui.widget.spinner.listener.OnSpinnerItemClickListener;
+import com.njx.mvvmhabit.ui.widget.spinner.util.PopWindowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,5 +82,11 @@ public class SMTSearchFragment extends BaseFragment<FragmentSmtSearchBinding, SM
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PopWindowUtil.closePopupWindows();
     }
 }

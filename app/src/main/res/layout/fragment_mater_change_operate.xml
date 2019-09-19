@@ -55,7 +55,33 @@
                 android:paddingLeft="@dimen/content_padding_left"
                 android:text="@{viewModel.smtType}" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity=""
+                android:text="旧料号:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/txt_content_two"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/content_padding_left"
+                android:text="@{viewModel.oldMainMaterID}" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

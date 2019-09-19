@@ -33,6 +33,7 @@ public class MaterChangeViewModel extends ToolbarViewModel {
     public ObservableField<String> newRollTxt = new ObservableField<>();
     public ObservableField<String> oldRollTxt = new ObservableField<>();
     public ObservableField<String> stationTxt = new ObservableField<>();
+    public ObservableField<String> oldMainMaterID = new ObservableField<>();
     private DemoApiService apiService;
 
     public MaterChangeViewModel(@NonNull Application application) {
@@ -66,6 +67,7 @@ public class MaterChangeViewModel extends ToolbarViewModel {
                             newRollTxt.set("");
                             oldRollTxt.set("");
                             stationTxt.set("");
+                            oldMainMaterID.set("");
                             uc.clearEdit.call();
                             queryRecordList();
                         } else {
@@ -192,6 +194,16 @@ public class MaterChangeViewModel extends ToolbarViewModel {
 
             if(TextUtils.isEmpty(stationTxt.get())){
                 ToastUtils.showShort("料站不能为空");
+                return;
+            }
+
+            if(stationTxt.get().endsWith("L") && gunTxt.get().endsWith("R")){
+                ToastUtils.showShort("料站与料枪放反");
+                return;
+            }
+
+            if(stationTxt.get().endsWith("R") && gunTxt.get().endsWith("L")){
+                ToastUtils.showShort("料站与料枪放反");
                 return;
             }
 

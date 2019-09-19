@@ -208,6 +208,16 @@ public class SMTOperateViewModel extends ToolbarViewModel {
                 return;
             }
 
+            if(stationTxt.get().endsWith("L") && gunTxt.get().endsWith("R")){
+                ToastUtils.showShort("料站与料枪放反");
+                return;
+            }
+
+            if(stationTxt.get().endsWith("R") && gunTxt.get().endsWith("L")){
+                ToastUtils.showShort("料站与料枪放反");
+                return;
+            }
+
             uploadRecord();
         }
     });

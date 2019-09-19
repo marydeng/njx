@@ -122,13 +122,13 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
             @Override
             public void onChanged(@Nullable String s) {
                 isShowErrorDialog = true;
-                MaterialDialog.Builder builder = MaterialDialogUtils.showBasicDialog(getContext(), "报警", s);
-                builder.show().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                MaterialDialogUtils.showErrorDialog(getContext(), "报警", s, new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         isShowErrorDialog = false;
                     }
                 });
+
             }
         });
     }
@@ -166,7 +166,7 @@ public class MaterChangeOperateFragment extends BaseScanFragment<FragmentMaterCh
                     return;
                 }
                 viewModel.stationTxt.set(scanCode);
-                viewModel.uploadRecord();
+                viewModel.onCommit.execute();
             }
         }
     }
