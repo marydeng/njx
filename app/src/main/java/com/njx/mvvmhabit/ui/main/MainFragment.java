@@ -13,6 +13,8 @@ import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
 import com.njx.mvvmhabit.databinding.FragmentMainBinding;
 import com.njx.mvvmhabit.entity.UserEntity;
+import com.njx.mvvmhabit.ui.business.ProductOutFragment;
+import com.njx.mvvmhabit.ui.business.ProductOutSearchFragment;
 import com.njx.mvvmhabit.ui.business.ProductStorageFragment;
 import com.njx.mvvmhabit.ui.depot.BackSearchFragment;
 import com.njx.mvvmhabit.ui.depot.OutSearchFragment;
@@ -92,6 +94,8 @@ public class MainFragment extends BaseFragment<FragmentMainBinding, MainViewMode
                             startContainerActivity(SMTInputConfigFragment.class.getCanonicalName());
                         } else if (menuBeans.get(position).getName().equals("成品入库")) {
                             startContainerActivity(ProductStorageFragment.class.getCanonicalName());
+                        } else if (menuBeans.get(position).getName().equals("成品出库")) {
+                            startContainerActivity(ProductOutSearchFragment.class.getCanonicalName());
                         }
                     }
                 });

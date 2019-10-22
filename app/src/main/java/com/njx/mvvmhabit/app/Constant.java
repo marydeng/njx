@@ -7,6 +7,7 @@ public class Constant {
     public static final String TOKEN_SCAN_CONTENT_REC = "token_scan_content_rec";
     public static final String TOKEN__Receive_Work_Item="token.receive.work.item";
     public static final String TOKEN__Receive_Back_Depot="token.receive.back.depot";
+    public static final String TOKEN__Receive_Busi_Order="token.receive.business.order.id";
 
     public static final int Ret_SUCCESS=0;
     public static final int Ret_NOTICE_ERROR=500;//Todo 需要提示的错误

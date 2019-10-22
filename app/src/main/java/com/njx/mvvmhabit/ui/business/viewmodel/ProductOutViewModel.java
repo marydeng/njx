@@ -7,12 +7,10 @@ import android.text.TextUtils;
 
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.data.source.http.service.DemoApiService;
-import com.njx.mvvmhabit.entity.BusiLocationEntity;
-import com.njx.mvvmhabit.entity.BusinessStorageRecordEntity;
+import com.njx.mvvmhabit.entity.BusinessOutRecordEntity;
 import com.njx.mvvmhabit.entity.TransferPartRecordEntity;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
-import com.njx.mvvmhabit.ui.depot.viewmodel.TransferOperateViewModel;
 import com.njx.mvvmhabit.utils.RetrofitClient;
 
 import java.util.List;
@@ -28,30 +26,23 @@ import me.goldze.mvvmhabit.http.ResponseThrowable;
 import me.goldze.mvvmhabit.utils.RxUtils;
 import me.goldze.mvvmhabit.utils.ToastUtils;
 
-public class ProductStorageViewModel extends ToolbarViewModel {
-    //库位
-    public String location;
+public class ProductOutViewModel extends ToolbarViewModel {
+    //订单号
+    public ObservableField<String> orderId=new ObservableField<>("");
     //箱号
     public ObservableField<String> boxId=new ObservableField<>("");
-    //料号
-    public String materialId;
-    public ProductStorageViewModel(@NonNull Application application) {
+    public ProductOutViewModel(@NonNull Application application) {
         super(application);
     }
 
     public void initToolBar() {
-        setTitleText("成品入库管理");
+        setTitleText("成品出库管理");
         apiService= RetrofitClient.getInstance().create(DemoApiService.class);
     }
 
     public BindingCommand onCommit=new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if (TextUtils.isEmpty(location)) {
-                ToastUtils.showShort("请输入库位");
-                return;
-            }
-
             if (TextUtils.isEmpty(boxId.get())) {
                 ToastUtils.showShort("请输入箱码");
                 return;
@@ -65,8 +56,7 @@ public class ProductStorageViewModel extends ToolbarViewModel {
     public UIChangeObsevable uc = new UIChangeObsevable();
 
     public class UIChangeObsevable {
-        public SingleLiveEvent<List<BusinessStorageRecordEntity>> listChangeEvent = new SingleLiveEvent<>();
-        public SingleLiveEvent<List<BusiLocationEntity>> locationChangeEvent = new SingleLiveEvent<>();
+        public SingleLiveEvent<List<BusinessOutRecordEntity>> listChangeEvent = new SingleLiveEvent<>();
         public SingleLiveEvent onCommitSuccess = new SingleLiveEvent();
         public SingleLiveEvent<String> showErrorDialog = new SingleLiveEvent<>();
 
@@ -76,7 +66,7 @@ public class ProductStorageViewModel extends ToolbarViewModel {
     private DemoApiService apiService;
 
     public void queryRecordList() {
-        apiService.queryBusinessStorageRecord()
+        apiService.queryBusinessOutRecord(orderId.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -86,9 +76,9 @@ public class ProductStorageViewModel extends ToolbarViewModel {
                         showDialog();
                     }
                 })
-                .subscribe(new Consumer<BaseResponse<List<BusinessStorageRecordEntity>>>() {
+                .subscribe(new Consumer<BaseResponse<List<BusinessOutRecordEntity>>>() {
                     @Override
-                    public void accept(BaseResponse<List<BusinessStorageRecordEntity>> response) throws Exception {
+                    public void accept(BaseResponse<List<BusinessOutRecordEntity>> response) throws Exception {
                         //请求成功
                         if (response.getCode() == Constant.Ret_SUCCESS) {
                             uc.listChangeEvent.setValue(response.getResult());
@@ -111,7 +101,7 @@ public class ProductStorageViewModel extends ToolbarViewModel {
     }
 
     public void uploadRecord() {
-        apiService.businessStorageScan(location, boxId.get())
+        apiService.businessOutScan(orderId.get(), boxId.get())
                 .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
                 .compose(RxUtils.schedulersTransformer())
                 .compose(RxUtils.exceptionTransformer())
@@ -148,38 +138,4 @@ public class ProductStorageViewModel extends ToolbarViewModel {
                 });
     }
 
-    public void queryLocationList() {
-        apiService.queryBusinessLocation()
-                .compose(RxUtils.<BaseResponse<UserEntity>>bindToLifecycle(getLifecycleProvider()))
-                .compose(RxUtils.schedulersTransformer())
-                .compose(RxUtils.exceptionTransformer())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        showDialog();
-                    }
-                })
-                .subscribe(new Consumer<BaseResponse<List<BusiLocationEntity>>>() {
-                    @Override
-                    public void accept(BaseResponse<List<BusiLocationEntity>> response) throws Exception {
-                        //请求成功
-                        if (response.getCode() == Constant.Ret_SUCCESS) {
-                            uc.locationChangeEvent.setValue(response.getResult());
-                        } else {
-                            ToastUtils.showShort(response.getMsg());
-                        }
-                    }
-                }, new Consumer<ResponseThrowable>() {
-                    @Override
-                    public void accept(ResponseThrowable throwable) throws Exception {
-                        dismissDialog();
-                        ToastUtils.showShort(throwable.message);
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        dismissDialog();
-                    }
-                });
-    }
 }

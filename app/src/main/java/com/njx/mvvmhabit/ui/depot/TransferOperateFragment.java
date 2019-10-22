@@ -180,6 +180,7 @@ public class TransferOperateFragment extends BaseScanFragment<FragmentTransferOp
     protected void onGetScanCode(String scanCode) {
         super.onGetScanCode(scanCode);
         if (!isShowErrorDialog) {
+            //Todo 截取出料号
             viewModel.rollTxt.set(scanCode);
             viewModel.onCommit.execute();
         }

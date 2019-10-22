@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+
+
+        <variable
+            name="viewModel"
+            type="com.njx.mvvmhabit.ui.business.viewmodel.OutOrderListViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:binding="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/layout_toolbar"
+            binding:toolbarViewModel="@{viewModel.toolbarViewModel}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="出库单号"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+            android:id="@+id/twinklingRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            binding:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}"
+            binding:onRefreshCommand="@{viewModel.onRefreshCommand}"
+            binding:tr_head_height="80dp"
+            binding:tr_wave_height="80dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+    </LinearLayout>
+</layout>

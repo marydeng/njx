@@ -2,15 +2,17 @@ package com.njx.mvvmhabit.data.source.http.service;
 
 import com.njx.mvvmhabit.entity.BackDepotResultEntity;
 import com.njx.mvvmhabit.entity.BackRecordResultEntity;
+import com.njx.mvvmhabit.entity.BusiLocationEntity;
+import com.njx.mvvmhabit.entity.BusiOrderResultEntity;
+import com.njx.mvvmhabit.entity.BusinessOutRecordEntity;
+import com.njx.mvvmhabit.entity.BusinessStorageRecordEntity;
 import com.njx.mvvmhabit.entity.DemoEntity;
 import com.njx.mvvmhabit.entity.MenuEntity;
-import com.njx.mvvmhabit.entity.MenuListEntity;
 import com.njx.mvvmhabit.entity.OrderEntity;
 import com.njx.mvvmhabit.entity.OrderListEntity;
 import com.njx.mvvmhabit.entity.OutOrderEntity;
 import com.njx.mvvmhabit.entity.OutPartRecordEntity;
 import com.njx.mvvmhabit.entity.ReturnDataEntity;
-import com.njx.mvvmhabit.entity.ReturnPartRecordEntity;
 import com.njx.mvvmhabit.entity.SMTRecordEntity;
 import com.njx.mvvmhabit.entity.SteelEntity;
 import com.njx.mvvmhabit.entity.TransferPartRecordEntity;
@@ -181,5 +183,33 @@ public interface DemoApiService {
     @POST("api/ckWithdrawalForm/saveCkWithdrawalForm")
     Observable<BaseResponse<String>> backScan(@Query("correlationOrder") String correlationOrder, @Query("materialCoilNum") String materialCoilNum,@Query("materialNo") String materialNo, @Query("warehouseName") String warehouseName, @Query("locationNo") String locationNo);
     // ************仓库结束***************
+
+    // ************成品开始***************
+    //查询成品库位
+    @POST("api/ckMaterialOutputTable/selectProductWareHouseTable")
+    Observable<BaseResponse<List<BusiLocationEntity>>> queryBusinessLocation();
+
+    //成品入库扫码
+    @POST("api/ckMaterialOutputTable/addProductInputTable")
+    Observable<BaseResponse<String>> businessStorageScan(@Query("productLocation") String locationId, @Query("boxBarcode") String boxId);
+
+   //成品入库记录
+   @POST("api/ckMaterialOutputTable/selectProductInputTable")
+   Observable<BaseResponse<List<BusinessStorageRecordEntity>>> queryBusinessStorageRecord();
+
+
+   //成品出库单号查询
+   @POST("api/ckMaterialOutputTable/selectProductOut")
+   Observable<BaseResponse<BusiOrderResultEntity>> queryBusinessOutOrder(@Query("pageNum") int pageNum, @Query("pageSize") int pageSize);
+
+   //成品出库扫码
+   @POST("api/ckMaterialOutputTable/addProductOutDetailTable")
+   Observable<BaseResponse<String>> businessOutScan(@Query("outNumber") String orderId,@Query("boxBarcode") String boxId);
+
+    //成品出库库记录
+    @POST("api/ckMaterialOutputTable/selectProductOutDetailTable")
+    Observable<BaseResponse<List<BusinessOutRecordEntity>>> queryBusinessOutRecord(@Query("outNumber") String orderId);
+
+    // ************成品结束***************
 
 }

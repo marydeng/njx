@@ -3,11 +3,10 @@
 
     <data>
 
-        <import type="com.njx.mvvmhabit.ui.business.viewmodel.ProductStorageViewModel" />
 
         <variable
             name="viewModel"
-            type="ProductStorageViewModel" />
+            type="com.njx.mvvmhabit.ui.business.viewmodel.ProductOutViewModel" />
     </data>
 
     <LinearLayout xmlns:binding="http://schemas.android.com/apk/res-auto"
@@ -24,26 +23,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="库位:"
+                android:gravity="right|center_vertical"
+                android:text="出库单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
-            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
-                android:id="@+id/location_spinner"
-                android:layout_width="0dp"
+            <TextView
+                style="@style/txt_content_two"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="@dimen/spinnerpop_height"
-                android:background="@drawable/edit_bg"
-                />
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/content_padding_left"
+                android:text="@{viewModel.orderId}" />
         </LinearLayout>
 
         <LinearLayout
@@ -73,7 +72,7 @@
                 android:background="@drawable/edit_bg"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入箱号"
+                android:hint="请输入箱码"
                 android:padding="5dp"
                 android:singleLine="true"
                 android:text="@={viewModel.boxId}"
@@ -107,20 +106,6 @@
             android:orientation="horizontal"
             android:paddingLeft="@dimen/common_hori_padding"
             android:paddingRight="@dimen/common_hori_padding">
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/divider" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="库位"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
 
             <View
                 android:layout_width="1dp"
