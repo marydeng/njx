@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/storage_item"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="vertical">
@@ -22,7 +24,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="HSK1111111111111111111111" />
+            tools:text="HSK1111111111111111111111" />
 
         <View
             android:layout_width="1dp"
@@ -37,7 +39,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="本次入库2000 \n 已入库8000\n需入库8000" />
+            tools:text="本次入库2000 \n 已入库8000\n需入库8000" />
 
         <View
             android:layout_width="1dp"

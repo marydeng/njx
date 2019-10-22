@@ -221,4 +221,9 @@ public class SpinnerViewPop extends RelativeLayout {
 			myGrad.setColor(ContextCompat.getColor(mContext,R.color.spinnerpop_notedit_bg_color));
 		}
 	}
+
+	public void clearTitleTextView(){
+		titleTextView.setText("");
+
+	}
 }

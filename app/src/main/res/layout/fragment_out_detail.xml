@@ -30,10 +30,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="工单号:"
+                android:text="出库单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -44,25 +44,33 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.outEntity.orderID}"
+                android:text="@{viewModel.entity.workorderNumber}"
                 />
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:text="仓库:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
-
-            <TextView
-                style="@style/txt_content_two"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@{viewModel.outEntity.depotID}" />
         </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/hori_margin"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="@dimen/hori_margin"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:text="仓库:"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/txt_content_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@{viewModel.entity.warehouseName}" />
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +93,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.outEntity.materialsID}" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +108,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.outEntity.materialsID}" />
+                    android:text="@{viewModel.entity.partNum}" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +123,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.outEntity.needsNum}" />
+                    android:text="@{viewModel.needNum}" />
             </LinearLayout>
 
             <LinearLayout
@@ -130,7 +138,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.outEntity.outNum}" />
+                    android:text="@{viewModel.outNum}" />
             </LinearLayout>
 
         </LinearLayout>

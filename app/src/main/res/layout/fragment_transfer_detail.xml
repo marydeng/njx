@@ -33,7 +33,7 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="目标仓库:"
+                android:text="转仓单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -44,24 +44,10 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.destDepot}" />
+                android:text="@{viewModel.entity.transferWareNum}" />
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:text="仓别:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
-
-            <TextView
-                style="@style/txt_content_two"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.destClass}" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -84,7 +70,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialDes}" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +85,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialID}" />
+                    android:text="@{viewModel.entity.materialNum}" />
             </LinearLayout>
 
 
@@ -115,7 +101,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.originDepot}" />
+                    android:text="@{viewModel.entity.warehouseName}" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,27 +112,13 @@
 
                 <TextView
                     style="@style/detail_txt_label"
-                    android:text="仓别:" />
+                    android:text="目标仓号:" />
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.originDepotClass}" />
+                    android:text="@{viewModel.entity.targetWarehouseName}" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/detail_txt_label"
-                    android:text="仓位:" />
-
-                <TextView
-                    style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.locationID}" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,14 +132,15 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.transferNums}" />
+                    android:text="@{viewModel.needNum}" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/detail_txt_label"
@@ -175,14 +148,15 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.alreadyTransferNum}" />
+                    android:text="@{viewModel.transferNum}" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/detail_txt_label"
@@ -190,7 +164,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.notTransferNum}" />
+                    android:text="@{viewModel.notTransferTxt}" />
             </LinearLayout>
 
         </LinearLayout>

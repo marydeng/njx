@@ -30,10 +30,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="工单号:"
+                android:text="单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -46,23 +46,88 @@
                 android:paddingLeft="@dimen/content_padding_left"
                 android:text="@{viewModel.orderTxt}" />
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:text="仓库:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right|center_vertical"
+            android:text="仓库:"
+            android:textColor="@color/textColor"
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/txt_content_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/content_padding_left"
+            android:text="@{viewModel.deptTxt}" />
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
             <TextView
-                style="@style/txt_content_two"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/content_padding_left"
-                android:text="@{viewModel.deptTxt}" />
-        </LinearLayout>
+                android:text="储位:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
 
+            <com.njx.mvvmhabit.ui.widget.spinner.SpinnerViewPop
+                android:id="@+id/location_spinner"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/spinnerpop_height"
+                android:background="@drawable/edit_bg"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="数量:"
+                android:textColor="@color/textColor"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/num_edit"
+                style="@style/txt_content_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_bg"
+                android:completionThreshold="1"
+                android:dropDownHorizontalOffset="5dp"
+                android:hint="请输入数量"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.numTxt}"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,12 +140,12 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="库位:"
+                android:text="料卷号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/dept_edit"
+                android:id="@+id/roll_edit"
                 style="@style/txt_content_two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,43 +154,13 @@
                 android:background="@drawable/edit_bg"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入库位"
+                android:hint="请输入料卷号"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:textColorHint="@color/textColorHint" />
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.rollTxt}"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="箱号:"
-                android:textColor="@color/textColor"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/box_edit"
-                style="@style/txt_content_two"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/edit_bg"
-                android:completionThreshold="1"
-                android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入箱号"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:textColorHint="@color/textColorHint" />
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -44,7 +44,18 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.orderID}" />
+                android:text="@{viewModel.entity.correlationOrder}" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/hori_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/hori_margin"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="60dp"
@@ -60,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.depotID}" />
+                android:text="@{viewModel.entity.warehouseName}" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +95,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialsID}" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +110,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialsID}" />
+                    android:text="@{viewModel.entity.materialNum}" />
             </LinearLayout>
 
             <LinearLayout
@@ -110,26 +121,11 @@
 
                 <TextView
                     style="@style/detail_txt_label"
-                    android:text="库位:" />
+                    android:text="储位:" />
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.locationID}" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
-
-                <TextView
-                    style="@style/detail_txt_label"
-                    android:text="箱号:" />
-
-                <TextView
-                    style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.boxID}" />
+                    android:text="@{viewModel.entity.locationNo}" />
             </LinearLayout>
 
             <LinearLayout
@@ -144,7 +140,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.backNum}" />
+                    android:text="@{viewModel.needNum}" />
             </LinearLayout>
 
             <LinearLayout
@@ -159,14 +155,15 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.alreadBackNum}" />
+                    android:text="@{viewModel.backNum}" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/detail_txt_label"
@@ -174,7 +171,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.notBackNum}" />
+                    android:text="" />
             </LinearLayout>
 
         </LinearLayout>

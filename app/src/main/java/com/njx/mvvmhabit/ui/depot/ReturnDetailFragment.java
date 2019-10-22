@@ -10,6 +10,7 @@ import com.njx.mvvmhabit.databinding.FragmentBackDetailBinding;
 import com.njx.mvvmhabit.databinding.FragmentReturnDetailBinding;
 import com.njx.mvvmhabit.entity.BackEntity;
 import com.njx.mvvmhabit.entity.ReturnEntity;
+import com.njx.mvvmhabit.entity.ReturnPartRecordEntity;
 import com.njx.mvvmhabit.ui.depot.viewmodel.BackDetailViewModel;
 import com.njx.mvvmhabit.ui.depot.viewmodel.ReturnDetailViewModel;
 
@@ -17,7 +18,7 @@ import me.goldze.mvvmhabit.base.BaseFragment;
 
 public class ReturnDetailFragment extends BaseFragment<FragmentReturnDetailBinding, ReturnDetailViewModel> {
     public static final String Extra_Entity = "BackDetailFragment.storageEntity";
-    private ReturnEntity entity = new ReturnEntity();
+    private ReturnPartRecordEntity entity = new ReturnPartRecordEntity();
 
     @Override
     public int initContentView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

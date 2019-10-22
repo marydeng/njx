@@ -30,10 +30,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="单号:"
+                android:text="退货单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -44,7 +44,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.entity.orderID}" />
+                android:text="@{viewModel.entity.correlationOrder}" />
 
 
         </LinearLayout>
@@ -70,7 +70,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialsID}" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,9 +85,8 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.materialsID}" />
+                    android:text="@{viewModel.entity.materialNum}" />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -98,11 +97,11 @@
 
                 <TextView
                     style="@style/detail_txt_label"
-                    android:text="箱号:" />
+                    android:text="仓库:" />
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.boxID}" />
+                    android:text="@{viewModel.entity.warehouseName}" />
             </LinearLayout>
 
             <LinearLayout
@@ -117,7 +116,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.returnNum}" />
+                    android:text="@{viewModel.needNum}" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,14 +131,15 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.alreadReturnNum}" />
+                    android:text="@{viewModel.returnNum}" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vetical_space"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/detail_txt_label"
@@ -147,7 +147,7 @@
 
                 <TextView
                     style="@style/detail_txt_content"
-                    android:text="@{viewModel.entity.notReturnNum}" />
+                    android:text="@{viewModel.notReturnNum}" />
             </LinearLayout>
 
         </LinearLayout>

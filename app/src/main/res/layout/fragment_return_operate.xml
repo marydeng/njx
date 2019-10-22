@@ -30,10 +30,10 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="工单号:"
+                android:text="退货单号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
@@ -62,12 +62,12 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="箱号:"
+                android:text="料卷号:"
                 android:textColor="@color/textColor"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/box_edit"
+                android:id="@+id/roll_edit"
                 style="@style/txt_content_two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -76,10 +76,23 @@
                 android:background="@drawable/edit_bg"
                 android:completionThreshold="1"
                 android:dropDownHorizontalOffset="5dp"
-                android:hint="请输入箱号"
+                android:hint="请输入料卷号"
                 android:padding="5dp"
                 android:singleLine="true"
-                android:textColorHint="@color/textColorHint" />
+                android:textColorHint="@color/textColorHint"
+                android:text="@={viewModel.rollTxt}"/>
+            <TextView
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/form_btn_bg"
+                android:padding="4dp"
+                android:singleLine="true"
+                android:text="提交"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                binding:onClickCommand="@{viewModel.onCommit}" />
         </LinearLayout>
         <View
             android:layout_width="match_parent"

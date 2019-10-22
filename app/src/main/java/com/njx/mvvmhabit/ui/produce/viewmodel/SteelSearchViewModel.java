@@ -174,6 +174,8 @@ public class SteelSearchViewModel extends ToolbarViewModel {
                                        } else {
                                            ToastUtils.showShort("查询线体失败");
                                        }
+                                   }else{
+                                       ToastUtils.showShort("查询线体失败");
                                    }
                                }
                            }
