@@ -70,15 +70,15 @@ public class ProductOutFragment extends BaseScanFragment<FragmentProductOutBindi
                     helper.setText(R.id.mater_roll, materialId);
                 }
                 helper.setText(R.id.mater_station, String.valueOf(item.getNum()));
-                helper.setOnClickListener(R.id.storage_item, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString(TransferDetailFragment.Extra_Entity, new Gson().toJson(item));
-//                        startContainerActivity(TransferDetailFragment.class.getCanonicalName(), bundle);
-                        //Todo
-                    }
-                });
+//                helper.setOnClickListener(R.id.storage_item, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+////                        Bundle bundle = new Bundle();
+////                        bundle.putString(TransferDetailFragment.Extra_Entity, new Gson().toJson(item));
+////                        startContainerActivity(TransferDetailFragment.class.getCanonicalName(), bundle);
+//                        //Todo
+//                    }
+//                });
             }
         };
         binding.recyclerview.setAdapter(adapter);

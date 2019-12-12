@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.databinding.FragmentQualityOperateBinding;
 import com.njx.mvvmhabit.databinding.FragmentQualityOperateBindingImpl;
@@ -27,9 +29,11 @@ import java.util.List;
 public class QualityOperateFragment extends BaseScanFragment<FragmentQualityOperateBinding, QualityOperateViewModel> {
     public static final String Extra_order_id = "QualityOperateFragment.order.id";
     public static final String Extra_smt_type = "QualityOperateFragment.smt.type";
-    private String orderID ="";
-    private String smtType ="";
+    private String orderID = "";
+    private String smtType = "";
     private List<SMTRecordEntity> recordEntityList;
+
+    private BaseQuickAdapter<SMTRecordEntity, BaseViewHolder> smtAdapter;
 
 
     @Override
@@ -45,10 +49,10 @@ public class QualityOperateFragment extends BaseScanFragment<FragmentQualityOper
     @Override
     public void initParam() {
         super.initParam();
-        Bundle bundle=getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            orderID =bundle.getString(Extra_order_id);
-            smtType =bundle.getString(Extra_smt_type);
+            orderID = bundle.getString(Extra_order_id);
+            smtType = bundle.getString(Extra_smt_type);
         }
     }
 
@@ -61,23 +65,34 @@ public class QualityOperateFragment extends BaseScanFragment<FragmentQualityOper
         viewModel.initToolBar();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.recyclerview.setLayoutManager(linearLayoutManager);
-        recordEntityList=new ArrayList<>();
-        SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
-        smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, View view) {
-                //Todo 待接口提供
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
-//                startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
-            }
-        });
-        binding.recyclerview.setAdapter(smtAdapter);
+        recordEntityList = new ArrayList<>();
+//        SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
+//        smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position, View view) {
+//                //Todo 待接口提供
+////                Bundle bundle = new Bundle();
+////                bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
+////                startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
+//            }
+//        });
 
+        smtAdapter = new BaseQuickAdapter<SMTRecordEntity, BaseViewHolder>(R.layout.item_quality_operate, recordEntityList) {
+            @Override
+            protected void convert(BaseViewHolder helper, SMTRecordEntity item) {
+                helper.setText(R.id.mater_roll, item.getMaterialRoll());
+                helper.setText(R.id.mater_station, item.getMaterialStation());
+                helper.setOnClickListener(R.id.root_linear, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //do nothing
+                    }
+                });
+            }
+        };
+        binding.recyclerview.setAdapter(smtAdapter);
         binding.gunScanEdit.requestFocus();
         viewModel.queryRecordList();
-
-
     }
 
     @Override
@@ -86,23 +101,11 @@ public class QualityOperateFragment extends BaseScanFragment<FragmentQualityOper
         viewModel.uc.listChangeEvent.observe(this, new Observer<List<SMTRecordEntity>>() {
             @Override
             public void onChanged(@Nullable List<SMTRecordEntity> dataList) {
-                if(dataList==null){
-                    recordEntityList=new ArrayList<>();
-                }else {
-                    recordEntityList=dataList;
+                recordEntityList.clear();
+                if (dataList != null) {
+                    recordEntityList.addAll(dataList);
                 }
-
-                SMTAdapter smtAdapter = new SMTAdapter(getContext(), recordEntityList);
-                smtAdapter.setOnItemClickListener(new SMTAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int position, View view) {
-                        //Todo 待接口提供
-//                        Bundle bundle = new Bundle();
-//                        bundle.putParcelable(SMTDetailFragment.Extra_Entity, feedingEntityList.get(position));
-//                        startContainerActivity(SMTDetailFragment.class.getCanonicalName(), bundle);
-                    }
-                });
-                binding.recyclerview.setAdapter(smtAdapter);
+                smtAdapter.notifyDataSetChanged();
             }
         });
 
@@ -118,18 +121,18 @@ public class QualityOperateFragment extends BaseScanFragment<FragmentQualityOper
     @Override
     protected void onGetScanCode(String scanCode) {
         super.onGetScanCode(scanCode);
-        if(TextUtils.isEmpty(viewModel.gunTxt.get())){
-            viewModel.gunTxt.set(scanCode);
-            binding.rollScanEdit.requestFocus();
-        }else if(TextUtils.isEmpty(viewModel.rollTxt.get())){
+//        if(TextUtils.isEmpty(viewModel.gunTxt.get())){
+//            viewModel.gunTxt.set(scanCode);
+//            binding.rollScanEdit.requestFocus();
+//        }else
+        if (TextUtils.isEmpty(viewModel.rollTxt.get())) {
             viewModel.rollTxt.set(scanCode);
             binding.stationScanEdit.requestFocus();
-        }else{
+        } else {
             viewModel.stationTxt.set(scanCode);
             viewModel.uploadRecord();
         }
     }
-
 
 
 }

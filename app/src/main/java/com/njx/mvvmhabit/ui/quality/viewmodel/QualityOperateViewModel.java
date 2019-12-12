@@ -132,10 +132,10 @@ public class QualityOperateViewModel extends ToolbarViewModel {
     public BindingCommand onCommit=new BindingCommand(new BindingAction() {
         @Override
         public void call() {
-            if(TextUtils.isEmpty(gunTxt.get())){
-                ToastUtils.showShort("料枪不能为空");
-                return;
-            }
+//            if(TextUtils.isEmpty(gunTxt.get())){
+//                ToastUtils.showShort("料枪不能为空");
+//                return;
+//            }
             if(TextUtils.isEmpty(rollTxt.get())){
                 ToastUtils.showShort("料卷不能为空");
                 return;

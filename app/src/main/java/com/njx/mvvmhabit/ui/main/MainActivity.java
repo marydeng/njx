@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 
-import com.njx.mvvmhabit.BR;
 import com.njx.mvvmhabit.R;
 import com.njx.mvvmhabit.app.Constant;
 import com.njx.mvvmhabit.databinding.ActivityMainBinding;
@@ -25,7 +24,7 @@ import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewModel> {
-    public static final String UBX_i6200S="i6200S";
+    public static final String UBX_PRE ="i";
     private List<BaseFragment> mFragments;
     private FragmentManager fragmentManager;
     private ScannerResultReceiver scannerResultReceiver;
@@ -58,8 +57,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
         scannerResultReceiver = new ScannerResultReceiver();
         registerReceiver(scannerResultReceiver, intentFilter);
 
-        if (Build.MODEL.startsWith(UBX_i6200S)) {
-            ubxScan = new UBXScan();
+        if (Build.MODEL.startsWith(UBX_PRE)) {
+            ubxScan = UBXScan.getInstance();
             ubxScan.registerReceiver(this);
         }
     }
@@ -130,7 +129,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, BaseViewMode
             unregisterReceiver(scannerResultReceiver);
         }
 
-        if (Build.MODEL.startsWith(UBX_i6200S)) {
+        if (Build.MODEL.startsWith(UBX_PRE)) {
             ubxScan.destroy();
         }
     }

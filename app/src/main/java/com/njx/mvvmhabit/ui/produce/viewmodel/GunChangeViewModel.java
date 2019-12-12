@@ -184,10 +184,10 @@ public class GunChangeViewModel extends ToolbarViewModel {
                 return;
             }
 
-            if(TextUtils.isEmpty(stationTxt.get())){
-                ToastUtils.showShort("料站不能为空");
-                return;
-            }
+//            if(TextUtils.isEmpty(stationTxt.get())){
+//                ToastUtils.showShort("料站不能为空");
+//                return;
+//            }
 
             uploadRecord();
         }

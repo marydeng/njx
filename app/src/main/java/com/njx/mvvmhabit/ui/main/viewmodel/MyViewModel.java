@@ -9,6 +9,9 @@ import com.njx.mvvmhabit.app.AppApplication;
 import com.njx.mvvmhabit.entity.UserEntity;
 import com.njx.mvvmhabit.ui.base.viewmodel.ToolbarViewModel;
 
+import me.goldze.mvvmhabit.binding.command.BindingAction;
+import me.goldze.mvvmhabit.binding.command.BindingCommand;
+
 public class MyViewModel extends ToolbarViewModel {
     public UserEntity userEntity = AppApplication.getInstance().userEntity;
     public ObservableField<String> depatName = new ObservableField<>("");

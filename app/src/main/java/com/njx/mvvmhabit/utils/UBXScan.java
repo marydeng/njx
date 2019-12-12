@@ -9,13 +9,24 @@ import com.njx.mvvmhabit.ui.receiver.ScannerResultReceiver;
 
 public class UBXScan {
     private final static String SCAN_ACTION = ScanManager.ACTION_DECODE;
-    private ScanManager mScanManager;
+    private static ScanManager mScanManager;
     private Context mContext;
     private ScannerResultReceiver mScanReceiver;
+    private static UBXScan instance;
 
-    public UBXScan() {
+    private UBXScan() {
         initScan();
     }
+
+    public static UBXScan getInstance(){
+        if(instance==null){
+            instance=new UBXScan();
+        }
+        return instance;
+    }
+
+
+
 
     private void initScan() {
         mScanReceiver = new ScannerResultReceiver();
@@ -64,6 +75,14 @@ public class UBXScan {
             stringBuilder.append(hv);
         }
         return stringBuilder.toString();
+    }
+
+    public  void setLight(boolean checked){
+        if(checked){
+            mScanManager.startDecode();
+        }else {
+            mScanManager.stopDecode();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_linear"
     android:layout_width="match_parent"
     android:layout_height="100dp"
@@ -23,12 +24,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="HSK1111111111111111111111" />
+            android:visibility="gone"
+            tools:text="HSK1111111111111111111111" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/divider" />
+            android:background="@color/divider"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/mater_roll"
@@ -38,12 +41,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="本次入库2000 \n 已入库8000\n需入库8000" />
+            tools:text="本次入库2000 \n 已入库8000\n需入库8000" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/divider" />
+
         <TextView
             android:id="@+id/mater_station"
             style="@style/txt_content_two"
@@ -52,7 +56,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:padding="@dimen/common_hori_padding"
-            android:text="本次入库2000 \n 已入库8000\n需入库8000" />
+            tools:text="本次入库2000 \n 已入库8000\n需入库8000" />
 
         <View
             android:layout_width="1dp"

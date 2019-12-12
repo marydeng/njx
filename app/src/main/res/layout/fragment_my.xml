@@ -40,9 +40,9 @@
                     <ImageView
                         android:layout_width="72dp"
                         android:layout_height="72dp"
+                        android:layout_marginLeft="45dp"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/default_head"
-                        android:layout_marginLeft="45dp"/>
+                        android:src="@mipmap/default_head" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -50,8 +50,7 @@
                         android:layout_marginLeft="60dp"
                         android:text="@{viewModel.userEntity.userName}"
                         android:textColor="@color/color_blue"
-                        android:textSize="32sp"
-                        />
+                        android:textSize="32sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -142,21 +141,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/divider"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
+
+                <Switch
+                    android:id="@+id/scanner_light_switch"
+                    style="@style/my_txt_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="扫描头常亮        "
+                    android:layout_marginLeft="66dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    />
 
                 <Button
                     android:id="@+id/quit_button"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginRight="40dp"
                     android:background="@drawable/form_btn_bg"
                     android:onClick="onQuit"
                     android:text="退出"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
-                    />
+                    android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -35,9 +35,9 @@ public class AppApplication extends BaseApplication {
         //初始化全局异常崩溃
         initCrash();
         //内存泄漏检测
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
-        }
+//        if (!LeakCanary.isInAnalyzerProcess(this)) {
+//            LeakCanary.install(this);
+//        }
 
         RetrofitClient.baseUrl=SPUtils.getInstance().getString(Constant.SP_Base_URL_Key,Constant.defaultBaseUrl);
     }
